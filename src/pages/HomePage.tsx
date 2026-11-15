@@ -85,7 +85,7 @@ export function HomePage() {
                   onClick={() => setScenario(sc.id)}
                   className={`flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] transition ${
                     currentScenario === sc.id
-                      ? 'border border-blue-300 bg-blue-50 text-blue-700'
+                      ? 'border border-blue-300 bg-blue-50 text-blue-700 font-semibold shadow-xs'
                       : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-100'
                   }`}
                 >
@@ -93,6 +93,14 @@ export function HomePage() {
                   <span className="truncate">{sc.label.split(' ')[0]}</span>
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => setScenario('normal')}
+                className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] border border-gray-200 bg-white text-gray-600 hover:border-blue-200 hover:text-blue-700 transition"
+              >
+                <span>🔄</span>
+                <span className="truncate">Reset Lab</span>
+              </button>
             </div>
           </div>
         </div>
@@ -326,6 +334,16 @@ export function HomePage() {
                   Fluid shift cephalad screening for neuro-ocular disc edema and bone loss.
                 </p>
               </div>
+
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5 sm:col-span-2">
+                <div className="flex items-center justify-between text-blue-600 font-semibold">
+                  <span>5. Hostile Closed Environment</span>
+                  <span className="font-mono text-[10px] text-emerald-700 font-bold">{Math.round(current.co2)} ppm CO₂</span>
+                </div>
+                <p className="mt-1 text-[11px] text-gray-500">
+                  Cabin life support loop, toxic volatile gas filtration, recycled water purity, and microbial ecology monitoring.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -482,9 +500,9 @@ export function HomePage() {
 
         <div className="mt-4 space-y-3">
           {alerts.length === 0 ? (
-            <div className="rounded-xl border border-emerald-300 bg-emerald-950/20 p-4 text-xs text-emerald-200 font-mono">
-              ✓ All physiological signals, baseline z-scores, and cabin life-support sensors remain
-              strictly within calibrated mission margins. No clinical intervention indicated.
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-4 text-xs text-emerald-900 font-mono flex items-start gap-3">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold shrink-0 mt-0.5">✓</span>
+              <span>All physiological signals, baseline z-scores, and cabin life-support sensors remain strictly within calibrated mission margins. No clinical intervention indicated.</span>
             </div>
           ) : (
             alerts.map((al) => (
@@ -492,15 +510,15 @@ export function HomePage() {
                 key={al.id}
                 className={`rounded-xl border p-4 text-xs transition ${
                   al.level === 'critical'
-                    ? 'border-rose-500/50 bg-rose-950/30'
-                    : 'border-amber-500/40 bg-amber-950/20'
+                    ? 'border-rose-200 bg-rose-50/70'
+                    : 'border-amber-200 bg-amber-50/70'
                 }`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-2">
                   <div className="flex items-center gap-2">
                     <span
                       className={`h-2 w-2 rounded-full ${
-                        al.level === 'critical' ? 'bg-rose-500 animate-ping' : 'bg-amber-400'
+                        al.level === 'critical' ? 'bg-rose-500 animate-ping' : 'bg-amber-500'
                       }`}
                     />
                     <h4 className="font-semibold text-gray-900 text-sm">{al.title}</h4>
@@ -516,21 +534,21 @@ export function HomePage() {
 
                 {/* 4-Pillar Clinical Decision Support Explanation (Section 4.9) */}
                 <div className="mt-3 grid gap-2 sm:grid-cols-2 text-gray-700">
-                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
-                    <span className="font-mono text-[10px] uppercase text-blue-600">01. WHAT (Observation)</span>
-                    <p className="mt-1 leading-relaxed">{al.what ?? al.reason}</p>
+                  <div className="rounded-lg bg-white p-2.5 border border-gray-200/80">
+                    <span className="font-mono text-[10px] uppercase text-blue-600 font-semibold">01. WHAT (Observation)</span>
+                    <p className="mt-1 leading-relaxed text-gray-800">{al.what ?? al.reason}</p>
                   </div>
-                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
-                    <span className="font-mono text-[10px] uppercase text-amber-300">02. WHY IT MATTERS (Clinical Impact)</span>
-                    <p className="mt-1 leading-relaxed">{al.whyItMatters ?? al.reason}</p>
+                  <div className="rounded-lg bg-white p-2.5 border border-gray-200/80">
+                    <span className="font-mono text-[10px] uppercase text-amber-700 font-semibold">02. WHY IT MATTERS (Clinical Impact)</span>
+                    <p className="mt-1 leading-relaxed text-gray-800">{al.whyItMatters ?? al.reason}</p>
                   </div>
-                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
-                    <span className="font-mono text-[10px] uppercase text-blue-600">03. EVIDENCE (Algorithm Check)</span>
-                    <p className="mt-1 leading-relaxed font-mono text-[11px]">{al.evidence ?? 'Z-Score deviation against rolling baseline'}</p>
+                  <div className="rounded-lg bg-white p-2.5 border border-gray-200/80">
+                    <span className="font-mono text-[10px] uppercase text-blue-600 font-semibold">03. EVIDENCE (Algorithm Check)</span>
+                    <p className="mt-1 leading-relaxed font-mono text-[11px] text-gray-700">{al.evidence ?? 'Z-Score deviation against rolling baseline'}</p>
                   </div>
-                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
-                    <span className="font-mono text-[10px] uppercase text-emerald-700">04. SUGGESTED ACTION (Countermeasure)</span>
-                    <p className="mt-1 leading-relaxed font-semibold text-emerald-200">{al.action}</p>
+                  <div className="rounded-lg bg-white p-2.5 border border-gray-200/80">
+                    <span className="font-mono text-[10px] uppercase text-emerald-700 font-semibold">04. SUGGESTED ACTION (Countermeasure)</span>
+                    <p className="mt-1 leading-relaxed font-semibold text-emerald-800">{al.action}</p>
                   </div>
                 </div>
               </div>

@@ -57,6 +57,7 @@ export function AstronautPage() {
         <div className="flex gap-2">
           {missionState.astronauts.map((astro) => {
             const isSelected = astro.id === selectedAstronautId
+            const displayName = astro.name.replace(/^(Commander|Lt\.|Dr\.)\s*/i, '').split(' ')[0]
             return (
               <button
                 key={astro.id}
@@ -64,15 +65,15 @@ export function AstronautPage() {
                 onClick={() => setSelectedAstronautId(astro.id)}
                 className={`flex items-center gap-2 rounded-xl px-3 py-2 font-mono text-xs transition border ${
                   isSelected
-                    ? 'border-blue-300 bg-blue-50 text-gray-900 shadow-glow'
-                    : 'border-gray-200 bg-gray-50 text-gray-500 hover:border-gray-300 hover:text-gray-800'
+                    ? 'border-blue-300 bg-blue-50 text-blue-900 font-semibold shadow-xs'
+                    : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:text-gray-900'
                 }`}
               >
                 <span
                   className="h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: astro.accent }}
                 />
-                <span className="font-semibold">{astro.name.split(' ')[0]}</span>
+                <span className="font-semibold">{displayName}</span>
               </button>
             )
           })}
@@ -85,12 +86,18 @@ export function AstronautPage() {
         <div className="hud-card">
           <div className="flex justify-between text-gray-500">
             <span>HEART RATE</span>
-            <span className={Math.abs(hrZ) > 2 ? 'text-amber-400' : 'text-gray-400'}>
+            <span className={Math.abs(hrZ) > 2 ? 'text-amber-600 font-semibold' : 'text-gray-400'}>
               z = {hrZ > 0 ? `+${hrZ}` : hrZ}σ
             </span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-blue-600">{Math.round(current.hr)} bpm</p>
-          <p className="mt-1 text-[11px] text-gray-400">
+          <p
+            className={`mt-1 text-2xl font-bold ${
+              current.hr > 115 ? 'text-rose-600' : current.hr > 90 ? 'text-amber-600' : 'text-gray-900'
+            }`}
+          >
+            {Math.round(current.hr)} bpm
+          </p>
+          <p className="mt-1 text-[11px] text-gray-500">
             Baseline: {hrBase.mean} ± {hrBase.stdev} | Robust z: {hrRobustZ}
           </p>
         </div>
@@ -99,12 +106,18 @@ export function AstronautPage() {
         <div className="hud-card">
           <div className="flex justify-between text-gray-500">
             <span>HRV (RMSSD)</span>
-            <span className={hrvZ < -1.5 ? 'text-amber-400' : 'text-gray-400'}>
+            <span className={hrvZ < -1.5 ? 'text-amber-600 font-semibold' : 'text-gray-400'}>
               z = {hrvZ > 0 ? `+${hrvZ}` : hrvZ}σ
             </span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-blue-600">{Math.round(current.hrv)} ms</p>
-          <p className="mt-1 text-[11px] text-gray-400">
+          <p
+            className={`mt-1 text-2xl font-bold ${
+              current.hrv < 30 ? 'text-rose-600' : current.hrv < 40 ? 'text-amber-600' : 'text-gray-900'
+            }`}
+          >
+            {Math.round(current.hrv)} ms
+          </p>
+          <p className="mt-1 text-[11px] text-gray-500">
             Baseline: {hrvBase.mean} ± {hrvBase.stdev} ms
           </p>
         </div>
@@ -113,18 +126,18 @@ export function AstronautPage() {
         <div className="hud-card">
           <div className="flex justify-between text-gray-500">
             <span>PULSE OX (SpO₂)</span>
-            <span className={current.spo2 < 93 ? 'text-rose-400' : 'text-gray-400'}>
+            <span className={current.spo2 < 93 ? 'text-rose-600 font-semibold' : 'text-gray-400'}>
               z = {spo2Z > 0 ? `+${spo2Z}` : spo2Z}σ
             </span>
           </div>
           <p
             className={`mt-1 text-2xl font-bold ${
-              current.spo2 < 90 ? 'text-rose-400' : current.spo2 < 94 ? 'text-amber-300' : 'text-emerald-700'
+              current.spo2 < 90 ? 'text-rose-600' : current.spo2 < 94 ? 'text-amber-600' : 'text-emerald-700'
             }`}
           >
             {current.spo2.toFixed(1)}%
           </p>
-          <p className="mt-1 text-[11px] text-gray-400">
+          <p className="mt-1 text-[11px] text-gray-500">
             Hard Critical Bound: &lt; 90.0%
           </p>
         </div>
@@ -133,18 +146,18 @@ export function AstronautPage() {
         <div className="hud-card">
           <div className="flex justify-between text-gray-500">
             <span>CORE TEMP</span>
-            <span className={tempZ > 1.8 ? 'text-rose-400' : 'text-gray-400'}>
+            <span className={tempZ > 1.8 ? 'text-rose-600 font-semibold' : 'text-gray-400'}>
               z = {tempZ > 0 ? `+${tempZ}` : tempZ}σ
             </span>
           </div>
           <p
             className={`mt-1 text-2xl font-bold ${
-              current.temp > 38.0 ? 'text-rose-400' : 'text-amber-300'
+              current.temp > 38.2 ? 'text-rose-600' : current.temp > 37.6 ? 'text-amber-600' : 'text-gray-900'
             }`}
           >
             {current.temp.toFixed(1)}°C
           </p>
-          <p className="mt-1 text-[11px] text-gray-400">
+          <p className="mt-1 text-[11px] text-gray-500">
             Baseline: {tempBase.mean}°C ± {tempBase.stdev}°C
           </p>
         </div>
@@ -196,24 +209,24 @@ export function AstronautPage() {
                     key={slot.hourOffset}
                     className={`flex items-start justify-between gap-3 rounded-lg border p-2.5 text-xs transition ${
                       isGo
-                        ? 'border-emerald-300 bg-emerald-950/20'
+                        ? 'border-emerald-200 bg-emerald-50/60'
                         : isCaution
-                          ? 'border-amber-300 bg-amber-950/20'
-                          : 'border-rose-300 bg-rose-950/20'
+                          ? 'border-amber-200 bg-amber-50/60'
+                          : 'border-rose-200 bg-rose-50/60'
                     }`}
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-gray-800">
+                        <span className="font-mono font-bold text-gray-900">
                           {slot.timeLabel} (+{slot.hourOffset}h)
                         </span>
                         <span
-                          className={`font-mono text-[10px] font-bold uppercase rounded px-1.5 py-0.2 ${
+                          className={`font-mono text-[10px] font-bold uppercase rounded px-1.5 py-0.5 border ${
                             isGo
-                              ? 'bg-emerald-500/20 text-emerald-700'
+                              ? 'border-emerald-200 bg-emerald-100 text-emerald-800'
                               : isCaution
-                                ? 'bg-amber-500/20 text-amber-300'
-                                : 'bg-rose-500/20 text-rose-300'
+                                ? 'border-amber-200 bg-amber-100 text-amber-900'
+                                : 'border-rose-200 bg-rose-100 text-rose-800'
                           }`}
                         >
                           {slot.readiness}
@@ -342,8 +355,8 @@ export function AstronautPage() {
                 key={al.id}
                 className={`rounded-xl border p-4 text-xs transition ${
                   al.level === 'critical'
-                    ? 'border-rose-500/50 bg-rose-950/30'
-                    : 'border-amber-500/40 bg-amber-950/20'
+                    ? 'border-rose-200 bg-rose-50/70'
+                    : 'border-amber-200 bg-amber-50/70'
                 }`}
               >
                 <div className="flex items-center justify-between font-semibold text-gray-900">
@@ -353,23 +366,35 @@ export function AstronautPage() {
                   </span>
                 </div>
                 <div className="mt-2.5 grid gap-2 sm:grid-cols-2 text-gray-700">
-                  <div className="rounded bg-gray-50 p-2">
-                    <span className="font-mono text-[10px] text-blue-600 uppercase">Observation</span>
+                  <div className="rounded bg-white border border-gray-200/80 p-2.5">
+                    <span className="font-mono text-[10px] text-blue-600 uppercase font-semibold">Observation</span>
                     <p className="mt-0.5">{al.what ?? al.reason}</p>
                   </div>
-                  <div className="rounded bg-gray-50 p-2">
-                    <span className="font-mono text-[10px] text-amber-300 uppercase">Clinical Consequence</span>
+                  <div className="rounded bg-white border border-gray-200/80 p-2.5">
+                    <span className="font-mono text-[10px] text-amber-700 uppercase font-semibold">Clinical Consequence</span>
                     <p className="mt-0.5">{al.whyItMatters ?? al.reason}</p>
                   </div>
                 </div>
-                <div className="mt-2 text-emerald-700 font-semibold">
-                  Recommended action: {al.action}
+                <div className="mt-2.5 text-emerald-800 font-semibold bg-emerald-50 border border-emerald-200 rounded-lg p-2">
+                  Action: {al.action}
                 </div>
               </div>
             ))}
           </div>
         </section>
       )}
+
+      {/* Clean Mission Page Footer */}
+      <footer className="mt-8 pt-4 border-t border-gray-200 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500 font-mono">
+        <div>
+          <span>AstroPulse Clinical Decision Support • Bio-Telemetry Standard: ISO/IEEE 11073</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="/references" className="hover:text-blue-600 transition">24 NASA HRP Citations</a>
+          <span>•</span>
+          <a href="/team" className="hover:text-blue-600 transition">Team Nepal</a>
+        </div>
+      </footer>
     </div>
   )
 }
