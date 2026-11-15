@@ -2,12 +2,12 @@ export function TeamPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="border-b border-gray-200 pb-4">
+      <div className="border-b border-white/10 pb-4">
         <span className="page-kicker">NASA Space Apps Challenge • Team & Engineering Leadership</span>
         <h1 className="page-title text-2xl sm:text-3xl">
           Creator & Core Architecture Team
         </h1>
-        <p className="text-xs text-gray-500 font-mono mt-1">
+        <p className="text-xs text-slate-400 font-mono mt-1">
           Pioneering autonomous edge computing and clinical decision support for deep space exploration and remote terrestrial health.
         </p>
       </div>
@@ -25,7 +25,7 @@ export function TeamPage() {
                 alt="Ayush Neupane - Lead Architect"
                 className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
               />
-              <div className="absolute bottom-2 left-2 rounded bg-white px-2 py-0.5 font-mono text-[10px] text-blue-600 backdrop-blur-sm border border-gray-200">
+              <div className="absolute bottom-2 left-2 rounded bg-slate-900/60 px-2 py-0.5 font-mono text-[10px] text-blue-600 backdrop-blur-sm border border-white/10">
                 ACTIVE CREW
               </div>
             </div>
@@ -59,7 +59,7 @@ export function TeamPage() {
           <div className="flex-1 space-y-4">
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-gray-900">
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
                   Ayush Neupane
                 </h2>
                 <span className="hud-chip hud-chip-ok font-mono text-[10px]">
@@ -74,44 +74,44 @@ export function TeamPage() {
               </p>
             </div>
 
-            <p className="text-sm leading-relaxed text-gray-700">
+            <p className="text-sm leading-relaxed text-slate-300">
               Architect and developer of <strong>AstroPulse</strong>. Passionate about solving autonomous healthcare challenges for long-duration deep space exploration where astronauts will be isolated by up to 20 minutes of one-way communication latency.
             </p>
 
             {/* Core Responsibilities & Engineering Milestones */}
             <div className="grid gap-3 sm:grid-cols-2 text-xs">
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
+              <div className="rounded-xl border border-white/10 bg-slate-950/50 p-3.5">
                 <span className="font-mono text-blue-500 font-bold block mb-1">
                   1. Zero-Cloud Autonomous Architecture
                 </span>
-                <p className="text-gray-700 text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-[11px] leading-relaxed">
                   Engineered the layered system (<code className="text-blue-600 font-mono">DataSource</code> → processing → state → UI) ensuring all vital tracking, anomaly detection, and clinical guidance run 100% locally in the browser with zero cloud dependencies.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
+              <div className="rounded-xl border border-white/10 bg-slate-950/50 p-3.5">
                 <span className="font-mono text-blue-500 font-bold block mb-1">
                   2. 3D Biomechanical Telemetry Twin
                 </span>
-                <p className="text-gray-700 text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-[11px] leading-relaxed">
                   Built the procedural 3D Extravehicular Mobility Unit (EMU) spacesuit using Three.js and React Three Fiber, featuring heartbeat-reactive chest DCM LEDs, gold EVA visor reflections, PLSS life-support pack, and interactive subsystem diagnostics.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
+              <div className="rounded-xl border border-white/10 bg-slate-950/50 p-3.5">
                 <span className="font-mono text-emerald-400 font-bold block mb-1">
                   3. Personal Baseline & Multi-Signal Detection
                 </span>
-                <p className="text-gray-700 text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-[11px] leading-relaxed">
                   Implemented adaptive rolling baselines with robust MAD z-scores, CUSUM cumulative sum drift detection, and persistence rules (m of n) to eliminate false alarms and combat astronaut alert fatigue.
                 </p>
               </div>
 
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
+              <div className="rounded-xl border border-white/10 bg-slate-950/50 p-3.5">
                 <span className="font-mono text-amber-400 font-bold block mb-1">
                   4. Risk Fusion & EVA Readiness Matrix
                 </span>
-                <p className="text-gray-700 text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-[11px] leading-relaxed">
                   Formulated the AstroPulse Unified Risk Index ($R = 0.60\cdot P + 0.20\cdot E + 0.20\cdot W$) fusing physiology, cabin environment, and NASA DONKI space weather into an actionable 12-hour spacewalk planning matrix.
                 </p>
               </div>
@@ -124,7 +124,7 @@ export function TeamPage() {
                   Dual-Use Mission: High-Altitude Healthcare in Nepal
                 </span>
               </div>
-              <p className="text-gray-700 leading-relaxed text-[11px]">
+              <p className="text-slate-300 leading-relaxed text-[11px]">
                 "The severe operational constraints of a Mars transit capsule—zero internet access, delayed clinical guidance, and extreme environments—are identical to the challenges faced by remote health posts across the <strong>Himalayan mountain regions of Nepal</strong>. By designing AstroPulse as an autonomous, low-power edge platform, this same software can empower rural health workers to detect High-Altitude Pulmonary Edema (HAPE) and sepsis days before a specialist is reachable."
               </p>
             </div>
@@ -135,24 +135,24 @@ export function TeamPage() {
       {/* Tech Stack & Framework Highlights */}
       <section className="hud-card font-mono text-xs">
         <span className="page-kicker">Technical Stack & Engineering Standards</span>
-        <h3 className="font-display text-base font-bold text-gray-900 mt-1 mb-3">
+        <h3 className="font-display text-base font-bold text-white mt-1 mb-3">
           Technologies Deployed in AstroPulse
         </h3>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+          <div className="rounded-lg border border-white/10 bg-slate-950/50 p-2.5">
             <span className="text-[10px] text-gray-400 block">CORE FRAMEWORK</span>
             <span className="font-bold text-blue-600">React 19 + TypeScript</span>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+          <div className="rounded-lg border border-white/10 bg-slate-950/50 p-2.5">
             <span className="text-[10px] text-gray-400 block">BUILD TOOL</span>
             <span className="font-bold text-blue-600">Vite 8.3 + Tailwind CSS</span>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+          <div className="rounded-lg border border-white/10 bg-slate-950/50 p-2.5">
             <span className="text-[10px] text-gray-400 block">3D GRAPHICS</span>
             <span className="font-bold text-emerald-700">Three.js + R3F + Drei</span>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+          <div className="rounded-lg border border-white/10 bg-slate-950/50 p-2.5">
             <span className="text-[10px] text-gray-400 block">DATA VIZ</span>
             <span className="font-bold text-amber-300">Recharts Telemetry</span>
           </div>

@@ -18,20 +18,20 @@ const statusClasses: Record<AlertLevel, string> = {
 
 export function MetricCard({ title, value, unit, status, detail, accent }: MetricCardProps) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-lg shadow-gray-200/60">
+    <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4 shadow-lg shadow-black/50">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-xs uppercase tracking-[0.2em] text-gray-500">{title}</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{title}</p>
         <span className={`rounded-full border px-2 py-1 text-[10px] font-semibold ${statusClasses[status]}`}>
           {status}
         </span>
       </div>
 
       <div className="mb-2 flex items-end gap-2">
-        <span className="text-3xl font-semibold text-gray-900" style={{ color: accent }}>{value}</span>
-        {unit ? <span className="text-sm text-gray-500">{unit}</span> : null}
+        <span className="text-3xl font-semibold text-white" style={{ color: accent }}>{value}</span>
+        {unit ? <span className="text-sm text-slate-400">{unit}</span> : null}
       </div>
 
-      <p className="text-xs text-gray-500">{detail}</p>
+      <p className="text-xs text-slate-400">{detail}</p>
     </div>
   )
 }

@@ -116,7 +116,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-black/40 px-4 py-2.5 text-xs">
         {/* Project breadcrumb */}
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/15 bg-white/10 p-0.5 shadow-sm">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/15 bg-slate-900/60 p-0.5 shadow-sm">
             <img src="/logo.png" alt="AstroPulse Mechanical Logo" className="h-full w-full object-contain" />
           </div>
           <div>
@@ -129,24 +129,24 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
         </div>
 
         {/* Studio Viewport Tools */}
-        <div className="hidden sm:flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-1 shadow-inner">
+        <div className="hidden sm:flex items-center gap-1 rounded-full border border-white/15 bg-slate-900/60 px-2 py-1 shadow-inner">
           <button
             type="button"
             onClick={() => setActiveSubsystem('dcm')}
             title="Reset to Core"
-            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-slate-300 hover:text-white hover:bg-white/10"
+            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-slate-300 hover:text-white hover:bg-slate-900/60"
           >
             Reset
           </button>
-          <span className="h-3 w-[1px] bg-white/20" />
+          <span className="h-3 w-[1px] bg-slate-900/60" />
           <button
             type="button"
             onClick={() => setCameraView(cameraView === 'perspective' ? 'isometric' : 'perspective')}
-            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-cyan-300 hover:bg-white/10"
+            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-cyan-300 hover:bg-slate-900/60"
           >
             {cameraView === 'perspective' ? 'Perspective' : 'Isometric'}
           </button>
-          <span className="h-3 w-[1px] bg-white/20" />
+          <span className="h-3 w-[1px] bg-slate-900/60" />
           <span className="px-1.5 font-mono text-[11px] font-semibold text-slate-300">100%</span>
         </div>
 
@@ -179,7 +179,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               navigator.clipboard?.writeText(report)
               alert('Copied 3D Telemetry Subsystem Report to clipboard!')
             }}
-            className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white shadow-sm hover:bg-white/20 transition"
+            className="rounded-full border border-white/20 bg-slate-900/60 px-3 py-1 text-[11px] font-semibold text-white shadow-sm hover:bg-slate-900/60 transition"
           >
             Export Spec
           </button>
@@ -191,7 +191,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
         {/* Left Scene Hierarchy Sidebar */}
         <div className="hidden md:flex md:col-span-3 flex-col border-r border-white/10 bg-black/35 p-3 backdrop-blur-md">
           {/* Scene / Sensors toggle */}
-          <div className="flex rounded-full bg-white/5 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
+          <div className="flex rounded-full bg-slate-900/60 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
             <button
               type="button"
               onClick={() => setActiveTab('scene')}
@@ -232,11 +232,11 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                   className={`flex w-full items-center justify-between rounded-xl px-2.5 py-2 text-left text-xs transition border ${
                     isSelected
                       ? 'bg-cyan-500/20 text-cyan-200 font-semibold border-cyan-400/40 shadow-[0_0_10px_rgba(0,240,255,0.15)]'
-                      : 'text-slate-300 hover:bg-white/5 border-transparent'
+                      : 'text-slate-300 hover:bg-slate-900/60 border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <span className="rounded bg-white/10 px-1 py-0.2 font-mono text-[9px] font-bold text-cyan-300">
+                    <span className="rounded bg-slate-900/60 px-1 py-0.2 font-mono text-[9px] font-bold text-cyan-300">
                       {sub.badge}
                     </span>
                     <span className="truncate text-[11px]">{sub.shortLabel}</span>
@@ -267,7 +267,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                 className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'nominal'
                     ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold'
-                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                    : 'border-white/10 bg-slate-900/60 text-slate-400 hover:bg-slate-900/60 hover:text-white'
                 }`}
               >
                 Deep Space
@@ -278,7 +278,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                 className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'solar'
                     ? 'border-amber-400 bg-amber-500/20 text-amber-200 font-semibold'
-                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                    : 'border-white/10 bg-slate-900/60 text-slate-400 hover:bg-slate-900/60 hover:text-white'
                 }`}
               >
                 Solar Flare
@@ -289,7 +289,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                 className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'night'
                     ? 'border-indigo-400 bg-indigo-500/20 text-indigo-200 font-semibold'
-                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                    : 'border-white/10 bg-slate-900/60 text-slate-400 hover:bg-slate-900/60 hover:text-white'
                 }`}
               >
                 Penumbra
@@ -324,7 +324,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
         {/* Right Properties Panel */}
         <div className="hidden md:flex md:col-span-3 flex-col border-l border-white/10 bg-black/35 p-3 backdrop-blur-md text-xs">
           {/* Header tab switcher */}
-          <div className="flex rounded-full bg-white/5 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
+          <div className="flex rounded-full bg-slate-900/60 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
             <button
               type="button"
               onClick={() => setRightTab('subsystem')}
@@ -352,7 +352,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
           {rightTab === 'subsystem' ? (
             <div className="space-y-3">
               {/* Active Subsystem Card */}
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm backdrop-blur-sm">
+              <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center justify-between">
                   <span className="font-semibold text-white text-xs">{active.title}</span>
                   <span
@@ -370,13 +370,13 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               </div>
 
               {/* Clinical Protocol */}
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm backdrop-blur-sm">
+              <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3 shadow-sm backdrop-blur-sm">
                 <p className="text-[10px] font-mono uppercase text-slate-400 font-semibold">Clinical Protocol</p>
                 <p className="mt-1 text-xs leading-relaxed text-slate-300">{active.clinicalNote}</p>
               </div>
 
               {/* Real-time telemetry feed */}
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm font-mono backdrop-blur-sm">
+              <div className="rounded-xl border border-white/10 bg-slate-900/60 p-3 shadow-sm font-mono backdrop-blur-sm">
                 <p className="text-[10px] uppercase text-slate-400 font-semibold">Live Signals</p>
                 <div className="mt-1.5 flex items-baseline justify-between">
                   <span className="text-slate-400">Heart Rate:</span>
@@ -396,22 +396,22 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
             <div className="space-y-3 font-mono text-xs">
               <p className="text-[10px] uppercase text-slate-400 font-semibold">Suit Material Swatches</p>
               <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                <div className="rounded-xl border border-white/10 bg-slate-900/60 p-2.5 text-center shadow-sm">
                   <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 shadow-md" />
                   <span className="text-[10px] text-slate-200 block font-semibold">Gold Visor</span>
                   <span className="text-[9px] text-slate-400">95% Metal</span>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                <div className="rounded-xl border border-white/10 bg-slate-900/60 p-2.5 text-center shadow-sm">
                   <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-200 via-white to-gray-400 shadow-md" />
                   <span className="text-[10px] text-slate-200 block font-semibold">Ortho-Fabric</span>
                   <span className="text-[9px] text-slate-400">Thermal Mylar</span>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                <div className="rounded-xl border border-white/10 bg-slate-900/60 p-2.5 text-center shadow-sm">
                   <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-700 via-gray-900 to-black shadow-md" />
                   <span className="text-[10px] text-slate-200 block font-semibold">Joint Bearing</span>
                   <span className="text-[9px] text-slate-400">Carbon Alloy</span>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                <div className="rounded-xl border border-white/10 bg-slate-900/60 p-2.5 text-center shadow-sm">
                   <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-blue-500 via-blue-300 to-blue-600 shadow-md" />
                   <span className="text-[10px] text-slate-200 block font-semibold">Astroskin PPG</span>
                   <span className="text-[9px] text-slate-400">Dual 880nm</span>
@@ -432,14 +432,14 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
 
         <form
           onSubmit={handlePromptSubmit}
-          className="relative flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 shadow-inner"
+          className="relative flex items-center gap-2 rounded-full border border-white/15 bg-slate-900/60 px-3 py-1.5 shadow-inner"
         >
           {/* Quick select menu */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowAddMenu((prev) => !prev)}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition text-sm font-bold"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900/60 text-white hover:bg-slate-900/60 transition text-sm font-bold"
             >
               +
             </button>
@@ -451,7 +451,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     setActiveSubsystem('dcm')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-slate-900/60 font-mono text-[11px]"
                 >
                   <span className="font-bold text-cyan-300">[ECG]</span> Astroskin Patch
                 </button>
@@ -461,7 +461,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     setActiveSubsystem('helmet')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-slate-900/60 font-mono text-[11px]"
                 >
                   <span className="font-bold text-amber-300">[SANS]</span> Cranial Doppler
                 </button>
@@ -471,7 +471,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     setActiveSubsystem('plss')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-slate-900/60 font-mono text-[11px]"
                 >
                   <span className="font-bold text-emerald-300">[PLSS]</span> Scrubber Loop
                 </button>
@@ -492,7 +492,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               const random = samplePrompts[Math.floor(Math.random() * samplePrompts.length)]
               setPromptText(random)
             }}
-            className="hidden sm:flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-slate-300 hover:bg-white/15 hover:text-white transition"
+            className="hidden sm:flex items-center gap-1 rounded-full bg-slate-900/60 px-3 py-1 text-[11px] font-medium text-slate-300 hover:bg-slate-900/60 hover:text-white transition"
           >
             <span className="text-cyan-300 font-bold">✨</span>
             <span>Inspire</span>

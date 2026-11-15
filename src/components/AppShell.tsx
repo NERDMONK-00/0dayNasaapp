@@ -71,7 +71,7 @@ export default function AppShell() {
             </div>
 
             <div className="flex items-center gap-3 font-mono text-[11px]">
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 backdrop-blur-sm">
+              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-slate-900/60 px-2.5 py-0.5 backdrop-blur-sm">
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
                     spaceWeatherStatus === 'storm'
@@ -116,7 +116,7 @@ export default function AppShell() {
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             {/* Logo */}
             <NavLink to="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/15 bg-white/10 p-1 shadow-md group-hover:border-cyan-400/50 transition">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/15 bg-slate-900/60 p-1 shadow-md group-hover:border-cyan-400/50 transition">
                 <img
                   src="/logo.png"
                   alt="AstroPulse Mechanical Twin Logo"
@@ -144,7 +144,7 @@ export default function AppShell() {
                     `rounded-full px-3 py-1.5 font-medium whitespace-nowrap transition text-xs ${
                       isActive
                         ? 'bg-blue-600 text-white font-bold shadow-[0_0_15px_rgba(37,99,235,0.5)] border border-blue-400/40'
-                        : 'text-slate-300 hover:text-white hover:bg-white/5'
+                        : 'text-slate-300 hover:text-white hover:bg-slate-900/60'
                     }`
                   }
                 >
@@ -170,7 +170,7 @@ export default function AppShell() {
                     className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-left transition font-mono text-xs ${
                       isSelected
                         ? 'border border-cyan-400/60 bg-cyan-500/20 text-white font-semibold shadow-[0_0_12px_rgba(0,240,255,0.25)]'
-                        : 'border border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-slate-200'
+                        : 'border border-white/10 bg-slate-900/60 text-slate-400 hover:border-white/20 hover:text-slate-200'
                     }`}
                   >
                     <span

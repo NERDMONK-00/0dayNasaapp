@@ -35,15 +35,15 @@ export function SignalChart({ title, color, data, valueKey, unit, baseline }: Si
 
   return (
     <div className="hud-card">
-      <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
+      <div className="mb-2 flex items-center justify-between border-b border-white/10 pb-2">
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-          <h4 className="font-mono text-xs font-semibold uppercase tracking-wider text-gray-800">
+          <h4 className="font-mono text-xs font-semibold uppercase tracking-wider text-slate-100">
             {title}
           </h4>
         </div>
         <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="font-bold text-gray-900">
+          <span className="font-bold text-white">
             {currentValue} {unit}
           </span>
           {baseline && baseline.mean > 0 && (

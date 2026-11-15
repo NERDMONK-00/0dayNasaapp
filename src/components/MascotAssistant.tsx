@@ -72,15 +72,15 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
-      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-blue-200 bg-gray-100 shadow-2xl">
+      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white/10 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-3">
+        <div className="flex items-center justify-between border-b border-white/10 bg-slate-950/50 px-5 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white p-0.5 shadow-2xs">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-slate-900/60 p-0.5 shadow-sm">
               <img src="/logo.png" alt="AstroPulse Mechanical Twin" className="h-full w-full object-contain" />
             </div>
             <div>
-              <h3 className="font-display text-sm font-bold text-gray-900">
+              <h3 className="font-display text-sm font-bold text-white">
                 Mission Medical Co-Pilot (Orbitkat CDSS)
               </h3>
               <p className="font-mono text-[11px] text-blue-500">
@@ -91,14 +91,14 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-white/10 hover:text-white transition"
           >
             ✕
           </button>
         </div>
 
         {/* Quick Prompt Pills */}
-        <div className="flex gap-2 border-b border-gray-200 bg-gray-50 px-4 py-2 overflow-x-auto text-xs">
+        <div className="flex gap-2 border-b border-white/10 bg-slate-950/50 px-4 py-2 overflow-x-auto text-xs">
           {[
             'Assess EVA Readiness',
             'Explain current Risk Index',
@@ -110,7 +110,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               key={prompt}
               type="button"
               onClick={() => handleSend(prompt)}
-              className="rounded-full border border-gray-300 bg-gray-100 px-3 py-1 font-mono text-[11px] text-gray-700 hover:border-blue-300 hover:text-blue-700 transition whitespace-nowrap"
+              className="rounded-full border border-white/15 bg-white/10 px-3 py-1 font-mono text-[11px] text-slate-300 hover:border-blue-300 hover:text-blue-700 transition whitespace-nowrap"
             >
               {prompt}
             </button>
@@ -134,7 +134,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
                 className={`max-w-[85%] rounded-xl px-4 py-2.5 ${
                   m.role === 'user'
                     ? 'bg-blue-50 text-blue-800 border border-blue-200'
-                    : 'bg-gray-50 text-gray-800 border border-gray-200'
+                    : 'bg-slate-950/50 text-slate-100 border border-white/10'
                 }`}
               >
                 {m.text}
@@ -144,7 +144,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
         </div>
 
         {/* Input Bar */}
-        <div className="border-t border-gray-200 bg-gray-50 p-3">
+        <div className="border-t border-white/10 bg-slate-950/50 p-3">
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -157,7 +157,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask medical decision support query (e.g. EVA safety, SANS risk, hypoxia)..."
-              className="flex-1 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 font-mono text-xs text-gray-900 placeholder-gray-400 focus:border-blue-300 focus:outline-none"
+              className="flex-1 rounded-lg border border-white/15 bg-white/10 px-3 py-2 font-mono text-xs text-white placeholder-gray-400 focus:border-blue-300 focus:outline-none"
             />
             <button
               type="submit"
