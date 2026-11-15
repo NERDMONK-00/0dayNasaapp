@@ -362,44 +362,44 @@ export function HomePage() {
             </div>
 
             <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-xs">
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-                <span className="text-[10px] text-gray-500">HEART RATE</span>
-                <p className="text-xl font-bold text-blue-600">{Math.round(current.hr)} bpm</p>
-                <span className="text-[10px] text-gray-400">
+              <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-xs">
+                <span className="text-[10px] text-gray-400 font-semibold">HEART RATE</span>
+                <p className={`text-xl font-bold ${current.hr > 115 ? 'text-rose-600' : current.hr > 90 ? 'text-amber-600' : 'text-gray-900'}`}>{Math.round(current.hr)} bpm</p>
+                <span className="text-[10px] text-gray-500">
                   Base: {baselines.hr?.mean ?? 68} bpm
                 </span>
               </div>
 
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-                <span className="text-[10px] text-gray-500">HRV (RMSSD)</span>
-                <p className="text-xl font-bold text-blue-600">{Math.round(current.hrv)} ms</p>
-                <span className="text-[10px] text-gray-400">
+              <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-xs">
+                <span className="text-[10px] text-gray-400 font-semibold">HRV (RMSSD)</span>
+                <p className={`text-xl font-bold ${current.hrv < 30 ? 'text-rose-600' : current.hrv < 40 ? 'text-amber-600' : 'text-gray-900'}`}>{Math.round(current.hrv)} ms</p>
+                <span className="text-[10px] text-gray-500">
                   Base: {baselines.hrv?.mean ?? 52} ms
                 </span>
               </div>
 
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-                <span className="text-[10px] text-gray-500">SPO₂ SATURATION</span>
+              <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-xs">
+                <span className="text-[10px] text-gray-400 font-semibold">SPO₂ SATURATION</span>
                 <p
                   className={`text-xl font-bold ${
-                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-700'
+                    current.spo2 < 90 ? 'text-rose-600' : current.spo2 < 94 ? 'text-amber-600' : 'text-emerald-700'
                   }`}
                 >
                   {current.spo2.toFixed(1)}%
                 </p>
-                <span className="text-[10px] text-gray-400">Target: &gt; 95%</span>
+                <span className="text-[10px] text-gray-500">Target: &gt; 95%</span>
               </div>
 
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-                <span className="text-[10px] text-gray-500">CORE / SKIN TEMP</span>
+              <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-xs">
+                <span className="text-[10px] text-gray-400 font-semibold">CORE TEMP</span>
                 <p
                   className={`text-xl font-bold ${
-                    current.temp > 38.0 ? 'text-rose-400' : 'text-amber-300'
+                    current.temp > 38.2 ? 'text-rose-600' : current.temp > 37.6 ? 'text-amber-600' : 'text-gray-900'
                   }`}
                 >
                   {current.temp.toFixed(1)}°C
                 </p>
-                <span className="text-[10px] text-gray-400">Base: 36.7°C</span>
+                <span className="text-[10px] text-gray-500">Base: 36.7°C</span>
               </div>
             </div>
           </div>
