@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, OrbitControls, Sparkles, Stars } from '@react-three/drei'
+import { Float, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { AlertLevel, VitalReading } from '../types'
 
@@ -32,7 +32,7 @@ function ProceduralAstronautModel({
   const statusColor = useMemo(() => {
     if (status === 'critical') return new THREE.Color('#ef4444')
     if (status === 'warning') return new THREE.Color('#f59e0b')
-    return new THREE.Color('#00f0ff')
+    return new THREE.Color('#2563eb')
   }, [status])
 
   // Materials
@@ -471,19 +471,17 @@ export function Astronaut3D({
   return (
     <div className="relative h-full w-full select-none">
       <Canvas
-        camera={{ position: [0, 0.5, 3.8], fov: 42 }}
+        camera={{ position: [0, 0.4, 3.8], fov: 42 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[4, 6, 5]} intensity={1.5} color="#ffffff" />
-        <directionalLight position={[-4, 2, -3]} intensity={0.8} color="#38bdf8" />
-        <pointLight position={[0, -2, 2]} intensity={0.5} color="#00f0ff" />
+        {/* Clean Studio Lighting (Brainwave aesthetic) */}
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[4, 8, 6]} intensity={1.6} color="#ffffff" />
+        <directionalLight position={[-4, 3, 2]} intensity={0.7} color="#e2e8f0" />
+        <directionalLight position={[0, -3, -2]} intensity={0.3} color="#f1f5f9" />
 
-        <Stars radius={40} depth={20} count={600} factor={3} saturation={0} fade speed={1} />
-        <Sparkles count={40} scale={4} size={1.8} speed={0.4} opacity={0.4} color="#38bdf8" />
-
-        <Float speed={1.6} rotationIntensity={0.25} floatIntensity={0.45}>
+        <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
           <ProceduralAstronautModel
             status={status}
             reading={reading}
