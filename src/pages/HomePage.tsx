@@ -533,7 +533,7 @@ export function HomePage() {
       {/* Mission Footer Strip */}
       <footer className="hud-card flex flex-col items-center justify-between gap-3 p-4 text-xs font-mono text-slate-400 sm:flex-row">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-bold text-blue-300">AstroPulse</span>
+          <span className="font-bold text-blue-300">0DAY</span>
           <span>•</span>
           <span>NASA Space Apps Challenge 2026</span>
           <span>•</span>

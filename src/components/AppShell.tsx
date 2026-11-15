@@ -115,13 +115,13 @@ export default function AppShell() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-[#0f0d0d] p-0.5 shadow-[0_0_16px_rgba(255,90,31,0.12)] transition group-hover:border-[#FF5A1F]/60">
                 <img
                   src="/logo.png"
-                  alt="AstroPulse Mechanical Twin Logo"
+                  alt="0day Mechanical Twin Logo"
                   className="h-full w-full object-contain transition transform group-hover:scale-105"
                 />
               </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-display text-base font-bold tracking-tight text-white group-hover:text-[#FFB89D] transition">
-                  ASTROPULSE
+                  0DAY
                 </span>
                 <span className="hidden rounded border border-[#FF5A1F]/30 bg-[#FF5A1F]/10 px-1.5 py-0.2 text-[9px] font-mono tracking-wider uppercase text-[#FFB89D] md:inline-block">
                   NASA Space Apps
