@@ -63,43 +63,44 @@ export function SignalChart({ title, color, data, valueKey, unit, baseline }: Si
                 <stop offset="100%" stopColor={color} stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" vertical={false} />
+            <CartesianGrid stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="time"
-              stroke="#9CA3AF"
+              stroke="#64748B"
               tickLine={false}
               axisLine={false}
-              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#9CA3AF' }}
+              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#94A3B8' }}
               minTickGap={24}
             />
             <YAxis
-              stroke="#9CA3AF"
+              stroke="#64748B"
               tickLine={false}
               axisLine={false}
-              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#9CA3AF' }}
+              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#94A3B8' }}
               domain={['auto', 'auto']}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(0,0,0,0.1)',
-                borderRadius: '8px',
-                color: '#111827',
+                backgroundColor: 'rgba(8, 12, 28, 0.95)',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
+                borderRadius: '12px',
+                color: '#F8FAFC',
                 fontSize: '11px',
                 fontFamily: 'JetBrains Mono',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.7)',
+                backdropFilter: 'blur(12px)',
               }}
               formatter={(val: any) => [`${val} ${unit}`, title]}
             />
             {baseline && baseline.mean > 0 && (
               <ReferenceLine
                 y={baseline.mean}
-                stroke="#9CA3AF"
+                stroke="#38BDF8"
                 strokeDasharray="3 3"
                 strokeWidth={1}
                 label={{
                   value: 'BASELINE',
-                  fill: '#9CA3AF',
+                  fill: '#38BDF8',
                   fontSize: 8,
                   position: 'insideTopRight',
                   fontFamily: 'JetBrains Mono',

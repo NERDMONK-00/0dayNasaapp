@@ -10,28 +10,28 @@ interface MetricCardProps {
 }
 
 const statusClasses: Record<AlertLevel, string> = {
-  normal: 'border-emerald-300 bg-emerald-50 text-emerald-700',
-  warning: 'border-amber-300 bg-amber-50 text-amber-700',
-  watch: 'border-amber-300 bg-amber-50 text-amber-700',
-  critical: 'border-rose-300 bg-rose-50 text-rose-700',
+  normal: 'border-emerald-500/30 bg-emerald-500/15 text-emerald-300',
+  warning: 'border-amber-500/30 bg-amber-500/15 text-amber-300',
+  watch: 'border-sky-500/30 bg-sky-500/15 text-sky-300',
+  critical: 'border-rose-500/40 bg-rose-500/20 text-rose-300 animate-pulse',
 }
 
 export function MetricCard({ title, value, unit, status, detail, accent }: MetricCardProps) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4 shadow-lg shadow-black/50">
+    <div className="hud-card backdrop-blur-xl">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{title}</p>
-        <span className={`rounded-full border px-2 py-1 text-[10px] font-semibold ${statusClasses[status]}`}>
+        <p className="text-xs uppercase tracking-[0.2em] text-slate-400 font-mono">{title}</p>
+        <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase ${statusClasses[status]}`}>
           {status}
         </span>
       </div>
 
       <div className="mb-2 flex items-end gap-2">
-        <span className="text-3xl font-semibold text-white" style={{ color: accent }}>{value}</span>
-        {unit ? <span className="text-sm text-slate-400">{unit}</span> : null}
+        <span className="text-3xl font-extrabold text-white" style={{ color: accent }}>{value}</span>
+        {unit ? <span className="text-sm font-mono text-slate-400">{unit}</span> : null}
       </div>
 
-      <p className="text-xs text-slate-400">{detail}</p>
+      <p className="text-xs text-slate-400 leading-relaxed">{detail}</p>
     </div>
   )
 }

@@ -72,7 +72,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
-      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white/10 shadow-2xl">
+      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/20 bg-[#0B1127] shadow-2xl backdrop-blur-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 bg-slate-950/50 px-5 py-3">
           <div className="flex items-center gap-3">
@@ -133,8 +133,8 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               <div
                 className={`max-w-[85%] rounded-xl px-4 py-2.5 ${
                   m.role === 'user'
-                    ? 'bg-blue-50 text-blue-800 border border-blue-200'
-                    : 'bg-slate-950/50 text-slate-100 border border-white/10'
+                    ? 'bg-blue-600/30 text-blue-200 border border-blue-500/40'
+                    : 'bg-slate-900/70 text-slate-100 border border-white/10'
                 }`}
               >
                 {m.text}
