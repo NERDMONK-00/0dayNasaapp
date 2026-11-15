@@ -2,63 +2,48 @@
 
 # Astronaut Health Monitoring
 
-A mission-control web app for monitoring astronaut vital signs in a browser-only environment. It uses a built-in simulator, learns each astronaut's personal baseline, flags anomalies using z-scores and thresholds, and explains each alert with a clear reason and action.
+A cinematic astronaut health monitoring dashboard for a browser-only mission control experience. The app tracks crew vitals, learns each astronaut’s personal baseline, flags anomalies using z-scores and hard thresholds, and explains alerts with clear reasoning and suggested actions.
 
 ## What it does
 
-- Live dashboard for heart rate, HRV, SpO2, temperature, respiratory rate, sleep hours, and cabin CO2
-- Multi-astronaut view for 3 crew members
+- Live multi-astronaut monitoring for heart rate, HRV, SpO₂, temperature, respiration, sleep hours, and CO₂
 - Rolling baseline tracking per astronaut
-- Hard safety thresholds that do not depend on ML
-- Simple anomaly detection layer for future model integration
-- Explainable alerts with why + suggested action
-- Scenario triggers for normal, dehydration, fever, sleep debt, CO2 rise, and SpO2 drop
-- No cloud dependency: all logic runs locally in the browser
+- Rule-based anomaly detection and explainable alert generation
+- Mission-control UI with a deep-space theme
+- Local Orbitkat assistant that reads current mission context and explains alerts in plain language
+- Simulator-driven scenarios for normal, dehydration, fever, sleep debt, CO₂ rise, and SpO₂ drop
+- No backend required; all logic runs locally in the browser
+
+## Route map
+
+- `/` — Home
+- `/astronauts` — Astronaut crew status
+- `/test` — Run simulation scenarios
+- `/results` — Mission report and recommended actions
+- `/how-it-works` — Data flow and monitoring logic
+- `/about` — Problem, stack, credits, limitations
 
 ## Project architecture
 
 - Data source layer: simulator and future hardware adapters
 - Processing layer: baseline calculation, z-score analysis, threshold checks
 - State layer: astronaut selection, history log, current readings, active alerts
-- UI layer: card layout, charts, scenario controls, alert history
+- UI layer: cinematic space theme, HUD panels, charts, multi-page mission experience
+- Assistant layer: local Orbitkat rule-based assistant, ready for future LLM swap
 
-### Data source contract
+## Orbitkat mascot assistant
 
-The app depends on a single interface:
+The app includes a persistent mascot assistant named Orbitkat, a space-cat astronaut that appears at the bottom-right on every page.
 
-- `DataSource.subscribe(callback)`
+- The mascot uses a Sketchfab iframe embed with the NASA-style model and hidden UI clutter.
+- If the embed cannot load or the browser is offline, a simple 2D fallback cat-astronaut avatar is used so the app never breaks.
+- Orbitkat reads from the current app state: selected astronaut, vitals, baselines, alerts, and crew context.
+- Medical answers are framed as decision support, not diagnosis.
 
-This means the UI and processing logic can stay unchanged when swapping from the built-in simulator to real hardware.
+### Credit
 
-## Folder structure
-
-```text
-src/
-  components/
-    MetricCard.tsx
-    SignalChart.tsx
-  data/
-    dataSource.ts
-    HardwareSource.ts
-    SimulatorSource.ts
-  processing/
-    anomaly.ts
-  state/
-    store.ts
-  types.ts
-  App.tsx
-  main.tsx
-  index.css
-```
-
-## Short plan
-
-1. Build a data-source abstraction so simulator and hardware share the same contract.
-2. Generate realistic astronaut vitals with a simulator and scenario buttons.
-3. Track rolling baselines and calculate z-score deviations.
-4. Add hard safety rules for critical conditions.
-5. Surface explainable alerts in the dashboard UI.
-6. Prepare the project for future hardware integration with a documented stub.
+Mascot: Orbitkat by @orbitkat.art (Sketchfab)  
+Model: NASA
 
 ## Getting started
 
@@ -80,20 +65,20 @@ npm run preview
 ## How to test it
 
 1. Start the app.
-2. Switch between crew members in the top bar.
-3. Click the scenario buttons to simulate health issues.
-4. Watch the cards and charts update.
-5. Use the alert scan to generate and review why the app triggered warnings.
+2. Open the Home page and review the cinematic mission HUD.
+3. Move between the astronaut, test, and results pages.
+4. Toggle scenarios and watch alerts update with explainable actions.
+5. Open the Orbitkat assistant and ask for a summary or alert explanation.
 
-## Real hardware integration roadmap
+## Hardware integration roadmap
 
-The app is built so hardware can be connected later without changing the rest of the system.
+The app is intentionally built around a shared `DataSource` abstraction so future hardware can plug in without changing the rest of the system.
 
 ### Planned path
 
 1. Create a `HardwareSource` implementation in `src/data/HardwareSource.ts`.
-2. Connect to a local device via WebSocket, Web Serial, or Web Bluetooth.
-3. Translate sensor payloads into the common format:
+2. Connect to local devices via WebSocket, Web Serial, or Web Bluetooth.
+3. Translate readings to the common mission format:
 
 ```ts
 {
@@ -109,30 +94,25 @@ The app is built so hardware can be connected later without changing the rest of
 }
 ```
 
-4. Keep the processing and UI layers untouched.
+4. Keep processing and UI logic unchanged.
 
 ## GitHub publishing
 
-This project is ready to be pushed to GitHub.
-
 ```bash
-git init
 git add .
-git commit -m "Initial commit: astronaut health monitoring system"
-git branch -M main
-git remote add origin <your-github-repo-url>
-git push -u origin main
+git commit -m "Refine mission UI and orbital dashboard"
+git push origin main
 ```
 
 ## Hackathon notes
 
-This is intentionally simple and easy to explain:
+This is intentionally simple, browser-first, and easy to explain:
 
-- local browser app
+- local simulation and analytics
 - no backend required
-- clear architecture
+- clear mission logic
 - future hardware-ready design
-- compelling mission control UX
+- cinematic NASA-inspired presentation
 
 ## License
 
