@@ -5,55 +5,37 @@ export default {
   theme: {
     extend: {
       animation: {
-        bob: 'bob 3s ease-in-out infinite',
-        pop: 'pop .25s ease-out',
-        twinkle: 'twinkle 3s ease-in-out infinite',
+        pulseGlow: 'pulseGlow 2s ease-in-out infinite',
       },
       borderRadius: {
-        toon: '20px',
+        hud: '14px',
       },
       boxShadow: {
-        sticker: '4px 4px 0 0 #120f3a',
-        'sticker-lg': '6px 6px 0 0 #120f3a',
+        hud: '0 12px 36px rgba(0, 0, 0, 0.45)',
+        glow: '0 0 25px rgba(56, 189, 248, 0.2)',
       },
       colors: {
-        ink: '#120f3a',
         space: {
-          700: '#1f1d6b',
-          800: '#14134a',
-          900: '#0b0b2b',
+          950: '#02040a',
+          900: '#030712',
+          850: '#060b18',
+          800: '#0b1426',
+          700: '#111d38',
         },
-        toon: {
-          cyan: '#4de1ff',
-          mint: '#3ddc97',
-          pink: '#ff6bb5',
-          purple: '#7c5cff',
-          red: '#ff5d5d',
-          yellow: '#ffd23f',
+        hud: {
+          cyan: '#00f0ff',
+          sky: '#38bdf8',
+          emerald: '#10b981',
+          amber: '#f59e0b',
+          rose: '#ef4444',
         },
       },
       fontFamily: {
-        body: ['Nunito', 'system-ui', 'sans-serif'],
-        display: ['Fredoka', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
-      },
-      keyframes: {
-        bob: {
-          '0%,100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        pop: {
-          '0%': { transform: 'scale(.9)' },
-          '70%': { transform: 'scale(1.05)' },
-          '100%': { transform: 'scale(1)' },
-        },
-        twinkle: {
-          '0%,100%': { opacity: '.3' },
-          '50%': { opacity: '1' },
-        },
       },
     },
   },
   plugins: [],
 }
-

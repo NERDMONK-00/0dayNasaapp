@@ -1,90 +1,542 @@
 import { Link } from 'react-router-dom'
 import { useMissionState } from '../state/store'
+import { computeEVAReadiness, computeRiskIndex } from '../processing/anomaly'
+import { BodyModel3D } from '../components/BodyModel3D'
+import type { ScenarioId } from '../types'
+
+const scenariosList: Array<{ id: ScenarioId; label: string; icon: string }> = [
+  { id: 'normal', label: 'Nominal Flight', icon: '🟢' },
+  { id: 'dehydration', label: 'Dehydration Ramp', icon: '💧' },
+  { id: 'fever', label: 'Infection / Fever', icon: '🌡️' },
+  { id: 'sleep', label: 'Sleep Deprivation', icon: '💤' },
+  { id: 'co2', label: 'Cabin CO₂ Spike', icon: '⚠️' },
+  { id: 'spo2', label: 'Acute SpO₂ Drop', icon: '🚨' },
+  { id: 'solar-storm', label: 'DONKI Solar Storm', icon: '☀️' },
+]
 
 export function HomePage() {
-  const { missionState } = useMissionState()
-  const selected = missionState.astronauts[0]
-  const current = missionState.currentReadings[selected.id]
+  const {
+    missionState,
+    selectedAstronautId,
+    setSelectedAstronautId,
+    currentScenario,
+    setScenario,
+    spaceWeatherStatus,
+  } = useMissionState()
+
+  const astronaut =
+    missionState.astronauts.find((p) => p.id === selectedAstronautId) ?? missionState.astronauts[0]
+  const current = missionState.currentReadings[selectedAstronautId]
+  const baselines = missionState.baselines[selectedAstronautId] ?? {}
+  const alerts = missionState.alerts.filter((a) => a.astronautId === selectedAstronautId)
+
+  const risk = computeRiskIndex(current, baselines, spaceWeatherStatus)
+  const eva = computeEVAReadiness(selectedAstronautId, current, baselines, spaceWeatherStatus)
+
+  const isCritical = risk.band === 'critical'
+  const isWatch = risk.band === 'watch'
 
   return (
-    <div className="page-shell">
-      <section className="page-grid route-home gap-5 pb-8">
-        <div className="page-panel">
-          <div className="page-kicker">Deep space monitor</div>
-          <h1 className="page-title">Keeping astronauts healthy, far from Earth.</h1>
-          <p className="page-copy mt-4 max-w-xl">
-            Real-time health intelligence for autonomous missions. Track crew vitals, explain anomalies, and keep support clear when every second matters.
-          </p>
+    <div className="space-y-6">
+      {/* Top Hero Mission Control Kicker */}
+      <section className="hud-card relative overflow-hidden border-sky-500/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 md:p-8">
+        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/test" className="toon-btn">Start Test</Link>
-            <Link to="/astronauts" className="toon-btn toon-btn-pink">Meet the Crew</Link>
-          </div>
+        <div className="relative z-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+          <div>
+            <div className="page-kicker">
+              <span>Deep Space Health Intelligence</span>
+              <span>•</span>
+              <span className="text-slate-400 font-mono">Earth-Independent Medical Operations (EIMO)</span>
+            </div>
+            <h1 className="page-title mt-2 text-2xl md:text-3xl lg:text-4xl text-white">
+              Autonomous Crew Health & Clinical Decision Support
+            </h1>
+            <p className="page-copy mt-2.5 max-w-2xl text-sm leading-relaxed text-slate-300">
+              Personalized rolling baselines, multi-signal anomaly confirmation, and NASA DONKI
+              space-weather risk fusion. Designed for lunar and martian transit where Earth communication
+              delay exceeds 20 minutes.
+            </p>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <div className="toon-card toon-card-hover">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-slate-200">Mission clock</p>
-              <p className="toon-number mt-3 text-2xl text-white">21:14:22</p>
-            </div>
-            <div className="toon-card toon-card-hover">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-slate-200">Earth link</p>
-              <p className="mt-3 text-xl text-amber-200">Delayed</p>
-            </div>
-            <div className="toon-card toon-card-hover">
-              <p className="text-[10px] uppercase tracking-[0.24em] text-slate-200">Live HR</p>
-              <p className="toon-number mt-3 text-2xl text-white">{Math.round(current.hr)} bpm</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="page-panel min-h-[420px] md:min-h-[560px]">
-          <div className="flex h-full min-h-[360px] items-center justify-center rounded-[22px] border-3 border-[var(--outline)] bg-[radial-gradient(circle_at_top,_rgba(77,225,255,0.18),_rgba(11,11,43,0.3)_35%,_rgba(5,8,18,0.18)_100%)] text-center shadow-[var(--shadow)]">
-            <div className="space-y-3">
-              <div className="text-6xl" aria-hidden="true">🛰️</div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-sky-100">Orbital view</p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <Link to="/test" className="hud-btn">
+                <span>⚡ Open Simulation Lab</span>
+              </Link>
+              <Link to="/astronauts" className="hud-btn hud-btn-secondary">
+                <span>🧑‍🚀 Crew Vitals & 3D Dossier</span>
+              </Link>
+              <Link to="/results" className="hud-btn hud-btn-secondary">
+                <span>📊 Research Evaluation Matrix</span>
+              </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="grid gap-4 pb-8 md:grid-cols-3">
-        {[
-          ['Personal baseline', 'Rolling baselines adapt to each astronaut and catch drift before it becomes a critical event.'],
-          ['Explainable alerts', 'Every warning includes the actual reading, the baseline range, and the suggested action.'],
-          ['Autonomous onboard', 'Mission logic runs locally so crews can respond without waiting for Earth support.'],
-        ].map(([title, copy]) => (
-          <div key={title} className="toon-card toon-card-hover">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-[#9ec9ff]">Feature</p>
-            <h3 className="mt-3 text-2xl text-white">{title}</h3>
-            <p className="mt-3 text-sm leading-6 text-slate-200">{copy}</p>
+          {/* Quick Scenario Injector Widget */}
+          <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-4 lg:w-80 backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span className="font-mono text-xs text-sky-400">INJECT SCENARIO</span>
+              <span className="font-mono text-[10px] text-slate-500">REAL-TIME</span>
+            </div>
+            <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-xs">
+              {scenariosList.map((sc) => (
+                <button
+                  key={sc.id}
+                  type="button"
+                  onClick={() => setScenario(sc.id)}
+                  className={`flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] transition ${
+                    currentScenario === sc.id
+                      ? 'border border-cyan-400 bg-cyan-950/80 text-cyan-200'
+                      : 'border border-slate-800/80 bg-slate-950/60 text-slate-300 hover:border-slate-700 hover:bg-slate-800'
+                  }`}
+                >
+                  <span>{sc.icon}</span>
+                  <span className="truncate">{sc.label.split(' ')[0]}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        ))}
-      </section>
-
-      <section className="grid gap-4 pb-4 md:grid-cols-2">
-        <div className="page-panel">
-          <p className="page-kicker">Mission telemetry</p>
-          <h3 className="mt-3 text-2xl text-white">Crew health snapshot</h3>
-          <ul className="mt-4 space-y-3 text-sm text-slate-200">
-            <li>• Heart rate trend remains within expected range</li>
-            <li>• SpO₂ reserves are stable during EVA prep</li>
-            <li>• CO₂ concentration remains acceptable with filtration loop status nominal</li>
-          </ul>
-        </div>
-
-        <div className="page-panel">
-          <p className="page-kicker">Decision support</p>
-          <h3 className="mt-3 text-2xl text-white">Clear response guidance</h3>
-          <p className="mt-4 text-sm leading-7 text-slate-200">
-            This system continuously compares crew vitals against personal baselines and mission thresholds, then explains each alert in plain language with a recommended action.
-          </p>
         </div>
       </section>
 
-      <section className="page-panel text-center">
-        <p className="page-kicker">Mission ready</p>
-        <h3 className="mt-3 text-3xl font-medium text-white">Autonomous health support for long-duration missions</h3>
-        <Link to="/about" className="toon-btn mt-5">Learn more</Link>
+      {/* Main 2-Column Operations Deck */}
+      <div className="grid gap-6 lg:grid-cols-12">
+        {/* Left Column: Risk Index + EVA Forecast + Hazards */}
+        <div className="space-y-6 lg:col-span-7">
+          {/* 1. AstroPulse 0-100 Risk Index (Section 4.7 of Paper) */}
+          <div className="hud-card">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <div>
+                <span className="page-kicker">Unified Risk Formula</span>
+                <h3 className="font-display text-lg font-bold text-white">
+                  AstroPulse Risk Index (R = 0.60·P + 0.20·E + 0.20·W)
+                </h3>
+              </div>
+              <span
+                className={`hud-chip ${
+                  isCritical ? 'hud-chip-crit' : isWatch ? 'hud-chip-warn' : 'hud-chip-ok'
+                }`}
+              >
+                {risk.band.toUpperCase()} BAND
+              </span>
+            </div>
+
+            {/* Score Display & Breakdown */}
+            <div className="mt-4 grid gap-4 sm:grid-cols-12 items-center">
+              {/* Radial Big Gauge */}
+              <div className="sm:col-span-5 flex flex-col items-center justify-center rounded-xl border border-slate-800/80 bg-slate-900/60 p-4">
+                <div className="relative flex h-32 w-32 items-center justify-center">
+                  <svg className="h-32 w-32 -rotate-90" viewBox="0 0 120 120">
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="48"
+                      stroke="rgba(255,255,255,0.08)"
+                      strokeWidth="8"
+                      fill="none"
+                    />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="48"
+                      stroke={isCritical ? '#ef4444' : isWatch ? '#f59e0b' : '#00f0ff'}
+                      strokeWidth="8"
+                      strokeLinecap="round"
+                      fill="none"
+                      strokeDasharray={`${(risk.total / 100) * 301.6} 301.6`}
+                      className="transition-all duration-700 ease-out"
+                    />
+                  </svg>
+                  <div className="absolute text-center">
+                    <span className="font-mono text-3xl font-extrabold text-white">
+                      {risk.total}
+                    </span>
+                    <span className="block font-mono text-[9px] uppercase tracking-widest text-slate-400">
+                      / 100 Risk
+                    </span>
+                  </div>
+                </div>
+                <p className="mt-2 text-center font-mono text-[11px] text-slate-300">
+                  {risk.dominantFactor}
+                </p>
+              </div>
+
+              {/* 3 Weight Breakdown Bars */}
+              <div className="sm:col-span-7 space-y-3 font-mono text-xs">
+                <div>
+                  <div className="flex justify-between text-[11px] mb-1">
+                    <span className="text-slate-300">P (Physiology • 60% wt)</span>
+                    <span className="text-cyan-300">{risk.physiology} / 100</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                    <div
+                      className="h-full bg-cyan-400 transition-all duration-500"
+                      style={{ width: `${risk.physiology}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-[11px] mb-1">
+                    <span className="text-slate-300">E (Cabin Environment • 20% wt)</span>
+                    <span className="text-sky-300">{risk.environment} / 100</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                    <div
+                      className="h-full bg-sky-400 transition-all duration-500"
+                      style={{ width: `${risk.environment}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-[11px] mb-1">
+                    <span className="text-slate-300">W (DONKI Space Weather • 20% wt)</span>
+                    <span
+                      className={
+                        risk.spaceWeather > 50
+                          ? 'text-rose-400'
+                          : risk.spaceWeather > 0
+                            ? 'text-amber-400'
+                            : 'text-emerald-400'
+                      }
+                    >
+                      {risk.spaceWeather} / 100
+                    </span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                    <div
+                      className={`h-full transition-all duration-500 ${
+                        risk.spaceWeather > 50
+                          ? 'bg-rose-500'
+                          : risk.spaceWeather > 0
+                            ? 'bg-amber-400'
+                            : 'bg-emerald-400'
+                      }`}
+                      style={{ width: `${risk.spaceWeather}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. EVA Readiness 12-Hour Hourly Forecast Matrix (Section 4.8) */}
+          <div className="hud-card">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <div>
+                <span className="page-kicker">Spacewalk Mission Planning</span>
+                <h3 className="font-display text-lg font-bold text-white">
+                  12-Hour EVA Readiness Forecast Window
+                </h3>
+              </div>
+              <span
+                className={`hud-chip ${
+                  eva.overallStatus === 'go'
+                    ? 'hud-chip-ok'
+                    : eva.overallStatus === 'caution'
+                      ? 'hud-chip-warn'
+                      : 'hud-chip-crit'
+                }`}
+              >
+                EVA: {eva.overallStatus.toUpperCase()}
+              </span>
+            </div>
+
+            <p className="mt-3 text-xs leading-relaxed text-slate-300">
+              <strong className="text-cyan-300">Recommended Window:</strong> {eva.recommendedWindow}
+            </p>
+
+            {/* 12-Hour Slot Bar */}
+            <div className="mt-4 grid grid-cols-6 sm:grid-cols-12 gap-1.5">
+              {eva.slots.map((slot) => {
+                const isGo = slot.readiness === 'go'
+                const isCaution = slot.readiness === 'caution'
+                return (
+                  <div
+                    key={slot.hourOffset}
+                    className={`flex flex-col items-center justify-center rounded-lg border p-1.5 text-center font-mono transition ${
+                      isGo
+                        ? 'border-emerald-500/40 bg-emerald-950/30 text-emerald-200'
+                        : isCaution
+                          ? 'border-amber-500/40 bg-amber-950/30 text-amber-200'
+                          : 'border-rose-500/40 bg-rose-950/30 text-rose-200'
+                    }`}
+                  >
+                    <span className="text-[10px] text-slate-400">+{slot.hourOffset}h</span>
+                    <span
+                      className={`text-[9px] font-bold uppercase ${
+                        isGo ? 'text-emerald-400' : isCaution ? 'text-amber-400' : 'text-rose-400'
+                      }`}
+                    >
+                      {slot.readiness}
+                    </span>
+                    <span className="text-[9px] text-slate-500">{slot.score}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* 3. NASA Five Spaceflight Hazards Monitor */}
+          <div className="hud-card">
+            <span className="page-kicker">NASA Human Research Program (HRP)</span>
+            <h3 className="font-display text-lg font-bold text-white">
+              The Five Hazards of Deep Spaceflight
+            </h3>
+
+            <div className="mt-3 grid gap-2.5 sm:grid-cols-2 text-xs">
+              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
+                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+                  <span>1. Radiation & Solar Weather</span>
+                  <span className="font-mono text-[10px] text-emerald-400">0.42 mSv/d</span>
+                </div>
+                <p className="mt-1 text-[11px] text-slate-400">
+                  DONKI solar proton flux monitor with cumulative career limit tracking.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
+                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+                  <span>2. Isolation & Confinement</span>
+                  <span className="font-mono text-[10px] text-amber-400">
+                    {current.sleepHours.toFixed(1)}h sleep
+                  </span>
+                </div>
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Circadian rhythm tracking across 16 sunrises/day with autonomic HRV.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
+                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+                  <span>3. Distance from Earth</span>
+                  <span className="font-mono text-[10px] text-cyan-400">18m latency</span>
+                </div>
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Full zero-cloud browser autonomy with store-and-forward Earth downlink.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
+                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+                  <span>4. Gravity & SANS Syndrome</span>
+                  <span className="font-mono text-[10px] text-sky-400">Nominal</span>
+                </div>
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Fluid shift cephalad screening for neuro-ocular disc edema and bone loss.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: 3D Biomechanical Twin Viewport */}
+        <div className="lg:col-span-5 flex flex-col space-y-6">
+          <BodyModel3D status={risk.band} reading={current} />
+
+          {/* Quick Active Astronaut Biometric Readouts */}
+          <div className="hud-card">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <span className="font-mono text-xs text-sky-400">TELEMETRY: {astronaut.name}</span>
+              <span className="font-mono text-[10px] text-slate-500">
+                {astronaut.role} • Day {astronaut.missionDays}
+              </span>
+            </div>
+
+            <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-xs">
+              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
+                <span className="text-[10px] text-slate-400">HEART RATE</span>
+                <p className="text-xl font-bold text-cyan-300">{Math.round(current.hr)} bpm</p>
+                <span className="text-[10px] text-slate-500">
+                  Base: {baselines.hr?.mean ?? 68} bpm
+                </span>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
+                <span className="text-[10px] text-slate-400">HRV (RMSSD)</span>
+                <p className="text-xl font-bold text-sky-300">{Math.round(current.hrv)} ms</p>
+                <span className="text-[10px] text-slate-500">
+                  Base: {baselines.hrv?.mean ?? 52} ms
+                </span>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
+                <span className="text-[10px] text-slate-400">SPO₂ SATURATION</span>
+                <p
+                  className={`text-xl font-bold ${
+                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-300'
+                  }`}
+                >
+                  {current.spo2.toFixed(1)}%
+                </p>
+                <span className="text-[10px] text-slate-500">Target: &gt; 95%</span>
+              </div>
+
+              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
+                <span className="text-[10px] text-slate-400">CORE / SKIN TEMP</span>
+                <p
+                  className={`text-xl font-bold ${
+                    current.temp > 38.0 ? 'text-rose-400' : 'text-amber-300'
+                  }`}
+                >
+                  {current.temp.toFixed(1)}°C
+                </p>
+                <span className="text-[10px] text-slate-500">Base: 36.7°C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Crew Health Telemetry Snapshot Strip */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="page-kicker">Multi-Crew Telemetry</div>
+          <Link to="/astronauts" className="font-mono text-xs text-cyan-400 hover:underline">
+            View full crew dossier →
+          </Link>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {missionState.astronauts.map((astro) => {
+            const rd = missionState.currentReadings[astro.id]
+            const isSelected = astro.id === selectedAstronautId
+            const astroRisk = computeRiskIndex(
+              rd,
+              missionState.baselines[astro.id] ?? {},
+              spaceWeatherStatus,
+            )
+
+            return (
+              <button
+                key={astro.id}
+                type="button"
+                onClick={() => setSelectedAstronautId(astro.id)}
+                className={`hud-card hud-card-hover text-left transition ${
+                  isSelected ? 'border-sky-400 bg-sky-950/40 shadow-glow' : ''
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className="flex h-10 w-10 items-center justify-center rounded-lg font-bold text-slate-950"
+                      style={{ backgroundColor: astro.accent }}
+                    >
+                      {astro.name[0]}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">{astro.name}</h4>
+                      <p className="font-mono text-[10px] text-slate-400">{astro.role}</p>
+                    </div>
+                  </div>
+                  <span
+                    className={`hud-chip ${
+                      astroRisk.band === 'critical'
+                        ? 'hud-chip-crit'
+                        : astroRisk.band === 'watch'
+                          ? 'hud-chip-warn'
+                          : 'hud-chip-ok'
+                    }`}
+                  >
+                    {astroRisk.total} RISK
+                  </span>
+                </div>
+
+                <div className="mt-3.5 grid grid-cols-4 gap-1 border-t border-slate-800/80 pt-2.5 text-center font-mono text-[11px]">
+                  <div>
+                    <span className="text-[9px] text-slate-500">HR</span>
+                    <p className="font-bold text-slate-200">{Math.round(rd.hr)}</p>
+                  </div>
+                  <div>
+                    <span className="text-[9px] text-slate-500">HRV</span>
+                    <p className="font-bold text-slate-200">{Math.round(rd.hrv)}</p>
+                  </div>
+                  <div>
+                    <span className="text-[9px] text-slate-500">SpO₂</span>
+                    <p className="font-bold text-slate-200">{Math.round(rd.spo2)}%</p>
+                  </div>
+                  <div>
+                    <span className="text-[9px] text-slate-500">TEMP</span>
+                    <p className="font-bold text-slate-200">{rd.temp.toFixed(1)}°</p>
+                  </div>
+                </div>
+              </button>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Explainable Clinical Decision Support Alerts Feed (Section 4.9) */}
+      <section className="hud-card">
+        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+          <div>
+            <span className="page-kicker">Explainable Clinical Intelligence</span>
+            <h3 className="font-display text-lg font-bold text-white">
+              Autonomous Clinical Decision Support Log
+            </h3>
+          </div>
+          <span className="font-mono text-xs text-slate-400">
+            {alerts.length} active alert{alerts.length === 1 ? '' : 's'} for {astronaut.name}
+          </span>
+        </div>
+
+        <div className="mt-4 space-y-3">
+          {alerts.length === 0 ? (
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-xs text-emerald-200 font-mono">
+              ✓ All physiological signals, baseline z-scores, and cabin life-support sensors remain
+              strictly within calibrated mission margins. No clinical intervention indicated.
+            </div>
+          ) : (
+            alerts.map((al) => (
+              <div
+                key={al.id}
+                className={`rounded-xl border p-4 text-xs transition ${
+                  al.level === 'critical'
+                    ? 'border-rose-500/50 bg-rose-950/30'
+                    : 'border-amber-500/40 bg-amber-950/20'
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/60 pb-2">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        al.level === 'critical' ? 'bg-rose-500 animate-ping' : 'bg-amber-400'
+                      }`}
+                    />
+                    <h4 className="font-semibold text-white text-sm">{al.title}</h4>
+                  </div>
+                  <span
+                    className={`hud-chip ${
+                      al.level === 'critical' ? 'hud-chip-crit' : 'hud-chip-warn'
+                    }`}
+                  >
+                    {al.level.toUpperCase()}
+                  </span>
+                </div>
+
+                {/* 4-Pillar Clinical Decision Support Explanation (Section 4.9) */}
+                <div className="mt-3 grid gap-2 sm:grid-cols-2 text-slate-300">
+                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
+                    <span className="font-mono text-[10px] uppercase text-cyan-300">01. WHAT (Observation)</span>
+                    <p className="mt-1 leading-relaxed">{al.what ?? al.reason}</p>
+                  </div>
+                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
+                    <span className="font-mono text-[10px] uppercase text-amber-300">02. WHY IT MATTERS (Clinical Impact)</span>
+                    <p className="mt-1 leading-relaxed">{al.whyItMatters ?? al.reason}</p>
+                  </div>
+                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
+                    <span className="font-mono text-[10px] uppercase text-sky-300">03. EVIDENCE (Algorithm Check)</span>
+                    <p className="mt-1 leading-relaxed font-mono text-[11px]">{al.evidence ?? 'Z-Score deviation against rolling baseline'}</p>
+                  </div>
+                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
+                    <span className="font-mono text-[10px] uppercase text-emerald-300">04. SUGGESTED ACTION (Countermeasure)</span>
+                    <p className="mt-1 leading-relaxed font-semibold text-emerald-200">{al.action}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </section>
     </div>
   )

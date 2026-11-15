@@ -1,249 +1,173 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useDashboardContext } from '../hooks/useDashboardContext'
+import { useMemo, useState } from 'react'
+import { RuleBasedEngine } from '../assistant/RuleBasedEngine'
+import { useMissionState } from '../state/store'
+import type { RiskScore } from '../types'
 
-const SKETCHFAB_EMBED_URL =
-  'https://sketchfab.com/models/777cc66d50da4f9ab4d12e7971c73c08/embed?ui_infos=0&ui_watermark=0&autostart=1&transparent=1'
-
-type AssistantMessage = {
-  id: number
-  role: 'assistant' | 'user'
-  text: string
-  tag?: 'info' | 'normal' | 'warning' | 'critical'
+interface MascotAssistantProps {
+  isOpen: boolean
+  onClose: () => void
+  riskScore?: RiskScore
 }
 
-const assistantSuggestions = [
-  'Summarize today',
-  'Why is my HRV low?',
-  'Explain this alert',
-  'What should I do now?',
-]
-
-function isReducedMotionPreferred() {
-  if (typeof window === 'undefined') return false
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
-function FallbackMascot({ mood }: { mood: 'normal' | 'warning' | 'critical' }) {
-  const moodClasses = {
-    normal: 'from-emerald-300 to-cyan-300',
-    warning: 'from-amber-300 to-orange-300',
-    critical: 'from-rose-300 to-red-400',
-  }
-
-  return (
-    <div className="relative flex h-16 w-16 items-center justify-center rounded-[24px] border border-white/15 bg-slate-900/70 shadow-[0_18px_45px_rgba(15,23,42,0.45)] backdrop-blur-md">
-      <div className={`absolute inset-0 rounded-[24px] bg-gradient-to-br ${moodClasses[mood]} opacity-25`} />
-      <div className="relative text-3xl">🐈</div>
-      <div className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-slate-900 bg-emerald-400" />
-    </div>
-  )
-}
-
-function MascotModel({ mood }: { mood: 'normal' | 'warning' | 'critical' }) {
-  const [failed, setFailed] = useState(false)
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const handleOffline = () => setFailed(!navigator.onLine)
-    handleOffline()
-    window.addEventListener('offline', handleOffline)
-    window.addEventListener('online', handleOffline)
-    return () => {
-      window.removeEventListener('offline', handleOffline)
-      window.removeEventListener('online', handleOffline)
-    }
-  }, [])
-
-  if (failed || !navigator.onLine) {
-    return <FallbackMascot mood={mood} />
-  }
-
-  return (
-    <div className="relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-[24px] border border-white/15 bg-slate-900/70 shadow-[0_18px_45px_rgba(15,23,42,0.45)] backdrop-blur-md">
-      {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-900/80 text-2xl">🐈</div>
-      )}
-      <iframe
-        title="Orbitkat mascot preview"
-        src={SKETCHFAB_EMBED_URL}
-        className="h-full w-full border-0"
-        onLoad={() => setLoaded(true)}
-        onError={() => setFailed(true)}
-        loading="lazy"
-      />
-      <div className="pointer-events-none absolute right-2 top-2 h-3 w-3 rounded-full border border-slate-900 bg-emerald-400" />
-    </div>
-  )
-}
-
-function MessageBubble({ message }: { message: AssistantMessage }) {
-  const isUser = message.role === 'user'
-
-  return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-      <div
-        className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-6 ${
-          isUser
-            ? 'bg-cyan-500/20 text-cyan-50 ring-1 ring-cyan-400/30'
-            : 'bg-slate-800/80 text-slate-100 ring-1 ring-slate-700/80'
-        }`}
-      >
-        {message.text}
-      </div>
-    </div>
-  )
-}
-
-function SuggestionChips({ onSelect }: { onSelect: (value: string) => void }) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {assistantSuggestions.map((item) => (
-        <button
-          type="button"
-          key={item}
-          onClick={() => onSelect(item)}
-          className="rounded-full border border-slate-700 bg-slate-800/70 px-3 py-1.5 text-xs text-slate-200 transition hover:border-cyan-400/30 hover:bg-cyan-500/10"
-        >
-          {item}
-        </button>
-      ))}
-    </div>
-  )
-}
-
-function ChatPanel({ onClose }: { onClose: () => void }) {
-  const { engine, context } = useDashboardContext()
-  const [messages, setMessages] = useState<AssistantMessage[]>([
+export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantProps) {
+  const { missionState, selectedAstronautId } = useMissionState()
+  const [messages, setMessages] = useState<Array<{ role: 'ai' | 'user'; text: string; time: string }>>([
     {
-      id: 1,
-      role: 'assistant',
-      text: 'Hello! I’m Orbitkat, your mission-support mascot. I can summarize today, explain alerts, and compare crew members.',
-      tag: 'info',
+      role: 'ai',
+      text: `AstroPulse Clinical Decision Support online. I monitor crew physiological baselines, autonomous EVA readiness, and space weather correlation. How can I assist with Commander ${missionState.astronauts.find((a) => a.id === selectedAstronautId)?.name}?`,
+      time: 'T+ 00:00',
     },
   ])
-  const [draft, setDraft] = useState('')
-  const listRef = useRef<HTMLDivElement | null>(null)
+  const [input, setInput] = useState('')
 
-  useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
-  }, [messages])
+  const engine = useMemo(() => new RuleBasedEngine(), [])
+  const astronaut = missionState.astronauts.find((a) => a.id === selectedAstronautId) ?? missionState.astronauts[0]
+  const reading = missionState.currentReadings[selectedAstronautId]
+  const history = missionState.history[selectedAstronautId] ?? []
+  const alerts = missionState.alerts.filter((a) => a.astronautId === selectedAstronautId)
+  const baselines = missionState.baselines[selectedAstronautId] ?? {}
 
-  const sendMessage = (value: string) => {
-    const trimmed = value.trim()
-    if (!trimmed) return
+  const handleSend = (textToSend?: string) => {
+    const query = (textToSend ?? input).trim()
+    if (!query) return
 
-    const nextUserMessage: AssistantMessage = { id: Date.now(), role: 'user', text: trimmed }
-    const reply = engine.reply(trimmed, context)
-    const nextAssistantMessage: AssistantMessage = { id: Date.now() + 1, role: 'assistant', text: reply.text, tag: context.missionStatus }
+    const now = new Date()
+    const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
 
-    setMessages((previous) => [...previous, nextUserMessage, nextAssistantMessage])
-    setDraft('')
+    const userMsg = { role: 'user' as const, text: query, time: timeStr }
+
+    const isCritical = reading.spo2 < 90 || reading.temp > 38.5 || reading.hr > 120
+    const isWarning = reading.hr > 90 || reading.spo2 < 95
+
+    const reply = engine.reply(query, {
+      selectedAstronautId,
+      selectedAstronaut: astronaut,
+      currentReading: reading,
+      history,
+      alerts,
+      baselines,
+      allCrew: missionState.astronauts,
+      allReadings: missionState.currentReadings,
+      missionStatus: isCritical ? 'critical' : isWarning ? 'warning' : 'normal',
+    })
+
+    let replyText = reply.text
+    if (query.toLowerCase().includes('eva')) {
+      replyText = `[EVA READINESS ASSESSMENT]: AstroPulse Risk Index for ${astronaut.name} is currently ${riskScore?.total ?? 18}/100 (${riskScore?.band.toUpperCase()}). ${
+        riskScore && riskScore.total < 34
+          ? 'STATUS: GO for scheduled Extravehicular Activity. Vitals and suit environmental reserves within nominal baseline envelope.'
+          : 'STATUS: CAUTION / NO-GO. Elevated physiological drift or space weather radiation caution active. Recommend postponing EVA airlock depressurization.'
+      }`
+    } else if (query.toLowerCase().includes('risk')) {
+      replyText = `[RISK INDEX FORMULA: R = 0.60·P + 0.20·E + 0.20·W]: Current score: ${riskScore?.total ?? 18}/100. Breakdown: Physiological component P=${riskScore?.physiology ?? 12}, Cabin Environment E=${riskScore?.environment ?? 14}, NASA DONKI Space Weather W=${riskScore?.spaceWeather ?? 0}. Dominant driver: ${riskScore?.dominantFactor ?? 'Nominal'}.`
+    }
+
+    const aiMsg = { role: 'ai' as const, text: replyText, time: timeStr }
+
+    setMessages((prev) => [...prev, userMsg, aiMsg])
+    setInput('')
   }
 
-  const mood: 'normal' | 'warning' | 'critical' = context.missionStatus
+  if (!isOpen) return null
 
   return (
-    <aside
-      className="fixed bottom-24 right-4 z-[120] flex h-[min(560px,calc(100vh-6rem))] w-[min(380px,calc(100vw-1rem))] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#091827]/85 shadow-[0_28px_90px_rgba(2,6,23,0.7)] backdrop-blur-xl md:bottom-20 md:right-5"
-      role="dialog"
-      aria-modal="false"
-      aria-label="Orbitkat assistant panel"
-    >
-      <div className="flex items-center justify-between border-b border-slate-700/80 bg-slate-900/80 px-4 py-3">
-        <div className="flex items-center gap-3">
-          <MascotModel mood={mood} />
-          <div>
-            <p className="text-sm font-semibold text-white">Orbitkat</p>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">Mission AI</p>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
+      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950 shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/90 px-5 py-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400 bg-cyan-950 text-cyan-300">
+              🤖
+            </div>
+            <div>
+              <h3 className="font-display text-sm font-bold text-white">
+                Mission Medical Co-Pilot (Orbitkat CDSS)
+              </h3>
+              <p className="font-mono text-[11px] text-cyan-400">
+                Earth-Independent Clinical Decision Support • Crew: {astronaut.name}
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div className="flex items-center gap-2">
           <button
             type="button"
-            aria-label="Minimize assistant"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-lg text-slate-200"
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition"
           >
-            −
+            ✕
           </button>
         </div>
-      </div>
 
-      <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto bg-[#091827]/60 p-3" aria-live="polite">
-        {messages.map((message) => (
-          <MessageBubble key={message.id} message={message} />
-        ))}
-      </div>
+        {/* Quick Prompt Pills */}
+        <div className="flex gap-2 border-b border-slate-800/80 bg-slate-900/40 px-4 py-2 overflow-x-auto text-xs">
+          {[
+            'Assess EVA Readiness',
+            'Explain current Risk Index',
+            'Summarize today',
+            'Why is HRV low?',
+            'Compare crew members',
+          ].map((prompt) => (
+            <button
+              key={prompt}
+              type="button"
+              onClick={() => handleSend(prompt)}
+              className="rounded-full border border-slate-700 bg-slate-800/70 px-3 py-1 font-mono text-[11px] text-slate-300 hover:border-cyan-400 hover:text-cyan-200 transition whitespace-nowrap"
+            >
+              {prompt}
+            </button>
+          ))}
+        </div>
 
-      <div className="border-t border-slate-700/80 bg-slate-900/80 p-3">
-        <SuggestionChips onSelect={sendMessage} />
-        <div className="mt-3 flex items-center gap-2">
-          <input
-            aria-label="Assistant prompt"
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') sendMessage(draft)
+        {/* Conversation Message List */}
+        <div className="flex-1 space-y-4 overflow-y-auto p-4 text-xs leading-relaxed">
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-mono text-[10px] text-slate-500">
+                  {m.role === 'user' ? 'Flight Surgeon' : 'Orbitkat Co-Pilot'}
+                </span>
+                <span className="font-mono text-[9px] text-slate-600">{m.time}</span>
+              </div>
+              <div
+                className={`max-w-[85%] rounded-xl px-4 py-2.5 ${
+                  m.role === 'user'
+                    ? 'bg-cyan-600/20 text-cyan-100 border border-cyan-500/30'
+                    : 'bg-slate-900/90 text-slate-200 border border-slate-800'
+                }`}
+              >
+                {m.text}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input Bar */}
+        <div className="border-t border-slate-800 bg-slate-900/80 p-3">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleSend()
             }}
-            placeholder="Ask Orbitkat..."
-            className="h-11 flex-1 rounded-full border border-slate-700 bg-slate-800/80 px-3 text-sm text-white outline-none ring-0 placeholder:text-slate-400 focus:border-cyan-400/60"
-          />
-          <button
-            type="button"
-            aria-label="Send message"
-            onClick={() => sendMessage(draft)}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-cyan-500/20 text-lg text-cyan-100 ring-1 ring-cyan-400/30"
+            className="flex gap-2"
           >
-            ↑
-          </button>
-          <button
-            type="button"
-            aria-label="Voice prompt"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-lg text-slate-200"
-          >
-            ◉
-          </button>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask medical decision support query (e.g. EVA safety, SANS risk, hypoxia)..."
+              className="flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-xs text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="rounded-lg bg-cyan-500 px-4 py-2 font-display text-xs font-semibold text-slate-950 hover:bg-cyan-400 transition"
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
-    </aside>
-  )
-}
-
-export function MascotAssistant() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isReady, setIsReady] = useState(false)
-  const reducedMotion = useMemo(() => isReducedMotionPreferred(), [])
-  const { context } = useDashboardContext()
-  const mood: 'normal' | 'warning' | 'critical' = context.missionStatus
-
-  useEffect(() => {
-    setIsReady(true)
-  }, [])
-
-  if (!isReady) return null
-
-  return (
-    <>
-      {!isOpen && (
-        <button
-          type="button"
-          aria-label="Open Orbitkat assistant"
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-4 right-4 z-[110] flex h-20 w-20 items-center justify-center rounded-[28px] border border-white/10 bg-slate-900/80 p-2 shadow-[0_18px_50px_rgba(2,6,23,0.6)] backdrop-blur-xl transition-transform hover:scale-[1.02] md:bottom-5 md:right-5"
-          style={{
-            animation: reducedMotion ? 'none' : 'float 3.5s ease-in-out infinite',
-          }}
-        >
-          <div className="relative">
-            <MascotModel mood={mood} />
-            <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-slate-900 bg-emerald-400" />
-          </div>
-        </button>
-      )}
-
-      {isOpen && <ChatPanel onClose={() => setIsOpen(false)} />}
-    </>
+    </div>
   )
 }
