@@ -6,7 +6,9 @@ import { AboutPage } from './pages/AboutPage'
 import { AstronautPage } from './pages/AstronautPage'
 import { HomePage } from './pages/HomePage'
 import { HowItWorksPage } from './pages/HowItWorksPage'
+import { ReferencesPage } from './pages/ReferencesPage'
 import { ResultsPage } from './pages/ResultsPage'
+import { TeamPage } from './pages/TeamPage'
 import { TestPage } from './pages/TestPage'
 
 const router = createBrowserRouter([
@@ -18,7 +20,9 @@ const router = createBrowserRouter([
       { path: '/test', element: <TestPage /> },
       { path: '/results', element: <ResultsPage /> },
       { path: '/how-it-works', element: <HowItWorksPage /> },
+      { path: '/references', element: <ReferencesPage /> },
       { path: '/about', element: <AboutPage /> },
+      { path: '/team', element: <TeamPage /> },
     ],
   },
 ])

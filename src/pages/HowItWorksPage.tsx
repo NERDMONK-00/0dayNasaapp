@@ -171,6 +171,50 @@ export function HowItWorksPage() {
         </div>
       </section>
 
+      {/* NASA Engineering Blueprints Alignment */}
+      <section className="hud-card">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+          <div>
+            <span className="page-kicker">NASA.gov Engineering Alignment</span>
+            <h3 className="font-display text-lg font-bold text-white mt-0.5">
+              Alignment with Official NASA Technical Blueprints (NTRS)
+            </h3>
+          </div>
+          <a href="/references" className="text-xs font-mono text-cyan-400 hover:text-cyan-200">
+            View full citations library →
+          </a>
+        </div>
+
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+            <span className="font-mono text-[10px] text-cyan-400 font-bold block mb-1">
+              AMRA AID Dashboard (NTRS 20200000666)
+            </span>
+            <p className="text-slate-300 text-[11px] leading-relaxed">
+              Adopts NASA's Autonomous Medical Response Agent Aggregate Information Dashboard design patterns to fuse crew vitals, environmental pCO₂, and mission timelines.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+            <span className="font-mono text-sky-400 font-bold block mb-1">
+              ExMC Medical Data Architecture (NTRS 20220017869)
+            </span>
+            <p className="text-slate-300 text-[11px] leading-relaxed">
+              Structures software modules into independent sensing, intelligence, decision support, and UI layers aligned with NASA Exploration Medical Capability guidelines.
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3">
+            <span className="font-mono text-emerald-400 font-bold block mb-1">
+              EIMO Deep-Space Standards (NTRS 20230016189)
+            </span>
+            <p className="text-slate-300 text-[11px] leading-relaxed">
+              Satisfies Earth Independent Medical Operations requirements for passive physiological anomaly detection, encrypted local storage, and latency tolerance.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Hardware Migration Roadmap (Section 5.3 & AGENTS.md) */}
       <section className="hud-card">
         <span className="page-kicker">Section 5.3 • Hardware Migration Roadmap</span>

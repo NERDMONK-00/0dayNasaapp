@@ -11,7 +11,9 @@ const links = [
   { to: '/test', label: 'Simulation Lab', badge: 'Scenarios' },
   { to: '/results', label: 'Evaluation Matrix', badge: 'Paper' },
   { to: '/how-it-works', label: 'Architecture', badge: 'Formulas' },
+  { to: '/references', label: 'NASA References', badge: 'Library' },
   { to: '/about', label: 'Research & Ethics', badge: 'NASA HRP' },
+  { to: '/team', label: 'Team', badge: 'Nepal' },
 ]
 
 export default function AppShell() {

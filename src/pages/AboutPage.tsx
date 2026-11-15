@@ -100,30 +100,51 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* Academic References (Section 13) */}
+      {/* Academic References & Systems Library Link */}
       <section className="hud-card">
-        <span className="page-kicker">Section 13 • Scientific Citations</span>
-        <h3 className="font-display text-lg font-bold text-white mt-1">
-          Literature & Data Source Citations
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+          <div>
+            <span className="page-kicker">Section 13 • Scientific Citations & Engineering Blueprints</span>
+            <h3 className="font-display text-lg font-bold text-white mt-0.5">
+              Literature & Official NASA Reference Library
+            </h3>
+          </div>
+          <a
+            href="/references"
+            className="hud-btn hud-btn-secondary text-xs flex items-center gap-1.5 self-start sm:self-auto font-mono"
+          >
+            <span>Explore 24+ NASA & Research Citations</span>
+            <span>→</span>
+          </a>
+        </div>
 
-        <ol className="mt-3 space-y-2 font-mono text-xs text-slate-300 list-decimal list-inside leading-relaxed">
+        <ol className="mt-4 space-y-2.5 font-mono text-xs text-slate-300 list-decimal list-inside leading-relaxed">
           <li>
-            <strong className="text-white">NASA Exploration Medical Capability (ExMC):</strong> <em>Earth-Independent Medical Operations (EIMO) Concept of Operations</em>, Human Research Program Investigators' Workshop (2024).
+            <strong className="text-white">NASA NTRS 20220017869:</strong> <em>Exploration Medical Capability (ExMC) Clinical Decision Support System Architecture Recommendation</em>, Medical Data Architecture (MDA).
+          </li>
+          <li>
+            <strong className="text-white">NASA NTRS 20200000666:</strong> <em>Design of Autonomous Medical Response Agent (AMRA) Aggregate Information Dashboard (AID)</em>, user experience patterns for multi-signal fusion.
+          </li>
+          <li>
+            <strong className="text-white">NASA NTRS 20230016189:</strong> <em>Earth Independent Medical Operations (EIMO)</em>, software requirements for deep-space autonomous care.
           </li>
           <li>
             <strong className="text-white">NASA Twins Study:</strong> Garrett-Bakelman, F. E., et al. (2019). <em>The NASA Twins Study: A multidimensional analysis of a year-long human spaceflight</em>. Science, 364(6436).
           </li>
           <li>
-            <strong className="text-white">Autonomous Medical CDSS:</strong> Garcia-Gomez, J. M. <em>Basic principles and concept design of a real-time clinical decision support system for autonomous medical care on missions to Mars</em>. arXiv:2010.07029.
+            <strong className="text-white">Canadian Space Agency / Carré Technologies:</strong> <em>Bio-Monitor (Astroskin) Smart Shirt</em>, operational validation aboard the International Space Station and Lunar Gateway.
           </li>
           <li>
-            <strong className="text-white">Canadian Space Agency (CSA):</strong> <em>Bio-Monitor (Astroskin) Smart Shirt System</em>, operational validation aboard the International Space Station.
-          </li>
-          <li>
-            <strong className="text-white">NASA DONKI / CCMC:</strong> <em>Space Weather Database of Notifications, Knowledge, and Information</em>, Community Coordinated Modeling Center, Goddard Space Flight Center.
+            <strong className="text-white">NASA NTRS 20200000615 & 20205011448:</strong> <em>MedICS Clinical Decision Support System</em> &amp; <em>Medical-701 Cognitive Workload OODA Reduction</em>.
           </li>
         </ol>
+
+        <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+          <span className="text-slate-400">Created by <strong className="text-cyan-300">Ayush Neupane</strong> (Nepal)</span>
+          <a href="/team" className="text-cyan-400 hover:text-cyan-200 font-mono transition">
+            View Creator Profile & Details →
+          </a>
+        </div>
       </section>
     </div>
   )

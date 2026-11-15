@@ -538,6 +538,30 @@ export function HomePage() {
           )}
         </div>
       </section>
+
+      {/* Mission Footer Strip */}
+      <footer className="hud-card flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
+        <div className="flex items-center gap-2">
+          <span className="text-cyan-400 font-bold">AstroPulse</span>
+          <span>•</span>
+          <span>NASA Space Apps Challenge 2026</span>
+          <span>•</span>
+          <span className="text-slate-300">Created by <Link to="/team" className="text-cyan-300 hover:underline">Ayush Neupane</Link> (Nepal)</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link to="/references" className="text-cyan-400 hover:text-cyan-200 transition">
+            NASA References &amp; Blueprints →
+          </Link>
+          <a
+            href="https://github.com/NERDMONK-00/0dayNasaapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-400 hover:text-white transition"
+          >
+            GitHub
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }
