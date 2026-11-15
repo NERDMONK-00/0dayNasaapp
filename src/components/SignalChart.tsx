@@ -35,19 +35,19 @@ export function SignalChart({ title, color, data, valueKey, unit, baseline }: Si
 
   return (
     <div className="hud-card">
-      <div className="mb-2 flex items-center justify-between border-b border-slate-800/80 pb-2">
+      <div className="mb-2 flex items-center justify-between border-b border-gray-200 pb-2">
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-          <h4 className="font-mono text-xs font-semibold uppercase tracking-wider text-slate-200">
+          <h4 className="font-mono text-xs font-semibold uppercase tracking-wider text-gray-800">
             {title}
           </h4>
         </div>
         <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="font-bold text-white">
+          <span className="font-bold text-gray-900">
             {currentValue} {unit}
           </span>
           {baseline && baseline.mean > 0 && (
-            <span className="text-[10px] text-slate-500">
+            <span className="text-[10px] text-gray-400">
               (μ: {baseline.mean})
             </span>
           )}
@@ -63,43 +63,43 @@ export function SignalChart({ title, color, data, valueKey, unit, baseline }: Si
                 <stop offset="100%" stopColor={color} stopOpacity={0.02} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="rgba(56, 189, 248, 0.08)" strokeDasharray="3 3" vertical={false} />
+            <CartesianGrid stroke="rgba(0,0,0,0.06)" strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="time"
-              stroke="#64748b"
+              stroke="#9CA3AF"
               tickLine={false}
               axisLine={false}
-              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono' }}
+              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#9CA3AF' }}
               minTickGap={24}
             />
             <YAxis
-              stroke="#64748b"
+              stroke="#9CA3AF"
               tickLine={false}
               axisLine={false}
-              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono' }}
+              tick={{ fontSize: 9, fontFamily: 'JetBrains Mono', fill: '#9CA3AF' }}
               domain={['auto', 'auto']}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#020617',
-                border: '1px solid rgba(56, 189, 248, 0.3)',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.1)',
                 borderRadius: '8px',
-                color: '#f8fafc',
+                color: '#111827',
                 fontSize: '11px',
                 fontFamily: 'JetBrains Mono',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
               }}
               formatter={(val: any) => [`${val} ${unit}`, title]}
             />
             {baseline && baseline.mean > 0 && (
               <ReferenceLine
                 y={baseline.mean}
-                stroke="#94a3b8"
+                stroke="#9CA3AF"
                 strokeDasharray="3 3"
                 strokeWidth={1}
                 label={{
                   value: 'BASELINE',
-                  fill: '#64748b',
+                  fill: '#9CA3AF',
                   fontSize: 8,
                   position: 'insideTopRight',
                   fontFamily: 'JetBrains Mono',

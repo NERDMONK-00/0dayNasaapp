@@ -7,9 +7,9 @@ interface StatusChipProps {
 
 export function StatusChip({ status, label }: StatusChipProps) {
   const styles = {
-    normal: 'border-emerald-400/25 bg-emerald-500/10 text-emerald-200',
-    warning: 'border-amber-400/25 bg-amber-500/10 text-amber-200',
-    critical: 'border-rose-400/25 bg-rose-500/10 text-rose-200',
+    normal: 'border-emerald-400/25 bg-emerald-50 text-emerald-200',
+    warning: 'border-amber-400/25 bg-amber-50 text-amber-700',
+    critical: 'border-rose-400/25 bg-rose-50 text-rose-700',
   }
 
   return (

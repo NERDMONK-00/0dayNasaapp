@@ -39,20 +39,20 @@ export function HomePage() {
   return (
     <div className="space-y-6">
       {/* Top Hero Mission Control Kicker */}
-      <section className="hud-card relative overflow-hidden border-sky-500/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 md:p-8">
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+      <section className="hud-card relative overflow-hidden border-blue-200 bg-gradient-to-r from-gray-50 via-white to-gray-50 p-6 md:p-8">
+        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
           <div>
             <div className="page-kicker">
               <span>Deep Space Health Intelligence</span>
               <span>•</span>
-              <span className="text-slate-400 font-mono">Earth-Independent Medical Operations (EIMO)</span>
+              <span className="text-gray-500 font-mono">Earth-Independent Medical Operations (EIMO)</span>
             </div>
-            <h1 className="page-title mt-2 text-2xl md:text-3xl lg:text-4xl text-white">
+            <h1 className="page-title mt-2 text-2xl md:text-3xl lg:text-4xl text-gray-900">
               Autonomous Crew Health & Clinical Decision Support
             </h1>
-            <p className="page-copy mt-2.5 max-w-2xl text-sm leading-relaxed text-slate-300">
+            <p className="page-copy mt-2.5 max-w-2xl text-sm leading-relaxed text-gray-700">
               Personalized rolling baselines, multi-signal anomaly confirmation, and NASA DONKI
               space-weather risk fusion. Designed for lunar and martian transit where Earth communication
               delay exceeds 20 minutes.
@@ -72,10 +72,10 @@ export function HomePage() {
           </div>
 
           {/* Quick Scenario Injector Widget */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-4 lg:w-80 backdrop-blur-md">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <span className="font-mono text-xs text-sky-400">INJECT SCENARIO</span>
-              <span className="font-mono text-[10px] text-slate-500">REAL-TIME</span>
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 lg:w-80 backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+              <span className="font-mono text-xs text-blue-500">INJECT SCENARIO</span>
+              <span className="font-mono text-[10px] text-gray-400">REAL-TIME</span>
             </div>
             <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-xs">
               {scenariosList.map((sc) => (
@@ -85,8 +85,8 @@ export function HomePage() {
                   onClick={() => setScenario(sc.id)}
                   className={`flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] transition ${
                     currentScenario === sc.id
-                      ? 'border border-cyan-400 bg-cyan-950/80 text-cyan-200'
-                      : 'border border-slate-800/80 bg-slate-950/60 text-slate-300 hover:border-slate-700 hover:bg-slate-800'
+                      ? 'border border-blue-300 bg-blue-50 text-blue-700'
+                      : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-100'
                   }`}
                 >
                   <span>{sc.icon}</span>
@@ -104,10 +104,10 @@ export function HomePage() {
         <div className="space-y-6 lg:col-span-7">
           {/* 1. AstroPulse 0-100 Risk Index (Section 4.7 of Paper) */}
           <div className="hud-card">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-3">
               <div>
                 <span className="page-kicker">Unified Risk Formula</span>
-                <h3 className="font-display text-lg font-bold text-white">
+                <h3 className="font-display text-lg font-bold text-gray-900">
                   AstroPulse Risk Index (R = 0.60·P + 0.20·E + 0.20·W)
                 </h3>
               </div>
@@ -123,7 +123,7 @@ export function HomePage() {
             {/* Score Display & Breakdown */}
             <div className="mt-4 grid gap-4 sm:grid-cols-12 items-center">
               {/* Radial Big Gauge */}
-              <div className="sm:col-span-5 flex flex-col items-center justify-center rounded-xl border border-slate-800/80 bg-slate-900/60 p-4">
+              <div className="sm:col-span-5 flex flex-col items-center justify-center rounded-xl border border-gray-200 bg-gray-50 p-4">
                 <div className="relative flex h-32 w-32 items-center justify-center">
                   <svg className="h-32 w-32 -rotate-90" viewBox="0 0 120 120">
                     <circle
@@ -147,15 +147,15 @@ export function HomePage() {
                     />
                   </svg>
                   <div className="absolute text-center">
-                    <span className="font-mono text-3xl font-extrabold text-white">
+                    <span className="font-mono text-3xl font-extrabold text-gray-900">
                       {risk.total}
                     </span>
-                    <span className="block font-mono text-[9px] uppercase tracking-widest text-slate-400">
+                    <span className="block font-mono text-[9px] uppercase tracking-widest text-gray-500">
                       / 100 Risk
                     </span>
                   </div>
                 </div>
-                <p className="mt-2 text-center font-mono text-[11px] text-slate-300">
+                <p className="mt-2 text-center font-mono text-[11px] text-gray-700">
                   {risk.dominantFactor}
                 </p>
               </div>
@@ -164,12 +164,12 @@ export function HomePage() {
               <div className="sm:col-span-7 space-y-3 font-mono text-xs">
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-slate-300">P (Physiology • 60% wt)</span>
-                    <span className="text-cyan-300">{risk.physiology} / 100</span>
+                    <span className="text-gray-700">P (Physiology • 60% wt)</span>
+                    <span className="text-blue-600">{risk.physiology} / 100</span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-gray-100 overflow-hidden">
                     <div
-                      className="h-full bg-cyan-400 transition-all duration-500"
+                      className="h-full bg-blue-400 transition-all duration-500"
                       style={{ width: `${risk.physiology}%` }}
                     />
                   </div>
@@ -177,10 +177,10 @@ export function HomePage() {
 
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-slate-300">E (Cabin Environment • 20% wt)</span>
-                    <span className="text-sky-300">{risk.environment} / 100</span>
+                    <span className="text-gray-700">E (Cabin Environment • 20% wt)</span>
+                    <span className="text-blue-600">{risk.environment} / 100</span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-gray-100 overflow-hidden">
                     <div
                       className="h-full bg-sky-400 transition-all duration-500"
                       style={{ width: `${risk.environment}%` }}
@@ -190,7 +190,7 @@ export function HomePage() {
 
                 <div>
                   <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-slate-300">W (DONKI Space Weather • 20% wt)</span>
+                    <span className="text-gray-700">W (DONKI Space Weather • 20% wt)</span>
                     <span
                       className={
                         risk.spaceWeather > 50
@@ -203,7 +203,7 @@ export function HomePage() {
                       {risk.spaceWeather} / 100
                     </span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-gray-100 overflow-hidden">
                     <div
                       className={`h-full transition-all duration-500 ${
                         risk.spaceWeather > 50
@@ -222,10 +222,10 @@ export function HomePage() {
 
           {/* 2. EVA Readiness 12-Hour Hourly Forecast Matrix (Section 4.8) */}
           <div className="hud-card">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-3">
               <div>
                 <span className="page-kicker">Spacewalk Mission Planning</span>
-                <h3 className="font-display text-lg font-bold text-white">
+                <h3 className="font-display text-lg font-bold text-gray-900">
                   12-Hour EVA Readiness Forecast Window
                 </h3>
               </div>
@@ -242,8 +242,8 @@ export function HomePage() {
               </span>
             </div>
 
-            <p className="mt-3 text-xs leading-relaxed text-slate-300">
-              <strong className="text-cyan-300">Recommended Window:</strong> {eva.recommendedWindow}
+            <p className="mt-3 text-xs leading-relaxed text-gray-700">
+              <strong className="text-blue-600">Recommended Window:</strong> {eva.recommendedWindow}
             </p>
 
             {/* 12-Hour Slot Bar */}
@@ -258,11 +258,11 @@ export function HomePage() {
                       isGo
                         ? 'border-emerald-500/40 bg-emerald-950/30 text-emerald-200'
                         : isCaution
-                          ? 'border-amber-500/40 bg-amber-950/30 text-amber-200'
-                          : 'border-rose-500/40 bg-rose-950/30 text-rose-200'
+                          ? 'border-amber-500/40 bg-amber-950/30 text-amber-700'
+                          : 'border-rose-500/40 bg-rose-950/30 text-rose-700'
                     }`}
                   >
-                    <span className="text-[10px] text-slate-400">+{slot.hourOffset}h</span>
+                    <span className="text-[10px] text-gray-500">+{slot.hourOffset}h</span>
                     <span
                       className={`text-[9px] font-bold uppercase ${
                         isGo ? 'text-emerald-400' : isCaution ? 'text-amber-400' : 'text-rose-400'
@@ -270,7 +270,7 @@ export function HomePage() {
                     >
                       {slot.readiness}
                     </span>
-                    <span className="text-[9px] text-slate-500">{slot.score}</span>
+                    <span className="text-[9px] text-gray-400">{slot.score}</span>
                   </div>
                 )
               })}
@@ -280,49 +280,49 @@ export function HomePage() {
           {/* 3. NASA Five Spaceflight Hazards Monitor */}
           <div className="hud-card">
             <span className="page-kicker">NASA Human Research Program (HRP)</span>
-            <h3 className="font-display text-lg font-bold text-white">
+            <h3 className="font-display text-lg font-bold text-gray-900">
               The Five Hazards of Deep Spaceflight
             </h3>
 
             <div className="mt-3 grid gap-2.5 sm:grid-cols-2 text-xs">
-              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
-                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <div className="flex items-center justify-between text-blue-600 font-semibold">
                   <span>1. Radiation & Solar Weather</span>
                   <span className="font-mono text-[10px] text-emerald-400">0.42 mSv/d</span>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-gray-500">
                   DONKI solar proton flux monitor with cumulative career limit tracking.
                 </p>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
-                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <div className="flex items-center justify-between text-blue-600 font-semibold">
                   <span>2. Isolation & Confinement</span>
                   <span className="font-mono text-[10px] text-amber-400">
                     {current.sleepHours.toFixed(1)}h sleep
                   </span>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-gray-500">
                   Circadian rhythm tracking across 16 sunrises/day with autonomic HRV.
                 </p>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
-                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <div className="flex items-center justify-between text-blue-600 font-semibold">
                   <span>3. Distance from Earth</span>
-                  <span className="font-mono text-[10px] text-cyan-400">18m latency</span>
+                  <span className="font-mono text-[10px] text-blue-500">18m latency</span>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-gray-500">
                   Full zero-cloud browser autonomy with store-and-forward Earth downlink.
                 </p>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/50 p-2.5">
-                <div className="flex items-center justify-between text-cyan-300 font-semibold">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <div className="flex items-center justify-between text-blue-600 font-semibold">
                   <span>4. Gravity & SANS Syndrome</span>
-                  <span className="font-mono text-[10px] text-sky-400">Nominal</span>
+                  <span className="font-mono text-[10px] text-blue-500">Nominal</span>
                 </div>
-                <p className="mt-1 text-[11px] text-slate-400">
+                <p className="mt-1 text-[11px] text-gray-500">
                   Fluid shift cephalad screening for neuro-ocular disc edema and bone loss.
                 </p>
               </div>
@@ -336,44 +336,44 @@ export function HomePage() {
 
           {/* Quick Active Astronaut Biometric Readouts */}
           <div className="hud-card">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
-              <span className="font-mono text-xs text-sky-400">TELEMETRY: {astronaut.name}</span>
-              <span className="font-mono text-[10px] text-slate-500">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+              <span className="font-mono text-xs text-blue-500">TELEMETRY: {astronaut.name}</span>
+              <span className="font-mono text-[10px] text-gray-400">
                 {astronaut.role} • Day {astronaut.missionDays}
               </span>
             </div>
 
             <div className="mt-3 grid grid-cols-2 gap-2 font-mono text-xs">
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">HEART RATE</span>
-                <p className="text-xl font-bold text-cyan-300">{Math.round(current.hr)} bpm</p>
-                <span className="text-[10px] text-slate-500">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">HEART RATE</span>
+                <p className="text-xl font-bold text-blue-600">{Math.round(current.hr)} bpm</p>
+                <span className="text-[10px] text-gray-400">
                   Base: {baselines.hr?.mean ?? 68} bpm
                 </span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">HRV (RMSSD)</span>
-                <p className="text-xl font-bold text-sky-300">{Math.round(current.hrv)} ms</p>
-                <span className="text-[10px] text-slate-500">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">HRV (RMSSD)</span>
+                <p className="text-xl font-bold text-blue-600">{Math.round(current.hrv)} ms</p>
+                <span className="text-[10px] text-gray-400">
                   Base: {baselines.hrv?.mean ?? 52} ms
                 </span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">SPO₂ SATURATION</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">SPO₂ SATURATION</span>
                 <p
                   className={`text-xl font-bold ${
-                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-300'
+                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-700'
                   }`}
                 >
                   {current.spo2.toFixed(1)}%
                 </p>
-                <span className="text-[10px] text-slate-500">Target: &gt; 95%</span>
+                <span className="text-[10px] text-gray-400">Target: &gt; 95%</span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">CORE / SKIN TEMP</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">CORE / SKIN TEMP</span>
                 <p
                   className={`text-xl font-bold ${
                     current.temp > 38.0 ? 'text-rose-400' : 'text-amber-300'
@@ -381,7 +381,7 @@ export function HomePage() {
                 >
                   {current.temp.toFixed(1)}°C
                 </p>
-                <span className="text-[10px] text-slate-500">Base: 36.7°C</span>
+                <span className="text-[10px] text-gray-400">Base: 36.7°C</span>
               </div>
             </div>
           </div>
@@ -392,7 +392,7 @@ export function HomePage() {
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="page-kicker">Multi-Crew Telemetry</div>
-          <Link to="/astronauts" className="font-mono text-xs text-cyan-400 hover:underline">
+          <Link to="/astronauts" className="font-mono text-xs text-blue-500 hover:underline">
             View full crew dossier →
           </Link>
         </div>
@@ -413,20 +413,20 @@ export function HomePage() {
                 type="button"
                 onClick={() => setSelectedAstronautId(astro.id)}
                 className={`hud-card hud-card-hover text-left transition ${
-                  isSelected ? 'border-sky-400 bg-sky-950/40 shadow-glow' : ''
+                  isSelected ? 'border-sky-400 bg-blue-50 shadow-glow' : ''
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <div
-                      className="flex h-10 w-10 items-center justify-center rounded-lg font-bold text-slate-950"
+                      className="flex h-10 w-10 items-center justify-center rounded-lg font-bold text-gray-900"
                       style={{ backgroundColor: astro.accent }}
                     >
                       {astro.name[0]}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">{astro.name}</h4>
-                      <p className="font-mono text-[10px] text-slate-400">{astro.role}</p>
+                      <h4 className="font-semibold text-gray-900">{astro.name}</h4>
+                      <p className="font-mono text-[10px] text-gray-500">{astro.role}</p>
                     </div>
                   </div>
                   <span
@@ -442,22 +442,22 @@ export function HomePage() {
                   </span>
                 </div>
 
-                <div className="mt-3.5 grid grid-cols-4 gap-1 border-t border-slate-800/80 pt-2.5 text-center font-mono text-[11px]">
+                <div className="mt-3.5 grid grid-cols-4 gap-1 border-t border-gray-200 pt-2.5 text-center font-mono text-[11px]">
                   <div>
-                    <span className="text-[9px] text-slate-500">HR</span>
-                    <p className="font-bold text-slate-200">{Math.round(rd.hr)}</p>
+                    <span className="text-[9px] text-gray-400">HR</span>
+                    <p className="font-bold text-gray-800">{Math.round(rd.hr)}</p>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-500">HRV</span>
-                    <p className="font-bold text-slate-200">{Math.round(rd.hrv)}</p>
+                    <span className="text-[9px] text-gray-400">HRV</span>
+                    <p className="font-bold text-gray-800">{Math.round(rd.hrv)}</p>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-500">SpO₂</span>
-                    <p className="font-bold text-slate-200">{Math.round(rd.spo2)}%</p>
+                    <span className="text-[9px] text-gray-400">SpO₂</span>
+                    <p className="font-bold text-gray-800">{Math.round(rd.spo2)}%</p>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-500">TEMP</span>
-                    <p className="font-bold text-slate-200">{rd.temp.toFixed(1)}°</p>
+                    <span className="text-[9px] text-gray-400">TEMP</span>
+                    <p className="font-bold text-gray-800">{rd.temp.toFixed(1)}°</p>
                   </div>
                 </div>
               </button>
@@ -468,21 +468,21 @@ export function HomePage() {
 
       {/* Explainable Clinical Decision Support Alerts Feed (Section 4.9) */}
       <section className="hud-card">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+        <div className="flex items-center justify-between border-b border-gray-200 pb-3">
           <div>
             <span className="page-kicker">Explainable Clinical Intelligence</span>
-            <h3 className="font-display text-lg font-bold text-white">
+            <h3 className="font-display text-lg font-bold text-gray-900">
               Autonomous Clinical Decision Support Log
             </h3>
           </div>
-          <span className="font-mono text-xs text-slate-400">
+          <span className="font-mono text-xs text-gray-500">
             {alerts.length} active alert{alerts.length === 1 ? '' : 's'} for {astronaut.name}
           </span>
         </div>
 
         <div className="mt-4 space-y-3">
           {alerts.length === 0 ? (
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 text-xs text-emerald-200 font-mono">
+            <div className="rounded-xl border border-emerald-300 bg-emerald-950/20 p-4 text-xs text-emerald-200 font-mono">
               ✓ All physiological signals, baseline z-scores, and cabin life-support sensors remain
               strictly within calibrated mission margins. No clinical intervention indicated.
             </div>
@@ -496,14 +496,14 @@ export function HomePage() {
                     : 'border-amber-500/40 bg-amber-950/20'
                 }`}
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/60 pb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-2">
                   <div className="flex items-center gap-2">
                     <span
                       className={`h-2 w-2 rounded-full ${
                         al.level === 'critical' ? 'bg-rose-500 animate-ping' : 'bg-amber-400'
                       }`}
                     />
-                    <h4 className="font-semibold text-white text-sm">{al.title}</h4>
+                    <h4 className="font-semibold text-gray-900 text-sm">{al.title}</h4>
                   </div>
                   <span
                     className={`hud-chip ${
@@ -515,21 +515,21 @@ export function HomePage() {
                 </div>
 
                 {/* 4-Pillar Clinical Decision Support Explanation (Section 4.9) */}
-                <div className="mt-3 grid gap-2 sm:grid-cols-2 text-slate-300">
-                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
-                    <span className="font-mono text-[10px] uppercase text-cyan-300">01. WHAT (Observation)</span>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2 text-gray-700">
+                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
+                    <span className="font-mono text-[10px] uppercase text-blue-600">01. WHAT (Observation)</span>
                     <p className="mt-1 leading-relaxed">{al.what ?? al.reason}</p>
                   </div>
-                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
+                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
                     <span className="font-mono text-[10px] uppercase text-amber-300">02. WHY IT MATTERS (Clinical Impact)</span>
                     <p className="mt-1 leading-relaxed">{al.whyItMatters ?? al.reason}</p>
                   </div>
-                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
-                    <span className="font-mono text-[10px] uppercase text-sky-300">03. EVIDENCE (Algorithm Check)</span>
+                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
+                    <span className="font-mono text-[10px] uppercase text-blue-600">03. EVIDENCE (Algorithm Check)</span>
                     <p className="mt-1 leading-relaxed font-mono text-[11px]">{al.evidence ?? 'Z-Score deviation against rolling baseline'}</p>
                   </div>
-                  <div className="rounded-lg bg-slate-900/60 p-2.5 border border-slate-800/60">
-                    <span className="font-mono text-[10px] uppercase text-emerald-300">04. SUGGESTED ACTION (Countermeasure)</span>
+                  <div className="rounded-lg bg-gray-50 p-2.5 border border-gray-200">
+                    <span className="font-mono text-[10px] uppercase text-emerald-700">04. SUGGESTED ACTION (Countermeasure)</span>
                     <p className="mt-1 leading-relaxed font-semibold text-emerald-200">{al.action}</p>
                   </div>
                 </div>
@@ -540,23 +540,23 @@ export function HomePage() {
       </section>
 
       {/* Mission Footer Strip */}
-      <footer className="hud-card flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
+      <footer className="hud-card flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-gray-500">
         <div className="flex items-center gap-2">
-          <span className="text-cyan-400 font-bold">AstroPulse</span>
+          <span className="text-blue-500 font-bold">AstroPulse</span>
           <span>•</span>
           <span>NASA Space Apps Challenge 2026</span>
           <span>•</span>
-          <span className="text-slate-300">Created by <Link to="/team" className="text-cyan-300 hover:underline">Ayush Neupane</Link> (Nepal)</span>
+          <span className="text-gray-700">Created by <Link to="/team" className="text-blue-600 hover:underline">Ayush Neupane</Link> (Nepal)</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link to="/references" className="text-cyan-400 hover:text-cyan-200 transition">
+          <Link to="/references" className="text-blue-500 hover:text-blue-700 transition">
             NASA References &amp; Blueprints →
           </Link>
           <a
             href="https://github.com/NERDMONK-00/0dayNasaapp"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-white transition"
+            className="text-gray-500 hover:text-gray-900 transition"
           >
             GitHub
           </a>

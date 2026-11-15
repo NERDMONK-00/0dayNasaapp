@@ -72,18 +72,18 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
-      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-cyan-500/30 bg-slate-950 shadow-2xl">
+      <div className="flex h-[600px] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-blue-200 bg-gray-100 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/90 px-5 py-3">
+        <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400 bg-cyan-950 text-cyan-300">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-blue-300 bg-blue-50 text-blue-600">
               🤖
             </div>
             <div>
-              <h3 className="font-display text-sm font-bold text-white">
+              <h3 className="font-display text-sm font-bold text-gray-900">
                 Mission Medical Co-Pilot (Orbitkat CDSS)
               </h3>
-              <p className="font-mono text-[11px] text-cyan-400">
+              <p className="font-mono text-[11px] text-blue-500">
                 Earth-Independent Clinical Decision Support • Crew: {astronaut.name}
               </p>
             </div>
@@ -91,14 +91,14 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition"
+            className="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
           >
             ✕
           </button>
         </div>
 
         {/* Quick Prompt Pills */}
-        <div className="flex gap-2 border-b border-slate-800/80 bg-slate-900/40 px-4 py-2 overflow-x-auto text-xs">
+        <div className="flex gap-2 border-b border-gray-200 bg-gray-50 px-4 py-2 overflow-x-auto text-xs">
           {[
             'Assess EVA Readiness',
             'Explain current Risk Index',
@@ -110,7 +110,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               key={prompt}
               type="button"
               onClick={() => handleSend(prompt)}
-              className="rounded-full border border-slate-700 bg-slate-800/70 px-3 py-1 font-mono text-[11px] text-slate-300 hover:border-cyan-400 hover:text-cyan-200 transition whitespace-nowrap"
+              className="rounded-full border border-gray-300 bg-gray-100 px-3 py-1 font-mono text-[11px] text-gray-700 hover:border-blue-300 hover:text-blue-700 transition whitespace-nowrap"
             >
               {prompt}
             </button>
@@ -125,16 +125,16 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-[10px] text-slate-500">
+                <span className="font-mono text-[10px] text-gray-400">
                   {m.role === 'user' ? 'Flight Surgeon' : 'Orbitkat Co-Pilot'}
                 </span>
-                <span className="font-mono text-[9px] text-slate-600">{m.time}</span>
+                <span className="font-mono text-[9px] text-gray-400">{m.time}</span>
               </div>
               <div
                 className={`max-w-[85%] rounded-xl px-4 py-2.5 ${
                   m.role === 'user'
-                    ? 'bg-cyan-600/20 text-cyan-100 border border-cyan-500/30'
-                    : 'bg-slate-900/90 text-slate-200 border border-slate-800'
+                    ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                    : 'bg-gray-50 text-gray-800 border border-gray-200'
                 }`}
               >
                 {m.text}
@@ -144,7 +144,7 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
         </div>
 
         {/* Input Bar */}
-        <div className="border-t border-slate-800 bg-slate-900/80 p-3">
+        <div className="border-t border-gray-200 bg-gray-50 p-3">
           <form
             onSubmit={(e) => {
               e.preventDefault()
@@ -157,11 +157,11 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask medical decision support query (e.g. EVA safety, SANS risk, hypoxia)..."
-              className="flex-1 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 font-mono text-xs text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+              className="flex-1 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 font-mono text-xs text-gray-900 placeholder-gray-400 focus:border-blue-300 focus:outline-none"
             />
             <button
               type="submit"
-              className="rounded-lg bg-cyan-500 px-4 py-2 font-display text-xs font-semibold text-slate-950 hover:bg-cyan-400 transition"
+              className="rounded-lg bg-blue-500 px-4 py-2 font-display text-xs font-semibold text-white hover:bg-blue-600 transition"
             >
               Send
             </button>

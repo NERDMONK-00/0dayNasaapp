@@ -71,9 +71,9 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
   const active = subsystems[activeSubsystem] ?? subsystems.dcm
 
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-2xl border border-sky-500/20 bg-slate-950/80 p-4 shadow-2xl backdrop-blur-xl">
+    <div className="relative flex flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white p-4 shadow-2xl backdrop-blur-sm">
       {/* Header telemetry badge */}
-      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+      <div className="flex items-center justify-between border-b border-gray-200 pb-3">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span
@@ -82,7 +82,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                   ? 'bg-rose-400 opacity-75'
                   : status === 'warning'
                     ? 'bg-amber-400 opacity-75'
-                    : 'bg-cyan-400 opacity-75'
+                    : 'bg-blue-400 opacity-75'
               }`}
             />
             <span
@@ -91,11 +91,11 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                   ? 'bg-rose-500'
                   : status === 'warning'
                     ? 'bg-amber-500'
-                    : 'bg-cyan-500'
+                    : 'bg-blue-500'
               }`}
             />
           </span>
-          <p className="font-mono text-xs uppercase tracking-widest text-sky-300">
+          <p className="font-mono text-xs uppercase tracking-widest text-blue-600">
             3D Biomechanical Telemetry Twin
           </p>
         </div>
@@ -107,8 +107,8 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               onClick={() => setActiveSubsystem(key)}
               className={`rounded px-2 py-0.5 font-mono text-[11px] uppercase transition ${
                 activeSubsystem === key
-                  ? 'border border-cyan-400 bg-cyan-500/20 text-cyan-200'
-                  : 'border border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                  ? 'border border-blue-300 bg-blue-500/20 text-blue-700'
+                  : 'border border-gray-200 bg-gray-50 text-gray-500 hover:border-gray-300 hover:text-gray-800'
               }`}
             >
               {key}
@@ -128,8 +128,8 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
         />
 
         {/* Orbit Hint overlay */}
-        <div className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-1.5 rounded-md border border-slate-800 bg-slate-900/80 px-2.5 py-1 text-[10px] font-mono text-slate-400 backdrop-blur-sm">
-          <svg className="h-3 w-3 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="pointer-events-none absolute bottom-2 left-2 flex items-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-[10px] font-mono text-gray-500 backdrop-blur-sm">
+          <svg className="h-3 w-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
           Drag to rotate 3D spacesuit • Scroll to zoom
@@ -137,7 +137,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
       </div>
 
       {/* Subsystem Telemetry Details Box */}
-      <div className="mt-3 rounded-xl border border-slate-800 bg-slate-900/70 p-3 text-xs">
+      <div className="mt-3 rounded-xl border border-gray-200 bg-gray-50 p-3 text-xs">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span
@@ -149,12 +149,12 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     : 'bg-emerald-400'
               }`}
             />
-            <span className="font-semibold text-slate-100">{active.title}</span>
+            <span className="font-semibold text-gray-900">{active.title}</span>
           </div>
-          <span className="font-mono text-[10px] text-cyan-300">{active.nominalRange}</span>
+          <span className="font-mono text-[10px] text-blue-600">{active.nominalRange}</span>
         </div>
-        <p className="mt-1 text-[11px] text-slate-400">{active.sensorType}</p>
-        <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{active.clinicalNote}</p>
+        <p className="mt-1 text-[11px] text-gray-500">{active.sensorType}</p>
+        <p className="mt-1.5 text-xs leading-relaxed text-gray-700">{active.clinicalNote}</p>
       </div>
     </div>
   )

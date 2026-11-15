@@ -126,13 +126,13 @@ export function TestPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center border-b border-slate-800/80 pb-4">
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center border-b border-gray-200 pb-4">
         <div>
           <span className="page-kicker">Section 4.1 & 6.1 Simulation Lab</span>
           <h1 className="page-title text-2xl sm:text-3xl">
             Physiology Simulator & Scenario Injector
           </h1>
-          <p className="text-xs text-slate-400 font-mono mt-1">
+          <p className="text-xs text-gray-500 font-mono mt-1">
             Validate personal baselines, multi-signal confirmation, and hard rules on synthetic astronaut profiles.
           </p>
         </div>
@@ -161,8 +161,8 @@ export function TestPage() {
                   onClick={() => setSelectedAstronautId(astro.id)}
                   className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 font-mono text-xs border transition ${
                     selectedAstronautId === astro.id
-                      ? 'border-cyan-400 bg-cyan-950/70 text-cyan-200 shadow-glow'
-                      : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:text-white'
+                      ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-glow'
+                      : 'border-gray-200 bg-gray-50 text-gray-500 hover:text-gray-900'
                   }`}
                 >
                   <span
@@ -177,7 +177,7 @@ export function TestPage() {
 
           <div className="hud-card">
             <span className="page-kicker">Step 02 • Inject Clinical Scenario</span>
-            <h3 className="font-display text-sm font-bold text-white mt-1">
+            <h3 className="font-display text-sm font-bold text-gray-900 mt-1">
               Test Synthetic Stress Patterns
             </h3>
 
@@ -191,20 +191,20 @@ export function TestPage() {
                     onClick={() => handleApplyScenario(sc.id)}
                     className={`flex w-full flex-col rounded-xl border p-3 text-left transition ${
                       isSelected
-                        ? 'border-cyan-400 bg-cyan-950/60 shadow-glow'
-                        : 'border-slate-800 bg-slate-900/50 hover:border-slate-700 hover:bg-slate-800/60'
+                        ? 'border-blue-300 bg-blue-50 shadow-glow'
+                        : 'border-gray-200 bg-gray-50 hover:border-gray-300 hover:bg-gray-100'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-white text-xs">{sc.label}</span>
+                      <span className="font-semibold text-gray-900 text-xs">{sc.label}</span>
                       {isSelected && (
-                        <span className="rounded bg-cyan-400/20 px-1.5 py-0.5 font-mono text-[9px] text-cyan-300 uppercase">
+                        <span className="rounded bg-blue-400/20 px-1.5 py-0.5 font-mono text-[9px] text-blue-600 uppercase">
                           Active Inject
                         </span>
                       )}
                     </div>
-                    <p className="mt-1 font-mono text-[11px] text-sky-400">{sc.affectedSignals}</p>
-                    <p className="mt-0.5 text-[11px] text-slate-400">{sc.pattern}</p>
+                    <p className="mt-1 font-mono text-[11px] text-blue-500">{sc.affectedSignals}</p>
+                    <p className="mt-0.5 text-[11px] text-gray-500">{sc.pattern}</p>
                   </button>
                 )
               })}
@@ -214,12 +214,12 @@ export function TestPage() {
           {/* Model Parameter Controls (Appendix A Table A1) */}
           <div className="hud-card font-mono text-xs space-y-3">
             <span className="page-kicker">Appendix A • Detector Parameters</span>
-            <h4 className="font-display text-xs font-bold text-white">Tune Algorithm Sensitivity</h4>
+            <h4 className="font-display text-xs font-bold text-gray-900">Tune Algorithm Sensitivity</h4>
 
             <div>
-              <div className="flex justify-between text-[11px] text-slate-300">
+              <div className="flex justify-between text-[11px] text-gray-700">
                 <span>Baseline Window (W):</span>
-                <span className="text-cyan-300">{wWindow} Hours</span>
+                <span className="text-blue-600">{wWindow} Hours</span>
               </div>
               <input
                 type="range"
@@ -233,7 +233,7 @@ export function TestPage() {
             </div>
 
             <div>
-              <div className="flex justify-between text-[11px] text-slate-300">
+              <div className="flex justify-between text-[11px] text-gray-700">
                 <span>Watch Threshold (k):</span>
                 <span className="text-amber-300">{zWatch.toFixed(1)} σ</span>
               </div>
@@ -249,7 +249,7 @@ export function TestPage() {
             </div>
 
             <div>
-              <div className="flex justify-between text-[11px] text-slate-300">
+              <div className="flex justify-between text-[11px] text-gray-700">
                 <span>Critical Threshold:</span>
                 <span className="text-rose-400">{zCritical.toFixed(1)} σ</span>
               </div>
@@ -270,7 +270,7 @@ export function TestPage() {
         <div className="space-y-4 lg:col-span-7">
           {/* Active Scenario Dossier Box */}
           <div className="hud-card">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
               <span className="page-kicker">Live Injection Status</span>
               <span
                 className={`hud-chip ${
@@ -285,18 +285,18 @@ export function TestPage() {
               </span>
             </div>
 
-            <h3 className="font-display text-xl font-bold text-white mt-2">{meta.label}</h3>
-            <p className="mt-1 text-xs text-slate-300 leading-relaxed">{meta.description}</p>
+            <h3 className="font-display text-xl font-bold text-gray-900 mt-2">{meta.label}</h3>
+            <p className="mt-1 text-xs text-gray-700 leading-relaxed">{meta.description}</p>
 
-            <div className="mt-3 rounded-lg border border-slate-800 bg-slate-900/60 p-3 text-xs">
-              <span className="font-mono text-[10px] uppercase text-cyan-300">Expected Detector Response:</span>
-              <p className="mt-0.5 text-slate-200">{meta.expectedRule}</p>
+            <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 p-3 text-xs">
+              <span className="font-mono text-[10px] uppercase text-blue-600">Expected Detector Response:</span>
+              <p className="mt-0.5 text-gray-800">{meta.expectedRule}</p>
             </div>
 
             {/* Time to Detection Counter */}
-            <div className="mt-3 flex items-center justify-between rounded-lg border border-cyan-500/30 bg-cyan-950/30 p-3 font-mono text-xs">
-              <span className="text-slate-300">Time-To-Detection (Latency):</span>
-              <span className="font-bold text-cyan-300 text-sm">
+            <div className="mt-3 flex items-center justify-between rounded-lg border border-blue-200 bg-blue-50 p-3 font-mono text-xs">
+              <span className="text-gray-700">Time-To-Detection (Latency):</span>
+              <span className="font-bold text-blue-600 text-sm">
                 {detectionLatency ? `${detectionLatency}s` : injectStartTime ? 'Detecting drift...' : 'N/A (Nominal)'}
               </span>
             </div>
@@ -306,36 +306,36 @@ export function TestPage() {
           <div className="hud-card">
             <span className="page-kicker">Live Sensor Streams • {astronaut.name}</span>
             <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2.5 font-mono text-xs">
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">HEART RATE</span>
-                <p className="text-lg font-bold text-cyan-300">{Math.round(current.hr)} bpm</p>
-                <span className="text-[10px] text-slate-500">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">HEART RATE</span>
+                <p className="text-lg font-bold text-blue-600">{Math.round(current.hr)} bpm</p>
+                <span className="text-[10px] text-gray-400">
                   Norm: {baselines.hr?.mean ?? 68} bpm
                 </span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">HRV (RMSSD)</span>
-                <p className="text-lg font-bold text-sky-300">{Math.round(current.hrv)} ms</p>
-                <span className="text-[10px] text-slate-500">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">HRV (RMSSD)</span>
+                <p className="text-lg font-bold text-blue-600">{Math.round(current.hrv)} ms</p>
+                <span className="text-[10px] text-gray-400">
                   Norm: {baselines.hrv?.mean ?? 52} ms
                 </span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">SPO₂ SATURATION</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">SPO₂ SATURATION</span>
                 <p
                   className={`text-lg font-bold ${
-                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-300'
+                    current.spo2 < 92 ? 'text-rose-400' : 'text-emerald-700'
                   }`}
                 >
                   {current.spo2.toFixed(1)}%
                 </p>
-                <span className="text-[10px] text-slate-500">Target: &gt;95%</span>
+                <span className="text-[10px] text-gray-400">Target: &gt;95%</span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">TEMPERATURE</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">TEMPERATURE</span>
                 <p
                   className={`text-lg font-bold ${
                     current.temp > 38.0 ? 'text-rose-400' : 'text-amber-300'
@@ -343,39 +343,39 @@ export function TestPage() {
                 >
                   {current.temp.toFixed(1)}°C
                 </p>
-                <span className="text-[10px] text-slate-500">Norm: 36.7°C</span>
+                <span className="text-[10px] text-gray-400">Norm: 36.7°C</span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">RESPIRATION</span>
-                <p className="text-lg font-bold text-slate-200">{Math.round(current.resp)} br/m</p>
-                <span className="text-[10px] text-slate-500">Norm: 15 br/m</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">RESPIRATION</span>
+                <p className="text-lg font-bold text-gray-800">{Math.round(current.resp)} br/m</p>
+                <span className="text-[10px] text-gray-400">Norm: 15 br/m</span>
               </div>
 
-              <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2.5">
-                <span className="text-[10px] text-slate-400">CABIN CO₂</span>
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-2.5">
+                <span className="text-[10px] text-gray-500">CABIN CO₂</span>
                 <p
                   className={`text-lg font-bold ${
-                    current.co2 > 1500 ? 'text-rose-400' : 'text-slate-200'
+                    current.co2 > 1500 ? 'text-rose-400' : 'text-gray-800'
                   }`}
                 >
                   {Math.round(current.co2)} ppm
                 </p>
-                <span className="text-[10px] text-slate-500">Limit: 1600 ppm</span>
+                <span className="text-[10px] text-gray-400">Limit: 1600 ppm</span>
               </div>
             </div>
           </div>
 
           {/* Fired Alerts Log in Test Environment */}
           <div className="hud-card">
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
               <span className="page-kicker">Fired Decision Support Alerts ({activeAlerts.length})</span>
-              <span className="font-mono text-[10px] text-slate-400">Deterministic Audit Trail</span>
+              <span className="font-mono text-[10px] text-gray-500">Deterministic Audit Trail</span>
             </div>
 
             <div className="mt-3 space-y-2.5">
               {activeAlerts.length === 0 ? (
-                <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/20 p-3 font-mono text-xs text-emerald-200">
+                <div className="rounded-lg border border-emerald-300 bg-emerald-950/20 p-3 font-mono text-xs text-emerald-200">
                   ✓ Nominal status. No statistical deviation or threshold breach detected.
                 </div>
               ) : (
@@ -388,14 +388,14 @@ export function TestPage() {
                         : 'border-amber-500/40 bg-amber-950/20'
                     }`}
                   >
-                    <div className="flex items-center justify-between font-semibold text-white">
+                    <div className="flex items-center justify-between font-semibold text-gray-900">
                       <span>{al.title}</span>
                       <span className={`hud-chip ${al.level === 'critical' ? 'hud-chip-crit' : 'hud-chip-warn'}`}>
                         {al.level.toUpperCase()}
                       </span>
                     </div>
-                    <p className="mt-1.5 text-slate-300 font-mono text-[11px]">{al.evidence}</p>
-                    <p className="mt-1 text-emerald-300 font-semibold">{al.action}</p>
+                    <p className="mt-1.5 text-gray-700 font-mono text-[11px]">{al.evidence}</p>
+                    <p className="mt-1 text-emerald-700 font-semibold">{al.action}</p>
                   </div>
                 ))
               )}
