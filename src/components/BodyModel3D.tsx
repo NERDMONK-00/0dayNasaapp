@@ -111,43 +111,43 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
   }
 
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-xl">
-      {/* Brainwave-Style Studio Top Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 bg-[#FAFAFA] px-4 py-2.5 text-xs">
+    <div className="relative flex flex-col overflow-hidden rounded-2xl border border-white/15 bg-slate-950/80 shadow-2xl backdrop-blur-xl text-slate-100">
+      {/* Cinematic Studio Top Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-black/40 px-4 py-2.5 text-xs">
         {/* Project breadcrumb */}
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-200 bg-white p-0.5 shadow-2xs">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/15 bg-white/10 p-0.5 shadow-sm">
             <img src="/logo.png" alt="AstroPulse Mechanical Logo" className="h-full w-full object-contain" />
           </div>
           <div>
-            <div className="flex items-center gap-1 font-semibold text-gray-900">
+            <div className="flex items-center gap-1 font-semibold text-white">
               <span>EMU Spacesuit Twin</span>
-              <span className="text-gray-400 text-[10px]">v2.4</span>
+              <span className="text-cyan-400 font-mono text-[10px]">v2.4</span>
             </div>
-            <p className="text-[10px] text-gray-500 font-mono">Biomechanical CAD Studio</p>
+            <p className="text-[10px] text-slate-400 font-mono">Biomechanical CAD Studio</p>
           </div>
         </div>
 
         {/* Studio Viewport Tools */}
-        <div className="hidden sm:flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-2 py-1 shadow-2xs">
+        <div className="hidden sm:flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-2 py-1 shadow-inner">
           <button
             type="button"
             onClick={() => setActiveSubsystem('dcm')}
             title="Reset to Core"
-            className="rounded px-2 py-0.5 text-[11px] font-medium text-gray-600 hover:bg-gray-100"
+            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-slate-300 hover:text-white hover:bg-white/10"
           >
             Reset
           </button>
-          <span className="h-3 w-[1px] bg-gray-200" />
+          <span className="h-3 w-[1px] bg-white/20" />
           <button
             type="button"
             onClick={() => setCameraView(cameraView === 'perspective' ? 'isometric' : 'perspective')}
-            className="rounded px-2 py-0.5 text-[11px] font-medium text-blue-600 hover:bg-blue-50"
+            className="rounded-full px-2 py-0.5 text-[11px] font-medium text-cyan-300 hover:bg-white/10"
           >
             {cameraView === 'perspective' ? 'Perspective' : 'Isometric'}
           </button>
-          <span className="h-3 w-[1px] bg-gray-200" />
-          <span className="px-1.5 font-mono text-[11px] font-semibold text-gray-700">100%</span>
+          <span className="h-3 w-[1px] bg-white/20" />
+          <span className="px-1.5 font-mono text-[11px] font-semibold text-slate-300">100%</span>
         </div>
 
         {/* Right Status & Action */}
@@ -155,10 +155,10 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
           <span
             className={`flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase ${
               status === 'critical'
-                ? 'border-rose-200 bg-rose-50 text-rose-700'
+                ? 'border-rose-400/50 bg-rose-500/20 text-rose-300'
                 : status === 'warning'
-                  ? 'border-amber-200 bg-amber-50 text-amber-800'
-                  : 'border-emerald-200 bg-emerald-50 text-emerald-800'
+                  ? 'border-amber-400/50 bg-amber-500/20 text-amber-300'
+                  : 'border-emerald-400/50 bg-emerald-500/20 text-emerald-300'
             }`}
           >
             <span
@@ -166,8 +166,8 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                 status === 'critical'
                   ? 'bg-rose-500 animate-pulse'
                   : status === 'warning'
-                    ? 'bg-amber-500'
-                    : 'bg-emerald-500'
+                    ? 'bg-amber-400'
+                    : 'bg-emerald-400'
               }`}
             />
             {status}
@@ -179,7 +179,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               navigator.clipboard?.writeText(report)
               alert('Copied 3D Telemetry Subsystem Report to clipboard!')
             }}
-            className="rounded-lg border border-gray-200 bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 shadow-2xs hover:bg-gray-50 transition"
+            className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold text-white shadow-sm hover:bg-white/20 transition"
           >
             Export Spec
           </button>
@@ -187,18 +187,18 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
       </div>
 
       {/* Main Studio Viewport Grid */}
-      <div className="relative grid min-h-[440px] grid-cols-1 md:grid-cols-12 bg-[#F8F7F7]">
+      <div className="relative grid min-h-[440px] grid-cols-1 md:grid-cols-12 bg-gradient-to-b from-[#0a0f26] via-[#070b1e] to-[#040612]">
         {/* Left Scene Hierarchy Sidebar */}
-        <div className="hidden md:flex md:col-span-3 flex-col border-r border-gray-100 bg-white/80 p-3 backdrop-blur-sm">
+        <div className="hidden md:flex md:col-span-3 flex-col border-r border-white/10 bg-black/35 p-3 backdrop-blur-md">
           {/* Scene / Sensors toggle */}
-          <div className="flex rounded-lg bg-gray-100 p-0.5 text-[11px] font-medium text-gray-600 mb-3">
+          <div className="flex rounded-full bg-white/5 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
             <button
               type="button"
               onClick={() => setActiveTab('scene')}
-              className={`flex-1 rounded-md py-1 transition ${
+              className={`flex-1 rounded-full py-1 transition ${
                 activeTab === 'scene'
-                  ? 'bg-white font-semibold text-gray-900 shadow-2xs'
-                  : 'text-gray-500 hover:text-gray-800'
+                  ? 'bg-blue-600 font-semibold text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Hierarchy
@@ -206,10 +206,10 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
             <button
               type="button"
               onClick={() => setActiveTab('assets')}
-              className={`flex-1 rounded-md py-1 transition ${
+              className={`flex-1 rounded-full py-1 transition ${
                 activeTab === 'assets'
-                  ? 'bg-white font-semibold text-gray-900 shadow-2xs'
-                  : 'text-gray-500 hover:text-gray-800'
+                  ? 'bg-blue-600 font-semibold text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Sensors
@@ -218,7 +218,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
 
           {/* Subsystems Tree */}
           <div className="space-y-1 text-xs flex-1">
-            <p className="px-1 text-[10px] font-mono uppercase tracking-wider text-gray-400">
+            <p className="px-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
               Suit Assemblies
             </p>
 
@@ -229,14 +229,14 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                   key={sub.id}
                   type="button"
                   onClick={() => setActiveSubsystem(sub.id)}
-                  className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-xs transition ${
+                  className={`flex w-full items-center justify-between rounded-xl px-2.5 py-2 text-left text-xs transition border ${
                     isSelected
-                      ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200/60'
-                      : 'text-gray-600 hover:bg-gray-100/70 border border-transparent'
+                      ? 'bg-cyan-500/20 text-cyan-200 font-semibold border-cyan-400/40 shadow-[0_0_10px_rgba(0,240,255,0.15)]'
+                      : 'text-slate-300 hover:bg-white/5 border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <span className="rounded bg-gray-100 px-1 py-0.2 font-mono text-[9px] font-bold text-gray-600">
+                    <span className="rounded bg-white/10 px-1 py-0.2 font-mono text-[9px] font-bold text-cyan-300">
                       {sub.badge}
                     </span>
                     <span className="truncate text-[11px]">{sub.shortLabel}</span>
@@ -247,7 +247,7 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                         ? 'bg-rose-500'
                         : sub.status === 'caution'
                           ? 'bg-amber-400'
-                          : 'bg-emerald-500'
+                          : 'bg-emerald-400'
                     }`}
                   />
                 </button>
@@ -256,43 +256,43 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
           </div>
 
           {/* Interactive Lighting Environment */}
-          <div className="mt-4 space-y-1.5 text-xs border-t border-gray-100 pt-3">
-            <p className="px-1 text-[10px] font-mono uppercase tracking-wider text-gray-400">
+          <div className="mt-4 space-y-1.5 text-xs border-t border-white/10 pt-3">
+            <p className="px-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
               Lighting Scenario
             </p>
             <div className="grid grid-cols-3 gap-1">
               <button
                 type="button"
                 onClick={() => setLightPreset('nominal')}
-                className={`rounded py-1 font-mono text-[10px] transition border ${
+                className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'nominal'
-                    ? 'border-blue-300 bg-blue-50 text-blue-700 font-semibold'
-                    : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'border-cyan-400 bg-cyan-500/20 text-cyan-200 font-semibold'
+                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                Studio
+                Deep Space
               </button>
               <button
                 type="button"
                 onClick={() => setLightPreset('solar')}
-                className={`rounded py-1 font-mono text-[10px] transition border ${
+                className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'solar'
-                    ? 'border-amber-300 bg-amber-50 text-amber-800 font-semibold'
-                    : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'border-amber-400 bg-amber-500/20 text-amber-200 font-semibold'
+                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                Solar
+                Solar Flare
               </button>
               <button
                 type="button"
                 onClick={() => setLightPreset('night')}
-                className={`rounded py-1 font-mono text-[10px] transition border ${
+                className={`rounded-lg py-1 font-mono text-[10px] transition border ${
                   lightPreset === 'night'
-                    ? 'border-gray-400 bg-gray-100 text-gray-900 font-semibold'
-                    : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'border-indigo-400 bg-indigo-500/20 text-indigo-200 font-semibold'
+                    : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                Shadow
+                Penumbra
               </button>
             </div>
           </div>
@@ -300,7 +300,8 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
 
         {/* Center 3D Viewport */}
         <div className="relative md:col-span-6 flex flex-col items-center justify-center min-h-[400px]">
-          <div className="absolute inset-0 bg-[#F8F7F7]" />
+          {/* Subtle cosmic vignette */}
+          <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black/40 pointer-events-none" />
 
           {/* ThreeJS Canvas Viewport */}
           <div className="relative h-full w-full min-h-[400px]">
@@ -313,24 +314,24 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
             />
 
             {/* Orbit Instructions badge */}
-            <div className="pointer-events-none absolute top-3 left-3 flex items-center gap-1.5 rounded-md border border-gray-200/80 bg-white/90 px-2 py-0.5 text-[10px] font-mono text-gray-500 shadow-2xs">
-              <span className="text-blue-500 font-bold">↺</span>
+            <div className="pointer-events-none absolute top-3 left-3 flex items-center gap-1.5 rounded-full border border-white/15 bg-black/50 px-3 py-1 text-[10px] font-mono text-cyan-300 shadow-sm backdrop-blur-md">
+              <span className="font-bold">↺</span>
               <span>Rotate 360° • Pinch / Scroll to Zoom</span>
             </div>
           </div>
         </div>
 
         {/* Right Properties Panel */}
-        <div className="hidden md:flex md:col-span-3 flex-col border-l border-gray-100 bg-white/80 p-3 backdrop-blur-sm text-xs">
+        <div className="hidden md:flex md:col-span-3 flex-col border-l border-white/10 bg-black/35 p-3 backdrop-blur-md text-xs">
           {/* Header tab switcher */}
-          <div className="flex rounded-lg bg-gray-100 p-0.5 text-[11px] font-medium text-gray-600 mb-3">
+          <div className="flex rounded-full bg-white/5 p-0.5 text-[11px] font-medium text-slate-300 mb-3 border border-white/10">
             <button
               type="button"
               onClick={() => setRightTab('subsystem')}
-              className={`flex-1 rounded-md py-1 transition ${
+              className={`flex-1 rounded-full py-1 transition ${
                 rightTab === 'subsystem'
-                  ? 'bg-white font-semibold text-gray-900 shadow-2xs'
-                  : 'text-gray-500 hover:text-gray-800'
+                  ? 'bg-blue-600 font-semibold text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Inspection
@@ -338,10 +339,10 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
             <button
               type="button"
               onClick={() => setRightTab('materials')}
-              className={`flex-1 rounded-md py-1 transition ${
+              className={`flex-1 rounded-full py-1 transition ${
                 rightTab === 'materials'
-                  ? 'bg-white font-semibold text-gray-900 shadow-2xs'
-                  : 'text-gray-500 hover:text-gray-800'
+                  ? 'bg-blue-600 font-semibold text-white shadow-sm'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Materials
@@ -351,69 +352,69 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
           {rightTab === 'subsystem' ? (
             <div className="space-y-3">
               {/* Active Subsystem Card */}
-              <div className="rounded-xl border border-gray-200/80 bg-white p-3 shadow-2xs">
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center justify-between">
-                  <span className="font-semibold text-gray-900 text-xs">{active.title}</span>
+                  <span className="font-semibold text-white text-xs">{active.title}</span>
                   <span
                     className={`h-2 w-2 rounded-full ${
                       active.status === 'critical'
                         ? 'bg-rose-500'
                         : active.status === 'caution'
                           ? 'bg-amber-400'
-                          : 'bg-emerald-500'
+                          : 'bg-emerald-400'
                     }`}
                   />
                 </div>
-                <p className="mt-1 font-mono text-[10px] text-blue-600 font-semibold">{active.nominalRange}</p>
-                <p className="mt-1 text-[11px] text-gray-500">{active.sensorType}</p>
+                <p className="mt-1 font-mono text-[10px] text-cyan-300 font-semibold">{active.nominalRange}</p>
+                <p className="mt-1 text-[11px] text-slate-300">{active.sensorType}</p>
               </div>
 
               {/* Clinical Protocol */}
-              <div className="rounded-xl border border-gray-200/80 bg-white p-3 shadow-2xs">
-                <p className="text-[10px] font-mono uppercase text-gray-400 font-semibold">Clinical Protocol</p>
-                <p className="mt-1 text-xs leading-relaxed text-gray-700">{active.clinicalNote}</p>
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm backdrop-blur-sm">
+                <p className="text-[10px] font-mono uppercase text-slate-400 font-semibold">Clinical Protocol</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-300">{active.clinicalNote}</p>
               </div>
 
               {/* Real-time telemetry feed */}
-              <div className="rounded-xl border border-gray-200/80 bg-white p-3 shadow-2xs font-mono">
-                <p className="text-[10px] uppercase text-gray-400 font-semibold">Live Signals</p>
+              <div className="rounded-xl border border-white/10 bg-white/5 p-3 shadow-sm font-mono backdrop-blur-sm">
+                <p className="text-[10px] uppercase text-slate-400 font-semibold">Live Signals</p>
                 <div className="mt-1.5 flex items-baseline justify-between">
-                  <span className="text-gray-600">Heart Rate:</span>
-                  <span className="font-bold text-gray-900">{reading ? Math.round(reading.hr) : '--'} bpm</span>
+                  <span className="text-slate-400">Heart Rate:</span>
+                  <span className="font-bold text-white">{reading ? Math.round(reading.hr) : '--'} bpm</span>
                 </div>
                 <div className="mt-1 flex items-baseline justify-between">
-                  <span className="text-gray-600">SpO₂:</span>
-                  <span className="font-bold text-emerald-700">{reading ? reading.spo2.toFixed(1) : '--'}%</span>
+                  <span className="text-slate-400">SpO₂:</span>
+                  <span className="font-bold text-cyan-300">{reading ? reading.spo2.toFixed(1) : '--'}%</span>
                 </div>
                 <div className="mt-1 flex items-baseline justify-between">
-                  <span className="text-gray-600">Core Temp:</span>
-                  <span className="font-bold text-gray-900">{reading ? reading.temp.toFixed(1) : '--'}°C</span>
+                  <span className="text-slate-400">Core Temp:</span>
+                  <span className="font-bold text-white">{reading ? reading.temp.toFixed(1) : '--'}°C</span>
                 </div>
               </div>
             </div>
           ) : (
             <div className="space-y-3 font-mono text-xs">
-              <p className="text-[10px] uppercase text-gray-400 font-semibold">Suit Material Swatches</p>
+              <p className="text-[10px] uppercase text-slate-400 font-semibold">Suit Material Swatches</p>
               <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-xl border border-gray-200 bg-white p-2.5 text-center shadow-2xs">
-                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 shadow-xs" />
-                  <span className="text-[10px] text-gray-700 block font-semibold">Gold Visor</span>
-                  <span className="text-[9px] text-gray-400">95% Metal</span>
+                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 shadow-md" />
+                  <span className="text-[10px] text-slate-200 block font-semibold">Gold Visor</span>
+                  <span className="text-[9px] text-slate-400">95% Metal</span>
                 </div>
-                <div className="rounded-xl border border-gray-200 bg-white p-2.5 text-center shadow-2xs">
-                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-200 via-white to-gray-300 shadow-xs" />
-                  <span className="text-[10px] text-gray-700 block font-semibold">Ortho-Fabric</span>
-                  <span className="text-[9px] text-gray-400">Thermal Mylar</span>
+                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-200 via-white to-gray-400 shadow-md" />
+                  <span className="text-[10px] text-slate-200 block font-semibold">Ortho-Fabric</span>
+                  <span className="text-[9px] text-slate-400">Thermal Mylar</span>
                 </div>
-                <div className="rounded-xl border border-gray-200 bg-white p-2.5 text-center shadow-2xs">
-                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-700 via-gray-900 to-black shadow-xs" />
-                  <span className="text-[10px] text-gray-700 block font-semibold">Joint Bearing</span>
-                  <span className="text-[9px] text-gray-400">Carbon Alloy</span>
+                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-gray-700 via-gray-900 to-black shadow-md" />
+                  <span className="text-[10px] text-slate-200 block font-semibold">Joint Bearing</span>
+                  <span className="text-[9px] text-slate-400">Carbon Alloy</span>
                 </div>
-                <div className="rounded-xl border border-gray-200 bg-white p-2.5 text-center shadow-2xs">
-                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-blue-500 via-blue-300 to-blue-600 shadow-xs" />
-                  <span className="text-[10px] text-gray-700 block font-semibold">Astroskin PPG</span>
-                  <span className="text-[9px] text-gray-400">Dual 880nm</span>
+                <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center shadow-sm">
+                  <div className="mx-auto mb-1.5 h-10 w-10 rounded-full bg-gradient-to-tr from-blue-500 via-blue-300 to-blue-600 shadow-md" />
+                  <span className="text-[10px] text-slate-200 block font-semibold">Astroskin PPG</span>
+                  <span className="text-[9px] text-slate-400">Dual 880nm</span>
                 </div>
               </div>
             </div>
@@ -421,38 +422,38 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
         </div>
       </div>
 
-      {/* Docked Bottom Clinical Prompt Bar (cleanly integrated, not covering model feet) */}
-      <div className="border-t border-gray-100 bg-[#FAFAFA] p-3">
+      {/* Docked Bottom Clinical Prompt Bar */}
+      <div className="border-t border-white/10 bg-black/40 p-3 backdrop-blur-md">
         {promptFeedback && (
-          <div className="mb-2 rounded-lg border border-blue-200 bg-white px-3 py-1 font-mono text-[11px] text-blue-700 shadow-xs">
+          <div className="mb-2 rounded-lg border border-cyan-400/30 bg-cyan-950/40 px-3 py-1 font-mono text-[11px] text-cyan-200 shadow-sm">
             ✨ {promptFeedback}
           </div>
         )}
 
         <form
           onSubmit={handlePromptSubmit}
-          className="relative flex items-center gap-2 rounded-xl border border-black/[0.08] bg-white px-2.5 py-1.5 shadow-xs"
+          className="relative flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 shadow-inner"
         >
           {/* Quick select menu */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowAddMenu((prev) => !prev)}
-              className="flex h-7 w-7 items-center justify-center rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition text-sm font-bold"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition text-sm font-bold"
             >
               +
             </button>
             {showAddMenu && (
-              <div className="absolute bottom-9 left-0 z-30 w-48 rounded-xl border border-gray-200 bg-white p-1.5 shadow-xl text-xs">
+              <div className="absolute bottom-9 left-0 z-30 w-48 rounded-2xl border border-white/15 bg-[#0e1632] p-2 shadow-2xl text-xs backdrop-blur-xl">
                 <button
                   type="button"
                   onClick={() => {
                     setActiveSubsystem('dcm')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-gray-700 hover:bg-gray-100 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
                 >
-                  <span className="font-bold text-blue-600">[ECG]</span> Astroskin Patch
+                  <span className="font-bold text-cyan-300">[ECG]</span> Astroskin Patch
                 </button>
                 <button
                   type="button"
@@ -460,9 +461,9 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     setActiveSubsystem('helmet')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-gray-700 hover:bg-gray-100 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
                 >
-                  <span className="font-bold text-amber-600">[SANS]</span> Cranial Doppler
+                  <span className="font-bold text-amber-300">[SANS]</span> Cranial Doppler
                 </button>
                 <button
                   type="button"
@@ -470,9 +471,9 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
                     setActiveSubsystem('plss')
                     setShowAddMenu(false)
                   }}
-                  className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-gray-700 hover:bg-gray-100 font-mono text-[11px]"
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left text-slate-200 hover:bg-white/10 font-mono text-[11px]"
                 >
-                  <span className="font-bold text-emerald-600">[PLSS]</span> Scrubber Loop
+                  <span className="font-bold text-emerald-300">[PLSS]</span> Scrubber Loop
                 </button>
               </div>
             )}
@@ -491,9 +492,9 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
               const random = samplePrompts[Math.floor(Math.random() * samplePrompts.length)]
               setPromptText(random)
             }}
-            className="hidden sm:flex items-center gap-1 rounded-lg bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-700 hover:bg-gray-200 transition"
+            className="hidden sm:flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-slate-300 hover:bg-white/15 hover:text-white transition"
           >
-            <span className="text-blue-500 font-bold">✨</span>
+            <span className="text-cyan-300 font-bold">✨</span>
             <span>Inspire</span>
           </button>
 
@@ -503,13 +504,13 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
             value={promptText}
             onChange={(e) => setPromptText(e.target.value)}
             placeholder="Query suit telemetry (e.g. 'check SANS ICP', 'cardio baseline', 'PLSS O2')..."
-            className="flex-1 bg-transparent px-2 font-body text-xs text-gray-900 placeholder-gray-400 outline-none"
+            className="flex-1 bg-transparent px-2 font-body text-xs text-white placeholder-slate-400 outline-none"
           />
 
           {/* Submit */}
           <button
             type="submit"
-            className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-500 transition shadow-sm"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" />

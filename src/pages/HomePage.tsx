@@ -38,44 +38,55 @@ export function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Hero Mission Control Kicker */}
-      <section className="hud-card relative overflow-hidden border-blue-200 bg-gradient-to-r from-gray-50 via-white to-gray-50 p-6 md:p-8">
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+      {/* Cinematic Space Sailor Hero Banner (inspired by reference image) */}
+      <section className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-[#0e1632]/80 via-[#0a0f24]/90 to-[#060815]/95 p-6 md:p-10 shadow-2xl backdrop-blur-xl">
+        {/* Giant Watermark Typography (S P A C E / A S T R O P U L S E) */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden opacity-10">
+          <span className="font-display font-extrabold tracking-[0.3em] text-white text-[12vw] leading-none select-none">
+            SPACE
+          </span>
+        </div>
 
-        <div className="relative z-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
-          <div>
-            <div className="page-kicker">
-              <span>Deep Space Health Intelligence</span>
-              <span>•</span>
-              <span className="text-gray-500 font-mono">Earth-Independent Medical Operations (EIMO)</span>
+        {/* Ambient Nebula Glow Orbs */}
+        <div className="pointer-events-none absolute -right-16 -top-16 h-80 w-80 rounded-full bg-cyan-500/15 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 -bottom-16 h-80 w-80 rounded-full bg-blue-600/20 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="font-mono text-xs uppercase tracking-widest text-cyan-300 font-semibold">
+                Autonomous Deep Space Clinical Operations
+              </span>
             </div>
-            <h1 className="page-title mt-2 text-2xl md:text-3xl lg:text-4xl text-gray-900">
-              Autonomous Crew Health & Clinical Decision Support
+
+            <h1 className="mt-3 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              AstroPulse <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500">Space Sailor</span>
             </h1>
-            <p className="page-copy mt-2.5 max-w-2xl text-sm leading-relaxed text-gray-700">
-              Personalized rolling baselines, multi-signal anomaly confirmation, and NASA DONKI
-              space-weather risk fusion. Designed for lunar and martian transit where Earth communication
-              delay exceeds 20 minutes.
+
+            <p className="mt-3 font-body text-sm md:text-base leading-relaxed text-slate-300">
+              <span className="italic font-medium text-white/90">"The term &apos;Astronaut&apos; derives from the Greek words meaning &apos;Space Sailor&apos;"</span> — autonomous health surveillance, personal rolling baselines, and multi-sensor anomaly concordance for deep space exploration.
             </p>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <Link to="/test" className="hud-btn">
-                <span>⚡ Open Simulation Lab</span>
+            {/* Glowing Pill Action Buttons (like "Explore Space!" in image) */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/astronauts" className="hud-btn text-sm">
+                <span>Explore Space Telemetry →</span>
               </Link>
-              <Link to="/astronauts" className="hud-btn hud-btn-secondary">
-                <span>🧑‍🚀 Crew Vitals & 3D Dossier</span>
+              <Link to="/test" className="hud-btn hud-btn-secondary text-sm">
+                <span>⚡ Simulation Lab</span>
               </Link>
-              <Link to="/results" className="hud-btn hud-btn-secondary">
-                <span>📊 Research Evaluation Matrix</span>
+              <Link to="/results" className="hud-btn hud-btn-secondary text-sm">
+                <span>📊 Research Matrix</span>
               </Link>
             </div>
           </div>
 
-          {/* Quick Scenario Injector Widget */}
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 lg:w-80 backdrop-blur-md">
-            <div className="flex items-center justify-between border-b border-gray-200 pb-2">
-              <span className="font-mono text-xs text-blue-500">INJECT SCENARIO</span>
-              <span className="font-mono text-[10px] text-gray-400">REAL-TIME</span>
+          {/* Quick Scenario Injector Widget in Frosted Glass */}
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 lg:w-80 backdrop-blur-xl shadow-lg">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+              <span className="font-mono text-xs text-cyan-300 font-semibold">INJECT SCENARIO</span>
+              <span className="font-mono text-[10px] text-slate-400">REAL-TIME TEST</span>
             </div>
             <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-xs">
               {scenariosList.map((sc) => (
@@ -83,10 +94,10 @@ export function HomePage() {
                   key={sc.id}
                   type="button"
                   onClick={() => setScenario(sc.id)}
-                  className={`flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] transition ${
+                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-left font-mono text-[11px] transition ${
                     currentScenario === sc.id
-                      ? 'border border-blue-300 bg-blue-50 text-blue-700 font-semibold shadow-xs'
-                      : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-100'
+                      ? 'border border-cyan-400/60 bg-cyan-500/20 text-cyan-200 font-semibold shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                      : 'border border-white/10 bg-white/5 text-slate-300 hover:border-white/20 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   <span>{sc.icon}</span>
@@ -96,7 +107,7 @@ export function HomePage() {
               <button
                 type="button"
                 onClick={() => setScenario('normal')}
-                className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-left font-mono text-[11px] border border-gray-200 bg-white text-gray-600 hover:border-blue-200 hover:text-blue-700 transition"
+                className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-left font-mono text-[11px] border border-white/10 bg-white/5 text-slate-400 hover:border-cyan-400/40 hover:text-cyan-300 transition"
               >
                 <span>🔄</span>
                 <span className="truncate">Reset Lab</span>
