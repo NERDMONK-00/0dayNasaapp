@@ -116,8 +116,8 @@ export function BodyModel3D({ status = 'normal', reading }: BodyModel3DProps) {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 bg-[#FAFAFA] px-4 py-2.5 text-xs">
         {/* Project breadcrumb */}
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white font-mono text-xs font-bold shadow-xs">
-            3D
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-gray-200 bg-white p-0.5 shadow-2xs">
+            <img src="/logo.png" alt="AstroPulse Mechanical Logo" className="h-full w-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-1 font-semibold text-gray-900">

@@ -76,8 +76,8 @@ export function MascotAssistant({ isOpen, onClose, riskScore }: MascotAssistantP
         {/* Header */}
         <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-blue-300 bg-blue-50 text-blue-600">
-              🤖
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white p-0.5 shadow-2xs">
+              <img src="/logo.png" alt="AstroPulse Mechanical Twin" className="h-full w-full object-contain" />
             </div>
             <div>
               <h3 className="font-display text-sm font-bold text-gray-900">

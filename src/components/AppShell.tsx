@@ -100,9 +100,7 @@ export default function AppShell() {
                 onClick={() => setShowAssistant((prev) => !prev)}
                 className="flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-blue-700 hover:bg-blue-100 transition font-medium text-[11px]"
               >
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+                <img src="/logo.png" alt="AstroPulse Bot" className="h-3.5 w-3.5 object-contain" />
                 <span>Mission Co-Pilot</span>
               </button>
             </div>
@@ -113,17 +111,19 @@ export default function AppShell() {
         <div className="px-4 py-2">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             {/* Logo */}
-            <NavLink to="/" className="flex items-center gap-2 group shrink-0">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600 text-white shadow-xs">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            <NavLink to="/" className="flex items-center gap-2.5 group shrink-0">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200/80 bg-white p-0.5 shadow-xs group-hover:border-blue-300 transition">
+                <img
+                  src="/logo.png"
+                  alt="AstroPulse Mechanical Twin Logo"
+                  className="h-full w-full object-contain transition transform group-hover:scale-105"
+                />
               </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-display text-base font-bold tracking-tight text-gray-900 group-hover:text-blue-600 transition">
                   ASTROPULSE
                 </span>
-                <span className="hidden md:inline-block text-[9px] font-mono tracking-wider text-blue-600 uppercase border border-blue-200 rounded px-1 bg-blue-50">
+                <span className="hidden md:inline-block text-[9px] font-mono tracking-wider text-blue-600 uppercase border border-blue-200 rounded px-1.5 py-0.2 bg-blue-50">
                   NASA Space Apps
                 </span>
               </div>
