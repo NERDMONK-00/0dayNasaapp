@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, OrbitControls, Sparkles, Stars } from '@react-three/drei'
+import { Float, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 import type { AlertLevel, VitalReading } from '../types'
 
@@ -475,16 +475,13 @@ export function Astronaut3D({
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
       >
-        {/* Cinematic Deep Space Lighting (matching Space Sailor image) */}
-        <ambientLight intensity={0.65} />
-        <directionalLight position={[5, 7, 5]} intensity={1.8} color="#ffffff" />
-        <directionalLight position={[-4, 2, -2]} intensity={0.9} color="#38bdf8" />
-        <pointLight position={[0, 1, 2]} intensity={0.6} color="#fbbf24" />
+        {/* Clean Studio Lighting (Brainwave aesthetic) */}
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[4, 8, 6]} intensity={1.6} color="#ffffff" />
+        <directionalLight position={[-4, 3, 2]} intensity={0.7} color="#e2e8f0" />
+        <directionalLight position={[0, -3, -2]} intensity={0.3} color="#f1f5f9" />
 
-        <Stars radius={30} depth={20} count={350} factor={2} saturation={0} fade speed={0.8} />
-        <Sparkles count={25} scale={3.5} size={1.5} speed={0.3} opacity={0.5} color="#38bdf8" />
-
-        <Float speed={1.3} rotationIntensity={0.2} floatIntensity={0.35}>
+        <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
           <ProceduralAstronautModel
             status={status}
             reading={reading}

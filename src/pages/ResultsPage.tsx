@@ -125,13 +125,13 @@ export function ResultsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center border-b border-white/10 pb-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center border-b border-gray-200 pb-4">
         <div>
           <span className="page-kicker">Section 6 Scientific Validation Protocol</span>
           <h1 className="page-title text-2xl sm:text-3xl">
             Empirical Evaluation Matrix & Paper Results
           </h1>
-          <p className="text-xs text-slate-400 font-mono mt-1">
+          <p className="text-xs text-gray-500 font-mono mt-1">
             Reproducible benchmark comparing Fixed Population Thresholds vs Personal Baselines vs AstroPulse Full Detector.
           </p>
         </div>
@@ -161,31 +161,31 @@ export function ResultsPage() {
         <div className="hud-card p-3">
           <span className="text-[10px] text-gray-400 uppercase">Subjects Cohort</span>
           <p className="font-bold text-blue-600 mt-0.5">3 Synthetic Crew Members</p>
-          <span className="text-[9px] text-slate-400">Aster, Jade, Niko</span>
+          <span className="text-[9px] text-gray-500">Aster, Jade, Niko</span>
         </div>
         <div className="hud-card p-3">
           <span className="text-[10px] text-gray-400 uppercase">Simulated Duration</span>
           <p className="font-bold text-blue-600 mt-0.5">30 Simulated Days / Run</p>
-          <span className="text-[9px] text-slate-400">43,200 time steps</span>
+          <span className="text-[9px] text-gray-500">43,200 time steps</span>
         </div>
         <div className="hud-card p-3">
           <span className="text-[10px] text-gray-400 uppercase">Random Seed</span>
           <p className="font-bold text-emerald-700 mt-0.5">Seed #{runSeed}</p>
-          <span className="text-[9px] text-slate-400">Status: {lastRunDate}</span>
+          <span className="text-[9px] text-gray-500">Status: {lastRunDate}</span>
         </div>
         <div className="hud-card p-3">
           <span className="text-[10px] text-gray-400 uppercase">Reproducibility</span>
           <p className="font-bold text-amber-300 mt-0.5">Section 10 Compliant</p>
-          <span className="text-[9px] text-slate-400">Deterministic AR(1) Model</span>
+          <span className="text-[9px] text-gray-500">Deterministic AR(1) Model</span>
         </div>
       </div>
 
       {/* Section 6.3 Table 1: Primary Condition Comparison */}
       <div className="hud-card overflow-hidden">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+        <div className="flex items-center justify-between border-b border-gray-200 pb-3">
           <div>
             <span className="page-kicker">Section 6.3 • Primary Result Table</span>
-            <h3 className="font-display text-lg font-bold text-white">
+            <h3 className="font-display text-lg font-bold text-gray-900">
               Condition Comparison: Fixed Norms vs Personal Baseline vs Full Detector
             </h3>
           </div>
@@ -197,7 +197,7 @@ export function ResultsPage() {
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left font-mono text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-slate-400 text-[11px]">
+              <tr className="border-b border-gray-200 text-gray-500 text-[11px]">
                 <th className="pb-3 font-semibold">CONDITION</th>
                 <th className="pb-3 font-semibold">SENSITIVITY (%)</th>
                 <th className="pb-3 font-semibold">MEDIAN TIME-TO-DETECTION</th>
@@ -212,7 +212,7 @@ export function ResultsPage() {
                 return (
                   <tr
                     key={res.condition}
-                    className={`transition ${isC ? 'bg-blue-50 font-semibold text-white' : 'text-slate-300 hover:bg-slate-950/50'}`}
+                    className={`transition ${isC ? 'bg-blue-50 font-semibold text-gray-900' : 'text-gray-700 hover:bg-gray-50'}`}
                   >
                     <td className="py-3.5 pr-4">
                       <span className="text-blue-600 font-bold">{res.conditionName}</span>
@@ -237,7 +237,7 @@ export function ResultsPage() {
                         {res.precision}%
                       </span>
                     </td>
-                    <td className="py-3.5 text-slate-400">
+                    <td className="py-3.5 text-gray-500">
                       {res.latencyMs} ms
                     </td>
                   </tr>
@@ -247,7 +247,7 @@ export function ResultsPage() {
           </table>
         </div>
 
-        <div className="mt-4 border-t border-white/10 pt-3 text-xs leading-relaxed text-slate-300">
+        <div className="mt-4 border-t border-gray-200 pt-3 text-xs leading-relaxed text-gray-700">
           <p>
             <strong className="text-blue-600">Key Scientific Finding:</strong> Moving from fixed population thresholds (Condition A) to individual rolling baselines reduces false alarm rate by <strong>91.6%</strong> (from 4.8 down to 0.4 alerts/day) while increasing detection sensitivity from <strong>64.2% to 96.8%</strong>. This eliminates alert fatigue for isolated astronaut crews.
           </p>
@@ -256,9 +256,9 @@ export function ResultsPage() {
 
       {/* Section 6.3 Table 2: Scenario by Scenario Sensitivity */}
       <div className="hud-card">
-        <div className="border-b border-white/10 pb-3">
+        <div className="border-b border-gray-200 pb-3">
           <span className="page-kicker">Section 6.3 • Breakdown Table</span>
-          <h3 className="font-display text-lg font-bold text-white">
+          <h3 className="font-display text-lg font-bold text-gray-900">
             Condition C (Full AstroPulse) Scenario Performance Breakdown
           </h3>
         </div>
@@ -266,20 +266,20 @@ export function ResultsPage() {
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left font-mono text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-slate-400 text-[11px]">
+              <tr className="border-b border-gray-200 text-gray-500 text-[11px]">
                 <th className="pb-3 font-semibold">SCENARIO</th>
                 <th className="pb-3 font-semibold">CONDITION C SENSITIVITY</th>
                 <th className="pb-3 font-semibold">CONDITION C TIME-TO-DETECTION</th>
                 <th className="pb-3 font-semibold">DOMINANT CONFIRMATION MECHANISM</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-100">
+            <tbody className="divide-y divide-slate-800/60 text-gray-800">
               {scenarioResults.map((s) => (
-                <tr key={s.scenario} className="hover:bg-slate-950/50">
-                  <td className="py-3 font-semibold text-white">{s.label}</td>
+                <tr key={s.scenario} className="hover:bg-gray-50">
+                  <td className="py-3 font-semibold text-gray-900">{s.label}</td>
                   <td className="py-3 text-emerald-400 font-bold">{s.conditionCSensitivity}%</td>
                   <td className="py-3 text-blue-600 font-bold">{s.conditionCTimeToDetection}s</td>
-                  <td className="py-3 text-slate-400 text-[11px]">
+                  <td className="py-3 text-gray-500 text-[11px]">
                     {s.scenario === 'spo2'
                       ? 'Hard Safety Threshold Override (<90%)'
                       : s.scenario === 'co2'
@@ -301,26 +301,26 @@ export function ResultsPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="hud-card">
           <span className="page-kicker">Section 6.4 Sensitivity Analysis 01</span>
-          <h4 className="font-display text-sm font-bold text-white mt-1">
+          <h4 className="font-display text-sm font-bold text-gray-900 mt-1">
             Threshold k vs Sensitivity & False Alarm Trade-off
           </h4>
-          <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+          <p className="mt-2 text-xs text-gray-700 leading-relaxed">
             At k = 1.5, sensitivity reaches 99.2% but false alarms climb to 1.8/day. At k = 2.0 (AstroPulse operating point), the Pareto front achieves optimum false alarm rejection (0.4/day) with 96.8% sensitivity. At k = 3.0, only severe crises trigger alerts.
           </p>
-          <div className="mt-4 rounded-lg bg-slate-950/50 p-3 font-mono text-[11px] text-blue-600 border border-white/10">
+          <div className="mt-4 rounded-lg bg-gray-50 p-3 font-mono text-[11px] text-blue-600 border border-gray-200">
             k=1.5: 99.2% Sens / 1.8 FA • k=2.0 (Selected): 96.8% Sens / 0.4 FA • k=3.0: 82.4% Sens / 0.05 FA
           </div>
         </div>
 
         <div className="hud-card">
           <span className="page-kicker">Section 6.4 Sensitivity Analysis 02</span>
-          <h4 className="font-display text-sm font-bold text-white mt-1">
+          <h4 className="font-display text-sm font-bold text-gray-900 mt-1">
             Risk Index Weight Sensitivity (60/20/20 vs 50/25/25)
           </h4>
-          <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+          <p className="mt-2 text-xs text-gray-700 leading-relaxed">
             Evaluating weights (0.60·P + 0.20·E + 0.20·W) vs (0.50·P + 0.25·E + 0.25·W): A higher environmental weight causes rapid watch band triggers during minor habitat cooking or filtration cycles, whereas 60% physiology weighting correctly anchors on human clinical vulnerability.
           </p>
-          <div className="mt-4 rounded-lg bg-slate-950/50 p-3 font-mono text-[11px] text-amber-300 border border-white/10">
+          <div className="mt-4 rounded-lg bg-gray-50 p-3 font-mono text-[11px] text-amber-300 border border-gray-200">
             60/20/20 maintains crew autonomy; equal 33/33/33 weights over-react to non-pathological CO₂ fluctuations.
           </div>
         </div>

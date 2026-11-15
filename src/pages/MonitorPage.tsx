@@ -19,24 +19,24 @@ export function MonitorPage() {
   )
 
   return (
-    <div className="rounded-[30px] border border-white/10 bg-slate-950/50 p-6 md:p-8">
+    <div className="rounded-[30px] border border-gray-200 bg-gray-50 p-6 md:p-8">
       <p className="text-xs uppercase tracking-[0.32em] text-blue-600">Monitor</p>
-      <h1 className="mt-4 text-4xl font-semibold text-white">Live health monitor</h1>
+      <h1 className="mt-4 text-4xl font-semibold text-gray-900">Live health monitor</h1>
 
       <div className="mt-6 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-semibold text-white" style={{ backgroundColor: astronaut.accent }}>
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-semibold text-gray-900" style={{ backgroundColor: astronaut.accent }}>
           {astronaut.name.slice(0, 1)}
         </div>
         <div>
-          <p className="text-xl font-semibold text-white">{astronaut.name}</p>
-          <p className="text-sm text-slate-400">{astronaut.role}</p>
+          <p className="text-xl font-semibold text-gray-900">{astronaut.name}</p>
+          <p className="text-sm text-gray-500">{astronaut.role}</p>
         </div>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {summary.map((item) => (
-          <div key={item.label} className="rounded-2xl border border-white/15 bg-white/10 p-4">
-            <p className="text-xs uppercase tracking-[0.24em] text-slate-400">{item.label}</p>
+          <div key={item.label} className="rounded-2xl border border-gray-300 bg-gray-100 p-4">
+            <p className="text-xs uppercase tracking-[0.24em] text-gray-500">{item.label}</p>
             <p className={`mt-3 text-2xl font-semibold ${item.tone}`}>{item.value}</p>
           </div>
         ))}

@@ -254,12 +254,12 @@ export function ReferencesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="border-b border-white/10 pb-4">
+      <div className="border-b border-gray-200 pb-4">
         <span className="page-kicker">NASA Technical Resources & Literature Index</span>
         <h1 className="page-title text-2xl sm:text-3xl">
           NASA Technical Blueprints & Operational Systems Reference
         </h1>
-        <p className="text-xs text-slate-400 font-mono mt-1">
+        <p className="text-xs text-gray-500 font-mono mt-1">
           Direct citations and external links to peer-reviewed spaceflight literature, official NASA NTRS engineering papers, and active flight hardware.
         </p>
       </div>
@@ -282,7 +282,7 @@ export function ReferencesPage() {
               className={`rounded-lg px-2.5 py-1 transition border ${
                 activeCategory === cat.id
                   ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-glow'
-                  : 'border-white/10 bg-slate-950/50 text-slate-400 hover:text-white'
+                  : 'border-gray-200 bg-gray-50 text-gray-500 hover:text-gray-900'
               }`}
             >
               {cat.label}
@@ -295,7 +295,7 @@ export function ReferencesPage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search systems, papers, NTRS citations..."
-          className="rounded-lg border border-white/10 bg-white/10 px-3 py-1.5 font-mono text-xs text-white placeholder-gray-400 focus:border-blue-300 focus:outline-none sm:w-64"
+          className="rounded-lg border border-gray-200 bg-gray-100 px-3 py-1.5 font-mono text-xs text-gray-900 placeholder-gray-400 focus:border-blue-300 focus:outline-none sm:w-64"
         />
       </div>
 
@@ -304,19 +304,19 @@ export function ReferencesPage() {
         {filtered.map((item) => (
           <div key={item.id} className="hud-card hud-card-hover flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-2.5">
                 <span className="hud-chip hud-chip-ok font-mono text-[9px]">{item.tag}</span>
                 <span className="font-mono text-[10px] text-gray-400 uppercase">{item.category}</span>
               </div>
 
-              <h3 className="font-display text-base font-bold text-white mt-3 leading-snug">
+              <h3 className="font-display text-base font-bold text-gray-900 mt-3 leading-snug">
                 {item.title}
               </h3>
               <p className="mt-1 font-mono text-[11px] text-blue-600">{item.developerOrSource}</p>
-              <p className="mt-2 text-xs leading-relaxed text-slate-300">{item.summary}</p>
+              <p className="mt-2 text-xs leading-relaxed text-gray-700">{item.summary}</p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-white/10">
+            <div className="mt-4 pt-3 border-t border-gray-200">
               <a
                 href={item.url}
                 target="_blank"

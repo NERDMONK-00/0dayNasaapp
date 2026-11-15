@@ -18,8 +18,8 @@ export function SpaceNav() {
             ISS
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-[0.32em] text-slate-300">AstraOps</p>
-            <p className="text-sm font-medium text-white">Mission health</p>
+            <p className="text-[10px] uppercase tracking-[0.32em] text-gray-700">AstraOps</p>
+            <p className="text-sm font-medium text-gray-900">Mission health</p>
           </div>
         </div>
 
@@ -30,7 +30,7 @@ export function SpaceNav() {
               to={item.to}
               className={({ isActive }) =>
                 `rounded-full px-3 py-2 text-[11px] font-medium tracking-[0.18em] uppercase transition ${
-                  isActive ? 'bg-[#4de1ff]/15 text-[#dfeeff]' : 'text-slate-100 hover:text-white'
+                  isActive ? 'bg-[#4de1ff]/15 text-[#dfeeff]' : 'text-gray-800 hover:text-gray-900'
                 }`
               }
             >
@@ -46,7 +46,7 @@ export function SpaceNav() {
           <button
             type="button"
             aria-label="Open navigation menu"
-            className="flex h-11 w-11 items-center justify-center rounded-full border-3 border-[var(--outline)] bg-[rgba(20,19,74,0.6)] text-lg text-white shadow-[var(--shadow)] md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border-3 border-[var(--outline)] bg-[rgba(20,19,74,0.6)] text-lg text-gray-900 shadow-[var(--shadow)] md:hidden"
           >
             ☰
           </button>

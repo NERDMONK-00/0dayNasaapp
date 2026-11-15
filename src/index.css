@@ -1,28 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Cinematic Deep Space Theme (Space Sailor Aesthetic) ─────────────────── */
+/* ─── Light / Clean Theme (Brainwave-inspired) ───────────────────────────── */
 :root {
-  --bg:             #060814;
-  --bg-deep:        #04050D;
-  --surface:        rgba(15, 23, 42, 0.72);
-  --surface-raised: rgba(21, 32, 58, 0.85);
-  --border:         rgba(255, 255, 255, 0.10);
-  --border-strong:  rgba(56, 189, 248, 0.35);
-  --border-accent:  rgba(37, 99, 235, 0.6);
-  --text:           #F8FAFC;
-  --text-muted:     #94A3B8;
-  --text-dim:       #64748B;
-  --accent:         #38BDF8;
-  --accent-blue:    #2563EB;
+  --bg:             #F8F7F7;
+  --bg-deep:        #F0EFEF;
+  --surface:        #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --border:         rgba(0, 0, 0, 0.08);
+  --border-strong:  rgba(0, 0, 0, 0.16);
+  --border-accent:  rgba(59, 130, 246, 0.35);
+  --text:           #111827;
+  --text-muted:     #6B7280;
+  --text-dim:       #9CA3AF;
+  --accent:         #3B82F6;
+  --accent-soft:    rgba(59, 130, 246, 0.08);
   --ok:             #10B981;
   --warn:           #F59E0B;
   --crit:           #EF4444;
-  --shadow:         0 10px 30px rgba(0, 0, 0, 0.5);
-  --shadow-raised:  0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15);
+  --shadow:         0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-raised:  0 2px 8px rgba(0,0,0,0.09), 0 8px 24px rgba(0,0,0,0.06);
 }
 
 html,
@@ -41,53 +41,45 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--text);
-  /* Blurred ambient cosmic bokeh glow behind the floating card */
-  background-color: #060814;
-  background-image:
-    radial-gradient(circle at 18% 15%, rgba(67, 56, 202, 0.35), transparent 45%),
-    radial-gradient(circle at 82% 25%, rgba(14, 165, 233, 0.28), transparent 45%),
-    radial-gradient(circle at 50% 85%, rgba(192, 38, 211, 0.20), transparent 50%),
-    linear-gradient(180deg, #070915 0%, #030409 100%);
-  background-attachment: fixed;
+  /* Outer gray canvas — like Brainwave's desktop background */
+  background-color: #DDDCDC;
+  background-image: none;
   min-height: 100vh;
   overflow-x: hidden;
   padding: 16px;
   box-sizing: border-box;
 }
 
-/* Outer ambient bokeh overlay */
+/* Subtle dot-grid on the outer gray canvas */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
   z-index: 0;
 }
 
-/* The floating cinematic space app window */
+/* The floating white app card */
 .app-window {
   position: relative;
   z-index: 1;
   width: 100%;
   min-height: calc(100vh - 32px);
-  background: #080C1E;
-  background-image:
-    radial-gradient(ellipse at 50% -15%, rgba(56, 189, 248, 0.18), transparent 60%),
-    radial-gradient(ellipse at 85% 30%, rgba(99, 102, 241, 0.15), transparent 50%),
-    radial-gradient(ellipse at 15% 70%, rgba(168, 85, 247, 0.12), transparent 50%),
-    linear-gradient(180deg, #090E23 0%, #060918 50%, #04050F 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 28px;
+  background: #F8F7F7;
+  border-radius: 20px;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 25px 70px rgba(0, 0, 0, 0.85),
-    0 0 90px rgba(56, 189, 248, 0.14);
+    0 0 0 1px rgba(0,0,0,0.07),
+    0 8px 32px rgba(0,0,0,0.12),
+    0 32px 80px rgba(0,0,0,0.08);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  color: #F8FAFC;
+}
+
+body::after {
+  content: none;
 }
 
 h1, h2, h3, h4, .font-display {
@@ -101,75 +93,86 @@ h1, h2, h3, h4, .font-display {
 
 @layer components {
 
-  /* ── Cinematic Glass Cards ──────────────────────────────────────────── */
+  /* ── Cards ─────────────────────────────────────────────────────────── */
   .hud-card,
   .toon-card {
-    background: rgba(13, 20, 39, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 18px;
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
     padding: 1.25rem 1.35rem;
-    backdrop-filter: blur(20px);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: none;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
   .hud-card-hover:hover,
   .toon-card-hover:hover {
-    border-color: rgba(56, 189, 248, 0.4);
-    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.15);
-    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-1px);
   }
 
-  /* ── Glowing Buttons (Explore Space style) ───────────────────────────── */
+  /* ── Buttons ────────────────────────────────────────────────────────── */
   .hud-btn,
   .toon-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    min-height: 40px;
-    padding: 0.55rem 1.4rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 0.86rem;
-    letter-spacing: 0.02em;
+    min-height: 36px;
+    padding: 0.45rem 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.84rem;
+    letter-spacing: 0.01em;
     color: #FFFFFF;
-    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 9999px; /* Iconic pill button like "Explore Space!" */
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-    transition: all 0.2s ease-out;
+    background: #3B82F6;
+    border: 1px solid rgba(59,130,246,0.6);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(59,130,246,0.25);
+    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     cursor: pointer;
     text-decoration: none;
   }
 
   .hud-btn:hover,
   .toon-btn:hover {
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-    box-shadow: 0 6px 26px rgba(37, 99, 235, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: #2563EB;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.3);
     transform: translateY(-1px);
-    filter: brightness(1.08);
   }
 
   .hud-btn:active,
   .toon-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+    transform: translateY(0);
+    box-shadow: none;
   }
 
   .hud-btn-secondary {
-    background: rgba(255, 255, 255, 0.06);
-    color: #F8FAFC;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(12px);
+    background: #FFFFFF;
+    color: #374151;
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
   }
 
   .hud-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(56, 189, 248, 0.4);
+    background: #F3F4F6;
+    border-color: rgba(0,0,0,0.2);
+    color: #111827;
+  }
+
+  .toon-btn-pink {
+    background: #6366F1;
     color: #FFFFFF;
-    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.18);
+    border-color: rgba(99,102,241,0.5);
+    box-shadow: 0 1px 3px rgba(99,102,241,0.2);
+  }
+
+  .toon-btn-yellow {
+    background: #F59E0B;
+    color: #FFFFFF;
+    border-color: rgba(245,158,11,0.5);
+    box-shadow: 0 1px 3px rgba(245,158,11,0.2);
   }
 
   /* ── Status Chips ───────────────────────────────────────────────────── */
@@ -178,68 +181,81 @@ h1, h2, h3, h4, .font-display {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.22rem 0.65rem;
+    padding: 0.2rem 0.65rem;
     font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.68rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    border-radius: 9999px;
+    border-radius: 6px;
     border: 1px solid transparent;
   }
 
   .hud-chip-ok,
   .toon-ok {
-    background: rgba(16, 185, 129, 0.18);
-    color: #34D399;
-    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.08);
+    color: #059669;
+    border-color: rgba(16,185,129,0.25);
   }
 
   .hud-chip-warn,
   .toon-warn {
-    background: rgba(245, 158, 11, 0.18);
-    color: #FBBF24;
-    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.08);
+    color: #D97706;
+    border-color: rgba(245,158,11,0.25);
   }
 
   .hud-chip-crit,
   .toon-crit {
-    background: rgba(239, 68, 68, 0.22);
-    color: #F87171;
-    border-color: rgba(239, 68, 68, 0.5);
+    background: rgba(239, 68, 68, 0.08);
+    color: #DC2626;
+    border-color: rgba(239,68,68,0.3);
     animation: pulseGlow 2s infinite;
   }
 
-  /* ── Form Inputs ────────────────────────────────────────────────────── */
+  /* ── Inputs ─────────────────────────────────────────────────────────── */
   .hud-input,
   .toon-input {
     width: 100%;
-    min-height: 40px;
-    padding: 0.5rem 0.95rem;
+    min-height: 38px;
+    padding: 0.45rem 0.85rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
-    color: #F8FAFC;
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    color: var(--text);
+    background: #FFFFFF;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
     outline: none;
-    transition: all 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .hud-input:focus,
   .toon-input:focus {
-    border-color: #38BDF8;
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
   }
 
-  /* ── Typography & Headers ───────────────────────────────────────────── */
+  /* ── Page Layout ────────────────────────────────────────────────────── */
+  .page-shell {
+    position: relative;
+    z-index: 10;
+  }
+
+  .page-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+
   .page-kicker {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #38BDF8;
+    color: #3B82F6;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -247,31 +263,37 @@ h1, h2, h3, h4, .font-display {
 
   .page-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 800;
+    font-size: 2rem;
+    font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.15;
-    color: #FFFFFF;
+    color: #111827;
     margin-top: 0.35rem;
   }
 
   .page-copy {
-    color: #94A3B8;
+    color: #6B7280;
     line-height: 1.65;
-    font-size: 0.94rem;
+    font-size: 0.92rem;
+  }
+
+  .toon-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
-  50%       { box-shadow: 0 0 14px rgba(239, 68, 68, 0.45); }
+  50%       { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
 }
 
 /* ── Scrollbars ──────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: rgba(8, 12, 30, 0.85); }
-::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.25); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.5); }
+::-webkit-scrollbar-track { background: #F0EFEF; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 
 .scrollbar-none::-webkit-scrollbar {
   display: none;
