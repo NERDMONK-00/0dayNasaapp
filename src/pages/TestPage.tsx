@@ -36,31 +36,31 @@ export function TestPage() {
   }
 
   return (
-    <div className="space-y-6 px-2 pb-10 pt-6 md:px-4">
-      <section className="rounded-[30px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl md:p-6">
-        <p className="text-[10px] uppercase tracking-[0.32em] text-[#9ec9ff]">Simulation</p>
-        <h1 className="mt-3 text-4xl font-light tracking-[-0.07em] text-white md:text-5xl">Test and validate crew health</h1>
-      </section>
-
-      <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+    <div className="page-shell">
+      <div className="page-grid route-test pb-8">
         <div className="space-y-5">
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-400">01. Crew</p>
-            <div className="mt-4 rounded-[22px] border border-white/10 bg-[#07121d] p-3 text-white">
+          <section className="page-panel">
+            <div className="page-kicker">Simulation</div>
+            <h1 className="page-title">Test and validate crew health</h1>
+          </section>
+
+          <div className="page-panel">
+            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-300">01. Crew</p>
+            <div className="mt-4 rounded-[22px] border-3 border-[var(--outline)] bg-[rgba(7,18,29,0.8)] p-3 text-white shadow-[var(--shadow)]">
               {astronaut.name}
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-400">02. Scenario</p>
+          <div className="page-panel">
+            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-300">02. Scenario</p>
             <div className="mt-4 grid gap-2">
               {scenarios.map((scenario) => (
                 <button
                   key={scenario.id}
                   type="button"
                   onClick={() => setSelectedScenario(scenario.id)}
-                  className={`rounded-2xl border px-3 py-3 text-left text-sm transition ${
-                    selectedScenario === scenario.id ? 'border-[#4da3ff]/40 bg-[#4da3ff]/10 text-white' : 'border-white/10 bg-[#07121d] text-slate-200'
+                  className={`rounded-2xl border-3 border-[var(--outline)] px-3 py-3 text-left text-sm transition ${
+                    selectedScenario === scenario.id ? 'bg-[#4da3ff]/15 text-white' : 'bg-[rgba(7,18,29,0.8)] text-slate-200'
                   }`}
                 >
                   {scenario.label}
@@ -70,22 +70,16 @@ export function TestPage() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <button type="button" onClick={runScenario} className="rounded-full border border-[#4da3ff]/40 bg-[#4da3ff]/15 px-5 py-3 text-sm font-medium text-white">
-              Run test
-            </button>
-            <button type="button" className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-slate-200">
-              Stop
-            </button>
-            <button type="button" className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-slate-200">
-              Restart
-            </button>
+            <button type="button" onClick={runScenario} className="toon-btn">Run test</button>
+            <button type="button" className="toon-btn toon-btn-yellow">Stop</button>
+            <button type="button" className="toon-btn toon-btn-pink">Restart</button>
           </div>
         </div>
 
-        <div className="rounded-[30px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl">
+        <div className="page-panel">
           <div className="mb-4 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-400">Live stream</p>
-            <span className={`rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${isRunning ? 'bg-emerald-500/10 text-emerald-200' : 'bg-white/5 text-slate-300'}`}>
+            <p className="text-[10px] uppercase tracking-[0.26em] text-slate-300">Live stream</p>
+            <span className={`toon-chip ${isRunning ? 'toon-ok' : 'toon-warn'} text-[10px] uppercase tracking-[0.2em]`}>
               {isRunning ? 'Streaming' : 'Idle'}
             </span>
           </div>
@@ -96,22 +90,22 @@ export function TestPage() {
               ['SpO₂', `${Math.round(current.spo2)}%`],
               ['CO₂', `${Math.round(current.co2)} ppm`],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-[22px] border border-white/10 bg-[#07121d] p-4">
-                <p className="text-[10px] uppercase tracking-[0.22em] text-slate-400">{label}</p>
-                <p className="mt-2 text-2xl font-medium text-white">{value}</p>
+              <div key={label} className="toon-card">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-slate-300">{label}</p>
+                <p className="toon-number mt-2 text-2xl text-white">{value}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-5 space-y-3">
+          <div className="mt-5 space-y-3" aria-live="polite">
             {latestAlerts.length === 0 ? (
-              <div className="rounded-[22px] border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-200">No active alerts. Crew remains within nominal thresholds.</div>
+              <div className="toon-card border-[var(--ok)] bg-emerald-500/10 text-sm text-emerald-200">No active alerts. Crew remains within nominal thresholds.</div>
             ) : (
               latestAlerts.map((alert) => (
-                <div key={alert.id} className="rounded-[22px] border border-white/10 bg-[#07121d] p-4">
+                <div key={alert.id} className="toon-card">
                   <div className="flex items-center justify-between gap-3">
                     <p className="text-sm font-medium text-white">{alert.title}</p>
-                    <span className={`rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em] ${alert.level === 'critical' ? 'bg-red-500/10 text-red-200' : alert.level === 'warning' ? 'bg-amber-500/10 text-amber-200' : 'bg-emerald-500/10 text-emerald-200'}`}>
+                    <span className={`toon-chip ${alert.level === 'critical' ? 'toon-crit' : alert.level === 'warning' ? 'toon-warn' : 'toon-ok'} text-[10px] uppercase tracking-[0.2em]`}>
                       {alert.level}
                     </span>
                   </div>

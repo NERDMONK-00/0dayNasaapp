@@ -4,12 +4,16 @@
 
 A cinematic astronaut health monitoring dashboard for a browser-only mission control experience. The app tracks crew vitals, learns each astronaut’s personal baseline, flags anomalies using z-scores and hard thresholds, and explains alerts with clear reasoning and suggested actions.
 
+## Screenshot
+
+![Mission control overview](https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80)
+
 ## What it does
 
 - Live multi-astronaut monitoring for heart rate, HRV, SpO₂, temperature, respiration, sleep hours, and CO₂
 - Rolling baseline tracking per astronaut
 - Rule-based anomaly detection and explainable alert generation
-- Mission-control UI with a deep-space theme
+- Mission-control UI with a deep-space toon theme
 - Local Orbitkat assistant that reads current mission context and explains alerts in plain language
 - Simulator-driven scenarios for normal, dehydration, fever, sleep debt, CO₂ rise, and SpO₂ drop
 - No backend required; all logic runs locally in the browser
@@ -22,6 +26,15 @@ A cinematic astronaut health monitoring dashboard for a browser-only mission con
 - `/results` — Mission report and recommended actions
 - `/how-it-works` — Data flow and monitoring logic
 - `/about` — Problem, stack, credits, limitations
+
+## Tech stack
+
+- React + Vite + TypeScript
+- Tailwind CSS
+- Recharts
+- React Router
+- Three.js / React Three Fiber / Drei
+- Local simulator data source with future hardware-ready abstraction
 
 ## Project architecture
 
@@ -42,8 +55,9 @@ The app includes a persistent mascot assistant named Orbitkat, a space-cat astro
 
 ### Credit
 
-Mascot: Orbitkat by @orbitkat.art (Sketchfab)  
-Model: NASA
+- Orbitkat mascot: Sketchfab + custom presentation layer
+- 3D model generated with Tripo AI
+- AI tools were used in development for concepting, iteration, and UI direction
 
 ## Getting started
 
