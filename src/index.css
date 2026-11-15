@@ -247,6 +247,50 @@ h1, h2, h3, h4, .font-display {
     line-height: 1.7;
     font-size: 0.94rem;
   }
+
+  .hud-card p,
+  .hud-card span,
+  .hud-card div,
+  .hud-card h1,
+  .hud-card h2,
+  .hud-card h3,
+  .hud-card h4,
+  .hud-card td,
+  .hud-card th,
+  .page-panel p,
+  .page-panel span,
+  .page-panel div,
+  .page-panel h1,
+  .page-panel h2,
+  .page-panel h3,
+  .page-panel h4,
+  .page-panel td,
+  .page-panel th {
+    color: inherit;
+  }
+
+  .hud-card .text-gray-500,
+  .hud-card .text-gray-600,
+  .hud-card .text-gray-700,
+  .hud-card .text-gray-800,
+  .hud-card .text-gray-900,
+  .page-panel .text-gray-500,
+  .page-panel .text-gray-600,
+  .page-panel .text-gray-700,
+  .page-panel .text-gray-800,
+  .page-panel .text-gray-900 {
+    color: #dfe6ef !important;
+  }
+
+  .hud-card .text-gray-400,
+  .page-panel .text-gray-400 {
+    color: #b3bbc7 !important;
+  }
+
+  .hud-card .bg-white,
+  .page-panel .bg-white {
+    background: rgba(17, 24, 39, 0.7) !important;
+  }
 }
 
 /* ─── AUVRA / product hero ───────────────────────────────────────────────── */
