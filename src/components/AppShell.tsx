@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import SceneBackdrop from './SceneBackdrop'
 import { useMissionState } from '../state/store'
 import { computeRiskIndex } from '../processing/anomaly'
 import { MascotAssistant } from './MascotAssistant'
@@ -41,32 +40,32 @@ export default function AppShell() {
   const currentRisk = computeRiskIndex(selectedReading, selectedBaselines, spaceWeatherStatus)
 
   return (
-    <div className="relative min-h-screen text-slate-100">
-      <SceneBackdrop />
+    <div className="relative min-h-screen text-gray-900">
+      {/* No SceneBackdrop — clean light canvas */}
 
-      {/* Top Aerospace Telemetry Ticker */}
-      <header className="sticky top-0 z-30 border-b border-sky-500/20 bg-slate-950/85 backdrop-blur-xl">
+      {/* Top Light Telemetry Bar */}
+      <header className="sticky top-0 z-30 border-b border-black/[0.07] bg-white/90 backdrop-blur-md shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1.5 text-xs">
-          {/* Mission & Earth Comm Status */}
+          {/* Mission Status */}
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 animate-ping rounded-full bg-cyan-400" />
-              <span className="font-mono text-cyan-300 font-bold tracking-wider">{metString}</span>
-              <span className="rounded bg-sky-950 px-1.5 py-0.5 font-mono text-[10px] text-sky-400 border border-sky-800/60">
+              <span className="h-2 w-2 animate-ping rounded-full bg-blue-500" />
+              <span className="font-mono text-blue-600 font-bold tracking-wider">{metString}</span>
+              <span className="rounded-md bg-blue-50 px-1.5 py-0.5 font-mono text-[10px] text-blue-500 border border-blue-200">
                 MARS TRANSIT
               </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-2 border-l border-slate-800 pl-3 font-mono text-[11px] text-slate-400">
-              <span className="text-amber-400">⚡ 18m 42s Light Delay</span>
-              <span className="text-slate-600">•</span>
-              <span className="text-emerald-400">Autonomous Edge CDSS: Active</span>
+            <div className="hidden sm:flex items-center gap-2 border-l border-gray-200 pl-3 font-mono text-[11px] text-gray-500">
+              <span className="text-amber-500">⚡ 18m 42s Light Delay</span>
+              <span className="text-gray-300">•</span>
+              <span className="text-emerald-600">Autonomous Edge CDSS: Active</span>
             </div>
           </div>
 
-          {/* NASA DONKI Space Weather Banner */}
+          {/* Space Weather + Co-Pilot */}
           <div className="flex items-center gap-3 font-mono text-[11px]">
-            <div className="flex items-center gap-1.5 rounded-full border border-slate-800 bg-slate-900/80 px-2.5 py-0.5">
+            <div className="flex items-center gap-1.5 rounded-full border border-black/[0.08] bg-gray-50 px-2.5 py-0.5">
               <span
                 className={`h-1.5 w-1.5 rounded-full ${
                   spaceWeatherStatus === 'storm'
@@ -76,14 +75,14 @@ export default function AppShell() {
                       : 'bg-emerald-400'
                 }`}
               />
-              <span className="text-slate-400">DONKI:</span>
+              <span className="text-gray-500">DONKI:</span>
               <span
                 className={
                   spaceWeatherStatus === 'storm'
-                    ? 'text-rose-400 font-semibold'
+                    ? 'text-rose-500 font-semibold'
                     : spaceWeatherStatus === 'elevated'
-                      ? 'text-amber-400'
-                      : 'text-emerald-400'
+                      ? 'text-amber-600'
+                      : 'text-emerald-600'
                 }
               >
                 {spaceWeatherStatus === 'storm'
@@ -98,7 +97,7 @@ export default function AppShell() {
             <button
               type="button"
               onClick={() => setShowAssistant((prev) => !prev)}
-              className="flex items-center gap-1.5 rounded-md border border-cyan-500/40 bg-cyan-950/40 px-2.5 py-0.5 text-cyan-300 hover:border-cyan-400 hover:bg-cyan-900/50 transition font-mono text-[11px]"
+              className="flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-1 text-blue-600 hover:bg-blue-100 hover:border-blue-300 transition font-mono text-[11px]"
             >
               <span>🤖</span>
               <span className="hidden md:inline">Mission Co-Pilot</span>
@@ -107,19 +106,19 @@ export default function AppShell() {
         </div>
 
         {/* Main Navigation Bar */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 border-t border-slate-800/60">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 border-t border-black/[0.05]">
           <div className="flex items-center gap-3">
             <NavLink to="/" className="flex items-center gap-2 group">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400/40 bg-cyan-950/60 text-cyan-400 shadow-[0_0_15px_rgba(0,240,255,0.25)] group-hover:border-cyan-300 transition">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-500 group-hover:bg-blue-100 transition">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <span className="font-display text-lg font-bold tracking-tight text-white group-hover:text-cyan-300 transition">
+                <span className="font-display text-lg font-bold tracking-tight text-gray-900 group-hover:text-blue-600 transition">
                   ASTROPULSE
                 </span>
-                <span className="hidden sm:inline-block ml-2 text-[9px] font-mono tracking-widest text-cyan-400 uppercase border border-cyan-500/30 rounded px-1">
+                <span className="hidden sm:inline-block ml-2 text-[9px] font-mono tracking-widest text-blue-500 uppercase border border-blue-200 rounded px-1 bg-blue-50">
                   NASA Space Apps
                 </span>
               </div>
@@ -136,8 +135,8 @@ export default function AppShell() {
                 className={({ isActive }) =>
                   `flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-medium whitespace-nowrap transition text-xs ${
                     isActive
-                      ? 'border border-cyan-400/50 bg-cyan-950/50 text-cyan-200 shadow-[0_0_12px_rgba(0,240,255,0.2)]'
-                      : 'border border-transparent text-slate-400 hover:border-slate-800 hover:bg-slate-900/60 hover:text-slate-200'
+                      ? 'border border-blue-200 bg-blue-50 text-blue-600'
+                      : 'border border-transparent text-gray-500 hover:border-gray-200 hover:bg-gray-50 hover:text-gray-800'
                   }`
                 }
               >
@@ -146,8 +145,8 @@ export default function AppShell() {
             ))}
           </nav>
 
-          {/* Crew Selector Pill Quick-Switcher */}
-          <div className="hidden lg:flex items-center gap-1.5 border-l border-slate-800/80 pl-3">
+          {/* Crew Selector Pill */}
+          <div className="hidden lg:flex items-center gap-1.5 border-l border-gray-200 pl-3">
             {missionState.astronauts.map((astro) => {
               const isSelected = astro.id === selectedAstronautId
               const reading = missionState.currentReadings[astro.id]
@@ -161,8 +160,8 @@ export default function AppShell() {
                   onClick={() => setSelectedAstronautId(astro.id)}
                   className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-left transition font-mono text-xs ${
                     isSelected
-                      ? 'border border-sky-400 bg-sky-950/70 text-white shadow-[0_0_10px_rgba(56,189,248,0.25)]'
-                      : 'border border-slate-800/60 bg-slate-900/40 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                      ? 'border border-blue-300 bg-blue-50 text-blue-700 shadow-sm'
+                      : 'border border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-800'
                   }`}
                 >
                   <span
@@ -175,7 +174,7 @@ export default function AppShell() {
                     }`}
                   />
                   <span>{astro.name.split(' ')[0]}</span>
-                  <span className="text-[10px] text-slate-500">{Math.round(reading.hr)}</span>
+                  <span className="text-[10px] text-gray-400">{Math.round(reading.hr)}</span>
                 </button>
               )
             })}

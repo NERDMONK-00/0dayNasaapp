@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: ['class', '[data-theme="dark"]'],
+  darkMode: 'class',
   theme: {
     extend: {
       animation: {
@@ -11,29 +11,43 @@ export default {
         hud: '14px',
       },
       boxShadow: {
-        hud: '0 12px 36px rgba(0, 0, 0, 0.45)',
-        glow: '0 0 25px rgba(56, 189, 248, 0.2)',
+        hud: '0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05)',
+        card: '0 2px 8px rgba(0,0,0,0.09), 0 8px 24px rgba(0,0,0,0.06)',
       },
       colors: {
-        space: {
-          950: '#02040a',
-          900: '#030712',
-          850: '#060b18',
-          800: '#0b1426',
-          700: '#111d38',
+        // Light clean palette
+        canvas: {
+          50:  '#FFFFFF',
+          100: '#F8F7F7',
+          200: '#F0EFEF',
+          300: '#E5E5E5',
+          400: '#D1D5DB',
         },
+        accent: {
+          DEFAULT: '#3B82F6',
+          soft:    '#EFF6FF',
+          hover:   '#2563EB',
+        },
+        // Keep these for semantic status colors
         hud: {
-          cyan: '#00f0ff',
-          sky: '#38bdf8',
-          emerald: '#10b981',
-          amber: '#f59e0b',
-          rose: '#ef4444',
+          cyan:    '#3B82F6',   // rebrand cyan → blue
+          sky:     '#38BDF8',
+          emerald: '#10B981',
+          amber:   '#F59E0B',
+          rose:    '#EF4444',
+        },
+        space: {
+          950: '#111827',
+          900: '#1F2937',
+          850: '#374151',
+          800: '#4B5563',
+          700: '#6B7280',
         },
       },
       fontFamily: {
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        body:    ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
     },
   },
