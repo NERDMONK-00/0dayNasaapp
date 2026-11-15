@@ -1,9 +1,15 @@
-import { useMemo, useState } from 'react'
-import { SignalChart } from './components/SignalChart'
-import { MetricCard, signalStatus } from './components/MetricCard'
+import { NavLink, Route, Routes, BrowserRouter } from 'react-router-dom'
+import { useState } from 'react'
+import { signalStatus } from './components/MetricCard'
 import { useMissionState } from './state/store'
 import { buildExplainableAlert, evaluateThresholds } from './processing/anomaly'
 import type { AlertItem, ScenarioId } from './types'
+import { HomePage } from './pages/HomePage'
+import { AboutPage } from './pages/AboutPage'
+import { ReportPage } from './pages/ReportPage'
+import { StatusPage } from './pages/StatusPage'
+import { MonitorPage } from './pages/MonitorPage'
+import { ChecksPage } from './pages/ChecksPage'
 
 const scenarioButtons: Array<{ id: ScenarioId; label: string }> = [
   { id: 'normal', label: 'Normal' },
@@ -14,38 +20,27 @@ const scenarioButtons: Array<{ id: ScenarioId; label: string }> = [
   { id: 'spo2', label: 'SpO2 drop' },
 ]
 
+const statusStyles = {
+  normal: 'bg-emerald-500/10 text-emerald-200 border border-emerald-400/20',
+  warning: 'bg-amber-500/10 text-amber-200 border border-amber-400/25',
+  critical: 'bg-rose-500/10 text-rose-200 border border-rose-400/25',
+}
+
+const navItems = [
+  { to: '/', label: 'Home' },
+  { to: '/monitor', label: 'Monitor' },
+  { to: '/status', label: 'Status' },
+  { to: '/report', label: 'Report' },
+  { to: '/checks', label: 'Checks' },
+  { to: '/about', label: 'About us' },
+]
+
 function App() {
   const { missionState, selectedAstronautId, setSelectedAstronautId, setAlerts, simulator } = useMissionState()
   const [scenario, setScenario] = useState<ScenarioId>('normal')
 
-  const astronaut = missionState.astronauts.find((person) => person.id === selectedAstronautId) ?? missionState.astronauts[0]
   const reading = missionState.currentReadings[selectedAstronautId]
   const history = missionState.history[selectedAstronautId] ?? []
-
-  const metrics = useMemo(() => {
-    const fields = [
-      { key: 'hr', title: 'Heart rate', unit: 'bpm', min: 50, max: 110, warningMin: 55, warningMax: 96 },
-      { key: 'hrv', title: 'HRV', unit: 'ms', min: 20, max: 70, warningMin: 25, warningMax: 60 },
-      { key: 'spo2', title: 'SpO2', unit: '%', min: 88, max: 100, warningMin: 92, warningMax: 98 },
-      { key: 'temp', title: 'Temperature', unit: '°C', min: 35.5, max: 38.1, warningMin: 36.5, warningMax: 37.5 },
-      { key: 'resp', title: 'Resp', unit: 'rpm', min: 12, max: 24, warningMin: 14, warningMax: 20 },
-      { key: 'co2', title: 'CO2', unit: 'ppm', min: 500, max: 1200, warningMin: 700, warningMax: 1000 },
-      { key: 'sleepHours', title: 'Sleep', unit: 'h', min: 4, max: 10, warningMin: 5, warningMax: 8 },
-    ] as const
-
-    return fields.map((field) => {
-      const value = Number(reading[field.key])
-      const status = signalStatus(value, field.min, field.max, field.warningMin, field.warningMax)
-
-      return {
-        title: field.title,
-        value: value.toFixed(field.key === 'temp' || field.key === 'sleepHours' ? 1 : 0),
-        unit: field.unit,
-        status,
-        detail: field.key === 'hr' ? 'Baseline trend stable' : 'Within monitored range',
-      }
-    })
-  }, [reading])
 
   const refreshAlerts = () => {
     const nextAlerts: AlertItem[] = []
@@ -66,145 +61,140 @@ function App() {
 
   const latestAlerts = missionState.alerts.length ? missionState.alerts : []
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="mx-auto max-w-7xl p-4 md:p-6">
-        <header className="mb-6 flex flex-col gap-4 rounded-3xl border border-slate-800 bg-slate-900/80 p-5 shadow-2xl shadow-slate-950/20 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-cyan-300">Mission control</p>
-            <h1 className="mt-2 text-2xl font-semibold text-white md:text-4xl">Astronaut Health Monitoring</h1>
-          </div>
+  const missionStatus = latestAlerts.some((alert) => alert.level === 'critical')
+    ? 'Critical'
+    : latestAlerts.some((alert) => alert.level === 'warning')
+      ? 'Warning'
+      : 'Nominal'
 
-          <div className="flex flex-wrap items-center gap-3">
-            {missionState.astronauts.map((person) => (
-              <button
-                key={person.id}
-                type="button"
-                onClick={() => setSelectedAstronautId(person.id)}
-                className={`rounded-full border px-3 py-2 text-sm font-medium transition ${
-                  selectedAstronautId === person.id
-                    ? 'border-cyan-400 bg-cyan-500/10 text-cyan-200'
-                    : 'border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500'
-                }`}
-              >
-                {person.name}
-              </button>
-            ))}
-          </div>
-        </header>
-
-        <section className="mb-6 grid gap-4 md:grid-cols-[1.4fr_0.6fr]">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
-            <div className="mb-4 flex items-center justify-between">
+  const shell = (
+    <div className="min-h-screen bg-[#07111d] text-slate-100">
+      <div className="mx-auto max-w-[1500px] p-3 md:p-5">
+        <div className="grid min-h-[calc(100vh-1.5rem)] gap-4 xl:grid-cols-[280px_1fr]">
+          <aside className="rounded-[32px] border border-slate-700/60 bg-[#0d1728]/90 p-4 shadow-[0_30px_80px_rgba(3,7,18,0.9)] backdrop-blur-xl">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Crew member</p>
-                <h2 className="mt-1 text-2xl font-semibold text-white">{astronaut.name}</h2>
+                <p className="text-[10px] font-medium uppercase tracking-[0.38em] text-slate-500">Mission</p>
+                <h2 className="mt-2 text-[28px] font-semibold tracking-[-0.06em] text-white">AstraOps</h2>
               </div>
-              <div className="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs text-slate-300">
-                {astronaut.role}
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-400/10 text-[11px] font-semibold text-cyan-200">
+                AO
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {metrics.map((metric) => (
-                <MetricCard
-                  key={metric.title}
-                  title={metric.title}
-                  value={metric.value}
-                  unit={metric.unit}
-                  status={metric.status}
-                  detail={metric.detail}
-                  accent={astronaut.accent}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
-            <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">Scenario control</p>
-            <div className="space-y-2">
-              {scenarioButtons.map((button) => (
-                <button
-                  key={button.id}
-                  type="button"
-                  onClick={() => onScenarioClick(button.id)}
-                  className={`w-full rounded-xl border px-3 py-2 text-left text-sm transition ${
-                    scenario === button.id
-                      ? 'border-cyan-400 bg-cyan-500/10 text-cyan-100'
-                      : 'border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-500'
-                  }`}
+            <nav className="mb-6 space-y-2">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `flex w-full items-center rounded-2xl border px-3 py-2.5 text-sm font-medium transition ${
+                      isActive
+                        ? 'border-cyan-400/40 bg-cyan-500/10 text-cyan-100 shadow-[0_0_0_1px_rgba(34,211,238,0.15)]'
+                        : 'border-transparent bg-[#111d2d] text-slate-300 hover:border-slate-700 hover:text-white'
+                    }`
+                  }
                 >
-                  {button.label}
-                </button>
+                  {item.label}
+                </NavLink>
               ))}
-            </div>
+            </nav>
 
-            <button
-              type="button"
-              onClick={refreshAlerts}
-              className="mt-4 w-full rounded-xl bg-cyan-500 px-3 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-            >
-              Generate alert scan
-            </button>
-          </div>
-        </section>
+            <div className="mb-6 rounded-[24px] border border-slate-700/80 bg-[#111d2d] p-4">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500">Crew status</p>
+              <div className="mt-4 space-y-3">
+                {missionState.astronauts.map((person) => {
+                  const current = missionState.currentReadings[person.id]
+                  const isSelected = selectedAstronautId === person.id
+                  const currentStatus = signalStatus(Number(current.hr), 50, 110, 55, 96)
 
-        <section className="mb-6 grid gap-4 xl:grid-cols-2">
-          <SignalChart title="Heart rate" color="#f97316" data={history} valueKey="hr" unit="bpm" />
-          <SignalChart title="SpO2" color="#22c55e" data={history} valueKey="spo2" unit="%" />
-          <SignalChart title="CO2" color="#a78bfa" data={history} valueKey="co2" unit="ppm" />
-          <SignalChart title="Sleep" color="#38bdf8" data={history} valueKey="sleepHours" unit="hours" />
-        </section>
-
-        <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
-            <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">Alert history</p>
-            <div className="space-y-3">
-              {latestAlerts.length === 0 ? (
-                <div className="rounded-xl border border-slate-700 bg-slate-800/60 p-3 text-sm text-slate-300">
-                  No active alerts. System stable.
-                </div>
-              ) : (
-                latestAlerts.map((alert) => (
-                  <div key={alert.id} className="rounded-xl border border-slate-700 bg-slate-800/60 p-3">
-                    <div className="mb-2 flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold text-white">{alert.title}</p>
-                        <p className="text-xs text-slate-400">{new Date(alert.timestamp).toLocaleTimeString()}</p>
+                  return (
+                    <button
+                      key={person.id}
+                      type="button"
+                      onClick={() => setSelectedAstronautId(person.id)}
+                      className={`flex w-full items-center justify-between rounded-2xl border p-3 text-left transition ${
+                        isSelected
+                          ? 'border-cyan-400/35 bg-cyan-500/10'
+                          : 'border-slate-700/80 bg-[#0d1624] hover:border-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-2xl text-sm font-bold text-slate-950" style={{ backgroundColor: person.accent }}>
+                          {person.name.slice(0, 1)}
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-white">{person.name}</p>
+                          <p className="text-[11px] text-slate-400">{person.role}</p>
+                        </div>
                       </div>
-                      <span
-                        className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.12em] ${
-                          alert.level === 'critical'
-                            ? 'border-rose-500/50 bg-rose-500/10 text-rose-200'
-                            : alert.level === 'warning'
-                              ? 'border-amber-500/50 bg-amber-500/10 text-amber-200'
-                              : 'border-emerald-500/50 bg-emerald-500/10 text-emerald-200'
-                        }`}
-                      >
-                        {alert.level}
-                      </span>
-                    </div>
-                    <p className="mb-2 text-sm text-slate-200">Why: {alert.reason}</p>
-                    <p className="text-xs text-cyan-200">Action: {alert.action}</p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
-            <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">System notes</p>
-            <ul className="space-y-3 text-sm text-slate-300">
-              <li className="rounded-xl border border-slate-700 bg-slate-800/60 p-3">Rule-based safeguards are hard thresholds with no ML dependency.</li>
-              <li className="rounded-xl border border-slate-700 bg-slate-800/60 p-3">Baseline tracking uses rolling mean and standard deviation per astronaut.</li>
-              <li className="rounded-xl border border-slate-700 bg-slate-800/60 p-3">Data source architecture isolates simulator and future hardware inputs.</li>
-              <li className="rounded-xl border border-slate-700 bg-slate-800/60 p-3">This app is designed to run in-browser with no cloud service requirement.</li>
-            </ul>
-          </div>
-        </section>
+                      <span className={`rounded-full px-2 py-1 text-[9px] uppercase tracking-[0.16em] ${statusStyles[currentStatus]}`}>
+                        {currentStatus}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-slate-700/80 bg-[#111d2d] p-4">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500">Scenario control</p>
+              <div className="mt-4 space-y-2">
+                {scenarioButtons.map((button) => (
+                  <button
+                    key={button.id}
+                    type="button"
+                    onClick={() => onScenarioClick(button.id)}
+                    className={`w-full rounded-2xl border px-3 py-2.5 text-left text-sm transition ${
+                      scenario === button.id
+                        ? 'border-cyan-400/40 bg-[#102a3f] text-cyan-100'
+                        : 'border-slate-700 bg-[#0d1624] text-slate-300 hover:border-slate-600'
+                    }`}
+                  >
+                    {button.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <main className="rounded-[32px] border border-slate-700/60 bg-[#0b1625]/75 p-4 shadow-[0_30px_80px_rgba(2,6,23,0.9)] backdrop-blur-xl md:p-6">
+            <header className="mb-5 flex flex-col gap-4 rounded-[28px] border border-slate-700/70 bg-gradient-to-r from-[#0f1d2d] via-[#111e32] to-[#0e1728] p-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.38em] text-cyan-300">Flight deck</p>
+                <h1 className="mt-2 text-3xl font-semibold tracking-[-0.06em] text-white md:text-5xl">Astronaut health telemetry</h1>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className={`inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-medium ${statusStyles[missionStatus === 'Critical' ? 'critical' : missionStatus === 'Warning' ? 'warning' : 'normal']}`}>
+                  {missionStatus}
+                </span>
+                <button
+                  type="button"
+                  onClick={refreshAlerts}
+                  className="rounded-2xl border border-cyan-400/40 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-100 transition hover:bg-cyan-500/15"
+                >
+                  Run scan
+                </button>
+              </div>
+            </header>
+
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/monitor" element={<MonitorPage />} />
+              <Route path="/status" element={<StatusPage />} />
+              <Route path="/report" element={<ReportPage />} />
+              <Route path="/checks" element={<ChecksPage />} />
+              <Route path="/about" element={<AboutPage />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </div>
   )
+
+  return <BrowserRouter>{shell}</BrowserRouter>
 }
 
 export default App
