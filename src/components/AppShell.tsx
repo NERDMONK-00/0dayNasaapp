@@ -40,7 +40,7 @@ export default function AppShell() {
   const currentRisk = computeRiskIndex(selectedReading, selectedBaselines, spaceWeatherStatus)
 
   return (
-    <div className="relative min-h-screen text-gray-900">
+    <div className="app-window text-gray-900">
       {/* No SceneBackdrop — clean light canvas */}
 
       {/* Top Light Telemetry Bar */}
