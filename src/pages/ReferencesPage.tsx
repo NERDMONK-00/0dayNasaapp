@@ -254,18 +254,18 @@ export function ReferencesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="border-b border-gray-200 pb-4">
+      <div className="border-b border-white/10 pb-4">
         <span className="page-kicker">NASA Technical Resources & Literature Index</span>
         <h1 className="page-title text-2xl sm:text-3xl">
           NASA Technical Blueprints & Operational Systems Reference
         </h1>
-        <p className="text-xs text-gray-500 font-mono mt-1">
+        <p className="mt-1 text-xs font-mono text-slate-300">
           Direct citations and external links to peer-reviewed spaceflight literature, official NASA NTRS engineering papers, and active flight hardware.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="hud-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="hud-card flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <div className="flex flex-wrap gap-1.5 font-mono text-xs">
           {[
             { id: 'all', label: 'All References (24)' },
@@ -279,10 +279,10 @@ export function ReferencesPage() {
               key={cat.id}
               type="button"
               onClick={() => setActiveCategory(cat.id)}
-              className={`rounded-lg px-2.5 py-1 transition border ${
+              className={`rounded-lg border px-2.5 py-1 transition ${
                 activeCategory === cat.id
-                  ? 'border-blue-300 bg-blue-50 text-blue-700 shadow-glow'
-                  : 'border-gray-200 bg-gray-50 text-gray-500 hover:text-gray-900'
+                  ? 'border-blue-400/40 bg-blue-500/10 text-blue-100 shadow-[0_0_18px_rgba(59,130,246,0.15)]'
+                  : 'border-white/10 bg-slate-900/60 text-slate-400 hover:text-slate-100'
               }`}
             >
               {cat.label}
@@ -295,7 +295,7 @@ export function ReferencesPage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search systems, papers, NTRS citations..."
-          className="rounded-lg border border-gray-200 bg-gray-100 px-3 py-1.5 font-mono text-xs text-gray-900 placeholder-gray-400 focus:border-blue-300 focus:outline-none sm:w-64"
+          className="sm:w-64 rounded-lg border border-white/10 bg-slate-900/70 px-3 py-1.5 font-mono text-xs text-white placeholder-slate-500 focus:border-blue-400/50 focus:outline-none"
         />
       </div>
 
@@ -304,27 +304,27 @@ export function ReferencesPage() {
         {filtered.map((item) => (
           <div key={item.id} className="hud-card hud-card-hover flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between border-b border-gray-200 pb-2.5">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
                 <span className="hud-chip hud-chip-ok font-mono text-[9px]">{item.tag}</span>
-                <span className="font-mono text-[10px] text-gray-400 uppercase">{item.category}</span>
+                <span className="font-mono text-[10px] uppercase text-slate-400">{item.category}</span>
               </div>
 
-              <h3 className="font-display text-base font-bold text-gray-900 mt-3 leading-snug">
+              <h3 className="mt-3 font-display text-base font-bold leading-snug text-white">
                 {item.title}
               </h3>
-              <p className="mt-1 font-mono text-[11px] text-blue-600">{item.developerOrSource}</p>
-              <p className="mt-2 text-xs leading-relaxed text-gray-700">{item.summary}</p>
+              <p className="mt-1 font-mono text-[11px] text-blue-300">{item.developerOrSource}</p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-300">{item.summary}</p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-gray-200">
+            <div className="mt-4 border-t border-white/10 pt-3">
               <a
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-xs text-blue-500 hover:text-blue-700 transition group"
+                className="group inline-flex items-center gap-1.5 font-mono text-xs text-blue-300 transition hover:text-blue-200"
               >
                 <span>View Official Source</span>
-                <svg className="h-3 w-3 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-3 w-3 transform transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
